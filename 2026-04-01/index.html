@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<!-- saved from url=(0148)file:///C:/Users/gongjue/Documents/TikTok%20%E7%BE%8E%E5%9B%BD%E5%8C%BA%E7%83%AD%E9%97%A8%E8%A7%86%E9%A2%91%E7%A0%94%E7%A9%B6%E6%8A%A5%E5%91%8A.html -->
 <html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TikTok 美国区热门视频研究报告</title>
+<title>TikTok 美国区热门视频研究报告 · Vol.001</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -53,7 +52,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
-    margin-bottom: 48px;
+    margin-bottom: 24px;
   }
   .stat-card {
     background: #1a1a1a;
@@ -70,6 +69,30 @@
     margin-bottom: 6px;
   }
   .stat-card .label { font-size: 12px; color: #666; letter-spacing: 1px; }
+
+  /* Ranking Methodology Box */
+  .method-box {
+    background: #161616;
+    border: 1px solid #2a2a2a;
+    border-left: 3px solid #fe2c55;
+    border-radius: 12px;
+    padding: 18px 24px;
+    margin-bottom: 48px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .method-box .icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .method-box .title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .method-box .desc { font-size: 12px; color: #777; line-height: 1.8; }
+  .method-box code {
+    background: #222;
+    color: #fe2c55;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin: 0 2px;
+  }
 
   /* Section Title */
   .section-title {
@@ -104,6 +127,7 @@
     transition: border-color 0.2s;
   }
   .video-card:hover { border-color: #fe2c55; }
+  .video-card.champion { border-color: #fe2c55; }
 
   .video-cover {
     position: relative;
@@ -133,6 +157,7 @@
     align-items: center;
     justify-content: center;
   }
+  .video-cover .rank-badge.gold { background: linear-gradient(135deg, #f59e0b, #fcd34d); color: #000; }
   .video-cover .play-btn {
     position: absolute;
     inset: 0;
@@ -155,6 +180,20 @@
     white-space: nowrap;
   }
   .video-author:hover { text-decoration: underline; }
+
+  /* Score badge */
+  .score-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(254,44,85,0.08);
+    border: 1px solid rgba(254,44,85,0.2);
+    color: #fe2c55;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
 
   /* Metrics Row */
   .metrics {
@@ -261,6 +300,7 @@
   .data-table .top-val { color: #fe2c55; }
   .data-table .author-link { color: #fe2c55; text-decoration: none; font-weight: 600; }
   .rank-num { font-weight: 800; color: #fe2c55; }
+  .score-cell { color: #fe2c55; font-weight: 800; }
 
   /* Footer */
   .footer {
@@ -278,7 +318,7 @@
 
   <!-- Header -->
   <div class="header">
-    <div class="badge">Research Report</div>
+    <div class="badge">Research Report · Vol.001</div>
     <h1>TikTok <span>美国区</span> 热门视频研究报告</h1>
     <p style="color:#666;font-size:14px;margin-top:12px;">Explore 页面实时抓取 · 数据来源：TikTok US（tiktokcdn-us.com）</p>
     <div class="meta">
@@ -293,7 +333,7 @@
   <!-- Summary Stats -->
   <div class="stats-bar">
     <div class="stat-card">
-      <div class="number">97.3M</div>
+      <div class="number">82.3M</div>
       <div class="label">总点赞量</div>
     </div>
     <div class="stat-card">
@@ -310,25 +350,171 @@
     </div>
   </div>
 
+  <!-- Ranking Methodology -->
+  <div class="method-box">
+    <div class="icon">📐</div>
+    <div>
+      <div class="title">排名方法论 · 综合传播力评分</div>
+      <div class="desc">
+        本期排名采用<strong style="color:#e0e0e0">综合分</strong>，而非单一点赞数。公式：
+        <code>综合分 = 点赞 + 评论×3 + 收藏×2 + 分享×2</code>
+        评论权重更高，因为它代表深度互动；收藏和分享体现"想留存"和"想传播"的主动意愿，比被动点赞含金量更高。这也是为什么 collinskey 的 Brainrot 视频（分享 9.1M）能从第 5 名跃升为第 1 名。
+      </div>
+    </div>
+  </div>
+
   <!-- Video Cards -->
   <div class="section-title">
     <span>视频详情分析</span>
-    <span class="num">10 videos</span>
+    <span class="num">综合分排名</span>
   </div>
   <div class="video-grid">
 
-    <!-- #1 -->
-    <div class="video-card">
+    <!-- #1 collinskey -->
+    <div class="video-card champion">
       <div class="video-cover">
-        <img src="./index_files/01_bbranson8.jpg" alt="bbranson8">
-        <div class="rank-badge">1</div>
+        <img src="./index_files/05_collinskey.jpg" alt="collinskey">
+        <div class="rank-badge gold">1</div>
         <div class="play-btn">
           <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
         </div>
       </div>
       <div class="video-info">
         <div class="video-header">
-          <div class="video-title">在男友背上贴满彩色闪钻<br><span style="font-size:12px;color:#666;font-weight:400">decorating my boyfriend's back with sparkles</span></div>
+          <div>
+            <div class="video-title">轮胎脑袋逛商场 Brainrot<br><span style="font-size:12px;color:#666;font-weight:400">#boneka #brainrot — Collins Key</span></div>
+            <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+              <span class="score-badge">综合分 40.8M</span>
+              <span style="font-size:11px;color:#f59e0b;font-weight:700;">🏆 点赞王</span>
+              <span style="font-size:11px;color:#f59e0b;font-weight:700;">🏆 分享王</span>
+            </div>
+          </div>
+          <a class="video-author" href="https://www.tiktok.com/@collinskey/video/7616849748359728415" target="_blank">@collinskey ↗</a>
+        </div>
+        <div class="metrics">
+          <div class="metric highlight"><span class="icon">❤️</span><span class="val">19.2M</span><span class="lbl">点赞 🏆</span></div>
+          <div class="metric"><span class="icon">💬</span><span class="val">79.8K</span><span class="lbl">评论</span></div>
+          <div class="metric highlight"><span class="icon">⭐</span><span class="val">1.6M</span><span class="lbl">收藏</span></div>
+          <div class="metric highlight"><span class="icon">🔗</span><span class="val">9.1M</span><span class="lbl">分享 🏆</span></div>
+        </div>
+        <div class="tags">
+          <span class="tag emotion">#抽象</span>
+          <span class="tag emotion">#魔性</span>
+          <span class="tag emotion">#反常识</span>
+          <span class="tag format">#Brainrot荒诞喜剧</span>
+          <span class="tag format">#情景剧</span>
+        </div>
+        <div>
+          <div class="analysis-title">UA 素材可复用点</div>
+          <ul class="analysis-list">
+            <li><strong>分享量 9.1M</strong>，是点赞量的近一半——Brainrot 内容传播裂变能力极强，适合病毒素材方向</li>
+            <li>把游戏怪物/BOSS "塞进" 真实生活场景（坐地铁、逛超市、点外卖）制造反差魔性感</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- #2 ishowspeed -->
+    <div class="video-card">
+      <div class="video-cover">
+        <img src="./index_files/02_ishowspeed.jpg" alt="ishowspeed">
+        <div class="rank-badge">2</div>
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-header">
+          <div>
+            <div class="video-title">IShowSpeed Deku Cosplay 展示<br><span style="font-size:12px;color:#666;font-weight:400">#ishowspeed</span></div>
+            <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+              <span class="score-badge">综合分 22.8M</span>
+              <span style="font-size:11px;color:#f59e0b;font-weight:700;">🏆 评论王</span>
+            </div>
+          </div>
+          <a class="video-author" href="https://www.tiktok.com/@ishowspeed/video/7621300668329905422" target="_blank">@ishowspeed ↗</a>
+        </div>
+        <div class="metrics">
+          <div class="metric highlight"><span class="icon">❤️</span><span class="val">16.3M</span><span class="lbl">点赞</span></div>
+          <div class="metric highlight"><span class="icon">💬</span><span class="val">371.3K</span><span class="lbl">评论 🏆</span></div>
+          <div class="metric"><span class="icon">⭐</span><span class="val">1.2M</span><span class="lbl">收藏</span></div>
+          <div class="metric"><span class="icon">🔗</span><span class="val">1.5M</span><span class="lbl">分享</span></div>
+        </div>
+        <div class="tags">
+          <span class="tag emotion">#搞笑</span>
+          <span class="tag emotion">#粉丝共鸣</span>
+          <span class="tag emotion">#热血</span>
+          <span class="tag format">#KOL出镜</span>
+          <span class="tag format">#cosplay</span>
+        </div>
+        <div>
+          <div class="analysis-title">UA 素材可复用点</div>
+          <ul class="analysis-list">
+            <li>评论量 <strong>371K</strong>（全场最高），KOL 效应带来极强粉丝互动</li>
+            <li><strong>游戏角色 cosplay + 达人夸张表演</strong> = 低成本高辨识度素材公式；适合新英雄上线时的达人合作素材</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- #3 fakeltfunny0021 -->
+    <div class="video-card">
+      <div class="video-cover">
+        <img src="./index_files/03_fakeltfunny.jpg" alt="fakeltfunny">
+        <div class="rank-badge">3</div>
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-header">
+          <div>
+            <div class="video-title">poV: 你是个奶爸<br><span style="font-size:12px;color:#666;font-weight:400">Being a girl dad is an "unprecedented" experience</span></div>
+            <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">
+              <span class="score-badge">综合分 16.2M</span>
+              <span style="font-size:11px;color:#f59e0b;font-weight:700;">🏆 收藏王</span>
+            </div>
+          </div>
+          <a class="video-author" href="https://www.tiktok.com/@fakeltfunny0021/video/7603344058680888607" target="_blank">@fakeltfunny0021 ↗</a>
+        </div>
+        <div class="metrics">
+          <div class="metric highlight"><span class="icon">❤️</span><span class="val">12M</span><span class="lbl">点赞</span></div>
+          <div class="metric"><span class="icon">💬</span><span class="val">15.2K</span><span class="lbl">评论</span></div>
+          <div class="metric highlight"><span class="icon">⭐</span><span class="val">559.4K</span><span class="lbl">收藏 🏆</span></div>
+          <div class="metric"><span class="icon">🔗</span><span class="val">1.5M</span><span class="lbl">分享</span></div>
+        </div>
+        <div class="tags">
+          <span class="tag emotion">#温馨</span>
+          <span class="tag emotion">#真实共鸣</span>
+          <span class="tag emotion">#搞笑</span>
+          <span class="tag format">#POV主观视角</span>
+          <span class="tag format">#生活记录</span>
+        </div>
+        <div>
+          <div class="analysis-title">UA 素材可复用点</div>
+          <ul class="analysis-list">
+            <li><strong>"pov: 你是___"</strong> 是 TikTok 长青钩子结构，代入感极强，收藏量 559K 说明用户高度认同</li>
+            <li>游戏 UA 套用：「pov: 你是联盟里最后一个幸存者」/ 「pov: 你刚刚开到 SSR」，情绪真实、低成本</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- #4 bbranson8 -->
+    <div class="video-card">
+      <div class="video-cover">
+        <img src="./index_files/01_bbranson8.jpg" alt="bbranson8">
+        <div class="rank-badge">4</div>
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-header">
+          <div>
+            <div class="video-title">在男友背上贴满彩色闪钻<br><span style="font-size:12px;color:#666;font-weight:400">decorating my boyfriend's back with sparkles</span></div>
+            <div style="margin-top:6px;"><span class="score-badge">综合分 13.8M</span></div>
+          </div>
           <a class="video-author" href="https://www.tiktok.com/@bbranson8/video/7605949028395781389" target="_blank">@bbranson8 ↗</a>
         </div>
         <div class="metrics">
@@ -355,121 +541,10 @@
       </div>
     </div>
 
-    <!-- #2 -->
+    <!-- #5 andr3w_wave -->
     <div class="video-card">
       <div class="video-cover">
-        <img src="./index_files/02_ishowspeed.jpg" alt="ishowspeed">
-        <div class="rank-badge">2</div>
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
-        </div>
-      </div>
-      <div class="video-info">
-        <div class="video-header">
-          <div class="video-title">IShowSpeed Deku Cosplay 展示<br><span style="font-size:12px;color:#666;font-weight:400">#ishowspeed</span></div>
-          <a class="video-author" href="https://www.tiktok.com/@ishowspeed/video/7621300668329905422" target="_blank">@ishowspeed ↗</a>
-        </div>
-        <div class="metrics">
-          <div class="metric highlight"><span class="icon">❤️</span><span class="val">16.3M</span><span class="lbl">点赞</span></div>
-          <div class="metric highlight"><span class="icon">💬</span><span class="val">371.3K</span><span class="lbl">评论</span></div>
-          <div class="metric"><span class="icon">⭐</span><span class="val">1.2M</span><span class="lbl">收藏</span></div>
-          <div class="metric"><span class="icon">🔗</span><span class="val">1.5M</span><span class="lbl">分享</span></div>
-        </div>
-        <div class="tags">
-          <span class="tag emotion">#搞笑</span>
-          <span class="tag emotion">#粉丝共鸣</span>
-          <span class="tag emotion">#热血</span>
-          <span class="tag format">#KOL出镜</span>
-          <span class="tag format">#cosplay</span>
-        </div>
-        <div>
-          <div class="analysis-title">UA 素材可复用点</div>
-          <ul class="analysis-list">
-            <li>评论量 <strong>371K</strong>（全场最高），KOL 效应带来极强粉丝互动</li>
-            <li><strong>游戏角色 cosplay + 达人夸张表演</strong> = 低成本高辨识度素材公式；适合新英雄上线时的达人合作素材</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- #3 -->
-    <div class="video-card">
-      <div class="video-cover">
-        <img src="./index_files/03_fakeltfunny.jpg" alt="fakeltfunny">
-        <div class="rank-badge">3</div>
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
-        </div>
-      </div>
-      <div class="video-info">
-        <div class="video-header">
-          <div class="video-title">poV: 你是个奶爸<br><span style="font-size:12px;color:#666;font-weight:400">Being a girl dad is an "unprecedented" experience 🤣💕</span></div>
-          <a class="video-author" href="https://www.tiktok.com/@fakeltfunny0021/video/7603344058680888607" target="_blank">@fakeltfunny0021 ↗</a>
-        </div>
-        <div class="metrics">
-          <div class="metric highlight"><span class="icon">❤️</span><span class="val">12M</span><span class="lbl">点赞</span></div>
-          <div class="metric"><span class="icon">💬</span><span class="val">15.2K</span><span class="lbl">评论</span></div>
-          <div class="metric highlight"><span class="icon">⭐</span><span class="val">559.4K</span><span class="lbl">收藏</span></div>
-          <div class="metric"><span class="icon">🔗</span><span class="val">1.5M</span><span class="lbl">分享</span></div>
-        </div>
-        <div class="tags">
-          <span class="tag emotion">#温馨</span>
-          <span class="tag emotion">#真实共鸣</span>
-          <span class="tag emotion">#搞笑</span>
-          <span class="tag format">#POV主观视角</span>
-          <span class="tag format">#生活记录</span>
-        </div>
-        <div>
-          <div class="analysis-title">UA 素材可复用点</div>
-          <ul class="analysis-list">
-            <li><strong>"pov: 你是___"</strong> 是 TikTok 长青钩子结构，代入感极强，收藏量 559K 说明用户高度认同</li>
-            <li>游戏 UA 套用：「pov: 你是联盟里最后一个幸存者」/ 「pov: 你刚刚开到 SSR」，情绪真实、低成本</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- #4 -->
-    <div class="video-card">
-      <div class="video-cover">
-        <img src="./index_files/04_gymmmmm23.jpg" alt="gymmmmm23">
-        <div class="rank-badge">4</div>
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
-        </div>
-      </div>
-      <div class="video-info">
-        <div class="video-header">
-          <div class="video-title">「1 Day」健身极限挑战<br><span style="font-size:12px;color:#666;font-weight:400">#gym #gymmotivation #beforeandafter</span></div>
-          <a class="video-author" href="https://www.tiktok.com/@gymmmmm23/video/7611573338502090015" target="_blank">@gymmmmm23 ↗</a>
-        </div>
-        <div class="metrics">
-          <div class="metric highlight"><span class="icon">❤️</span><span class="val">6.6M</span><span class="lbl">点赞</span></div>
-          <div class="metric"><span class="icon">💬</span><span class="val">77.9K</span><span class="lbl">评论</span></div>
-          <div class="metric"><span class="icon">⭐</span><span class="val">370.7K</span><span class="lbl">收藏</span></div>
-          <div class="metric"><span class="icon">🔗</span><span class="val">1.2M</span><span class="lbl">分享</span></div>
-        </div>
-        <div class="tags">
-          <span class="tag emotion">#励志</span>
-          <span class="tag emotion">#震撼</span>
-          <span class="tag emotion">#自我挑战</span>
-          <span class="tag format">#前后对比</span>
-          <span class="tag format">#进度叙事</span>
-        </div>
-        <div>
-          <div class="analysis-title">UA 素材可复用点</div>
-          <ul class="analysis-list">
-            <li><strong>「Day 1 / Day X」进度标签</strong>是强钩子，激发好奇"接下来会怎样"，保留悬念驱动完播</li>
-            <li>套用到游戏成长线：「Day 1 新手」→「Day 30 满级」对比素材，配合倒计时节奏剪辑</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- #5 -->
-    <div class="video-card" style="border-color:#fe2c55;">
-      <div class="video-cover">
-        <img src="./index_files/05_collinskey.jpg" alt="collinskey">
+        <img src="./index_files/09_andrewwave.jpg" alt="andrewwave">
         <div class="rank-badge">5</div>
         <div class="play-btn">
           <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
@@ -477,154 +552,10 @@
       </div>
       <div class="video-info">
         <div class="video-header">
-          <div class="video-title">轮胎脑袋逛商场 Brainrot<br><span style="font-size:12px;color:#666;font-weight:400">#boneka #brainrot — Collins Key</span></div>
-          <a class="video-author" href="https://www.tiktok.com/@collinskey/video/7616849748359728415" target="_blank">@collinskey ↗</a>
-        </div>
-        <div class="metrics">
-          <div class="metric highlight"><span class="icon">❤️</span><span class="val">19.2M</span><span class="lbl">点赞</span></div>
-          <div class="metric"><span class="icon">💬</span><span class="val">79.8K</span><span class="lbl">评论</span></div>
-          <div class="metric highlight"><span class="icon">⭐</span><span class="val">1.6M</span><span class="lbl">收藏</span></div>
-          <div class="metric highlight"><span class="icon">🔗</span><span class="val">9.1M</span><span class="lbl">分享 🏆</span></div>
-        </div>
-        <div class="tags">
-          <span class="tag emotion">#抽象</span>
-          <span class="tag emotion">#魔性</span>
-          <span class="tag emotion">#反常识</span>
-          <span class="tag format">#Brainrot荒诞喜剧</span>
-          <span class="tag format">#情景剧</span>
-        </div>
-        <div>
-          <div class="analysis-title">UA 素材可复用点 ⭐ 本榜分享王</div>
-          <ul class="analysis-list">
-            <li><strong>分享量 9.1M</strong>，是点赞量的近一半——Brainrot 内容传播裂变能力极强，适合病毒素材方向</li>
-            <li>把游戏怪物/BOSS "塞进" 真实生活场景（坐地铁、逛超市、点外卖）制造反差魔性感</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- #6 -->
-    <div class="video-card">
-      <div class="video-cover">
-        <img src="./index_files/06_restorecraft.jpg" alt="restorecraft">
-        <div class="rank-badge">6</div>
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
-        </div>
-      </div>
-      <div class="video-info">
-        <div class="video-header">
-          <div class="video-title">奶奶想潜水 · 在地板上造了一个星形海洋<br><span style="font-size:12px;color:#666;font-weight:400">Granny wants to go diving — ocean epoxy flooring</span></div>
-          <a class="video-author" href="https://www.tiktok.com/@restore.craft/video/7611156273236593951" target="_blank">@restore.craft ↗</a>
-        </div>
-        <div class="metrics">
-          <div class="metric"><span class="icon">❤️</span><span class="val">1.6M</span><span class="lbl">点赞</span></div>
-          <div class="metric"><span class="icon">💬</span><span class="val">11.1K</span><span class="lbl">评论</span></div>
-          <div class="metric"><span class="icon">⭐</span><span class="val">115.5K</span><span class="lbl">收藏</span></div>
-          <div class="metric"><span class="icon">🔗</span><span class="val">77.3K</span><span class="lbl">分享</span></div>
-        </div>
-        <div class="tags">
-          <span class="tag emotion">#震撼</span>
-          <span class="tag emotion">#惊叹</span>
-          <span class="tag emotion">#满足感</span>
-          <span class="tag format">#创作过程展示</span>
-          <span class="tag format">#结果揭晓</span>
-        </div>
-        <div>
-          <div class="analysis-title">UA 素材可复用点</div>
-          <ul class="analysis-list">
-            <li><strong>「过程积累 + 最终成品震撼」</strong>结构：全程保持悬念，结尾爆发视觉冲击，天然留存</li>
-            <li>游戏素材：基地/城堡建造过程快进 → 最终盛况展示，「从零到史诗」的叙事节奏</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- #7 -->
-    <div class="video-card">
-      <div class="video-cover">
-        <img src="./index_files/07_ellonkeli.jpg" alt="ellonkeli">
-        <div class="rank-badge">7</div>
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
-        </div>
-      </div>
-      <div class="video-info">
-        <div class="video-header">
-          <div class="video-title">AI 嘻哈小猴子走路<br><span style="font-size:12px;color:#666;font-weight:400">#Balinotmogis #TrendingReels #ViralTiktok</span></div>
-          <a class="video-author" href="https://www.tiktok.com/@ellon.keli/video/7601218938181143839" target="_blank">@ellon.keli ↗</a>
-        </div>
-        <div class="metrics">
-          <div class="metric"><span class="icon">❤️</span><span class="val">3M</span><span class="lbl">点赞</span></div>
-          <div class="metric"><span class="icon">💬</span><span class="val">27.4K</span><span class="lbl">评论</span></div>
-          <div class="metric"><span class="icon">⭐</span><span class="val">238.9K</span><span class="lbl">收藏</span></div>
-          <div class="metric"><span class="icon">🔗</span><span class="val">900.7K</span><span class="lbl">分享</span></div>
-        </div>
-        <div class="tags">
-          <span class="tag emotion">#魔性</span>
-          <span class="tag emotion">#抽象</span>
-          <span class="tag emotion">#可爱</span>
-          <span class="tag format">#AI生成</span>
-          <span class="tag format">#魔性角色循环动作</span>
-        </div>
-        <div>
-          <div class="analysis-title">UA 素材可复用点</div>
-          <ul class="analysis-list">
-            <li><strong>AI 生成角色 + 魔性音乐 + 简单循环动作</strong> = 极低成本病毒素材公式</li>
-            <li>用游戏角色做类似「swag walk」循环动画，配合热门 BGM，适合开屏/插屏广告</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- #8 -->
-    <div class="video-card">
-      <div class="video-cover">
-        <img src="./index_files/08_theodore.jpg" alt="theodore">
-        <div class="rank-badge">8</div>
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
-        </div>
-      </div>
-      <div class="video-info">
-        <div class="video-header">
-          <div class="video-title">阁楼杂乱空间揭秘<br><span style="font-size:12px;color:#666;font-weight:400">Kondisi terkini — 真实场景记录</span></div>
-          <a class="video-author" href="https://www.tiktok.com/@theodoretroyce3/video/7596990959116766494" target="_blank">@theodoretroyce3 ↗</a>
-        </div>
-        <div class="metrics">
-          <div class="metric"><span class="icon">❤️</span><span class="val">398.6K</span><span class="lbl">点赞</span></div>
-          <div class="metric"><span class="icon">💬</span><span class="val">13.9K</span><span class="lbl">评论</span></div>
-          <div class="metric"><span class="icon">⭐</span><span class="val">43.7K</span><span class="lbl">收藏</span></div>
-          <div class="metric"><span class="icon">🔗</span><span class="val">38.2K</span><span class="lbl">分享</span></div>
-        </div>
-        <div class="tags">
-          <span class="tag emotion">#猎奇</span>
-          <span class="tag emotion">#好奇心</span>
-          <span class="tag format">#场景揭秘</span>
-          <span class="tag format">#第一视角探索</span>
-        </div>
-        <div>
-          <div class="analysis-title">UA 素材可复用点</div>
-          <ul class="analysis-list">
-            <li><strong>「打开一扇门/进入一个空间」</strong>的揭秘结构天然吸引点击，低数据但算法偶发推流说明可遇不可求</li>
-            <li>游戏 UA：「进入副本/地下城」第一视角探索开场，保留真实粗粒感而非精修画面增加代入感</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- #9 -->
-    <div class="video-card">
-      <div class="video-cover">
-        <img src="./index_files/09_andrewwave.jpg" alt="andrewwave">
-        <div class="rank-badge">9</div>
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
-        </div>
-      </div>
-      <div class="video-info">
-        <div class="video-header">
-          <div class="video-title">好莱坞星光大道真实街拍互动<br><span style="font-size:12px;color:#666;font-weight:400">That walk said everything 😍🇺🇸 @korraobidi #RedCarpetBoy</span></div>
+          <div>
+            <div class="video-title">好莱坞星光大道真实街拍互动<br><span style="font-size:12px;color:#666;font-weight:400">That walk said everything @korraobidi #RedCarpetBoy</span></div>
+            <div style="margin-top:6px;"><span class="score-badge">综合分 13.3M</span></div>
+          </div>
           <a class="video-author" href="https://www.tiktok.com/@andr3w_wave/video/7600089922267008278" target="_blank">@andr3w_wave ↗</a>
         </div>
         <div class="metrics">
@@ -650,18 +581,141 @@
       </div>
     </div>
 
-    <!-- #10 -->
+    <!-- #6 gymmmmm23 -->
     <div class="video-card">
       <div class="video-cover">
-        <img src="./index_files/10_mamato.jpg" alt="mamato">
-        <div class="rank-badge">10</div>
+        <img src="./index_files/04_gymmmmm23.jpg" alt="gymmmmm23">
+        <div class="rank-badge">6</div>
         <div class="play-btn">
           <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
         </div>
       </div>
       <div class="video-info">
         <div class="video-header">
-          <div class="video-title">什么工具能切穿 5 层黄瓜？<br><span style="font-size:12px;color:#666;font-weight:400">#experiment #satisfying #asmr #scienceexperiments</span></div>
+          <div>
+            <div class="video-title">「1 Day」健身极限挑战<br><span style="font-size:12px;color:#666;font-weight:400">#gym #gymmotivation #beforeandafter</span></div>
+            <div style="margin-top:6px;"><span class="score-badge">综合分 10.0M</span></div>
+          </div>
+          <a class="video-author" href="https://www.tiktok.com/@gymmmmm23/video/7611573338502090015" target="_blank">@gymmmmm23 ↗</a>
+        </div>
+        <div class="metrics">
+          <div class="metric highlight"><span class="icon">❤️</span><span class="val">6.6M</span><span class="lbl">点赞</span></div>
+          <div class="metric"><span class="icon">💬</span><span class="val">77.9K</span><span class="lbl">评论</span></div>
+          <div class="metric"><span class="icon">⭐</span><span class="val">370.7K</span><span class="lbl">收藏</span></div>
+          <div class="metric"><span class="icon">🔗</span><span class="val">1.2M</span><span class="lbl">分享</span></div>
+        </div>
+        <div class="tags">
+          <span class="tag emotion">#励志</span>
+          <span class="tag emotion">#震撼</span>
+          <span class="tag emotion">#自我挑战</span>
+          <span class="tag format">#前后对比</span>
+          <span class="tag format">#进度叙事</span>
+        </div>
+        <div>
+          <div class="analysis-title">UA 素材可复用点</div>
+          <ul class="analysis-list">
+            <li><strong>「Day 1 / Day X」进度标签</strong>是强钩子，激发好奇"接下来会怎样"，保留悬念驱动完播</li>
+            <li>套用到游戏成长线：「Day 1 新手」→「Day 30 满级」对比素材，配合倒计时节奏剪辑</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- #7 ellon.keli -->
+    <div class="video-card">
+      <div class="video-cover">
+        <img src="./index_files/07_ellonkeli.jpg" alt="ellonkeli">
+        <div class="rank-badge">7</div>
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-header">
+          <div>
+            <div class="video-title">AI 嘻哈小猴子走路<br><span style="font-size:12px;color:#666;font-weight:400">#Balinotmogis #TrendingReels #ViralTiktok</span></div>
+            <div style="margin-top:6px;"><span class="score-badge">综合分 5.4M</span></div>
+          </div>
+          <a class="video-author" href="https://www.tiktok.com/@ellon.keli/video/7601218938181143839" target="_blank">@ellon.keli ↗</a>
+        </div>
+        <div class="metrics">
+          <div class="metric"><span class="icon">❤️</span><span class="val">3M</span><span class="lbl">点赞</span></div>
+          <div class="metric"><span class="icon">💬</span><span class="val">27.4K</span><span class="lbl">评论</span></div>
+          <div class="metric"><span class="icon">⭐</span><span class="val">238.9K</span><span class="lbl">收藏</span></div>
+          <div class="metric"><span class="icon">🔗</span><span class="val">900.7K</span><span class="lbl">分享</span></div>
+        </div>
+        <div class="tags">
+          <span class="tag emotion">#魔性</span>
+          <span class="tag emotion">#抽象</span>
+          <span class="tag emotion">#可爱</span>
+          <span class="tag format">#AI生成</span>
+          <span class="tag format">#魔性角色循环动作</span>
+        </div>
+        <div>
+          <div class="analysis-title">UA 素材可复用点</div>
+          <ul class="analysis-list">
+            <li><strong>AI 生成角色 + 魔性音乐 + 简单循环动作</strong> = 极低成本病毒素材公式</li>
+            <li>用游戏角色做类似「swag walk」循环动画，配合热门 BGM，适合开屏/插屏广告</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- #8 restore.craft -->
+    <div class="video-card">
+      <div class="video-cover">
+        <img src="./index_files/06_restorecraft.jpg" alt="restorecraft">
+        <div class="rank-badge">8</div>
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-header">
+          <div>
+            <div class="video-title">奶奶想潜水 · 在地板上造了一个星形海洋<br><span style="font-size:12px;color:#666;font-weight:400">Granny wants to go diving — ocean epoxy flooring</span></div>
+            <div style="margin-top:6px;"><span class="score-badge">综合分 2.0M</span></div>
+          </div>
+          <a class="video-author" href="https://www.tiktok.com/@restore.craft/video/7611156273236593951" target="_blank">@restore.craft ↗</a>
+        </div>
+        <div class="metrics">
+          <div class="metric"><span class="icon">❤️</span><span class="val">1.6M</span><span class="lbl">点赞</span></div>
+          <div class="metric"><span class="icon">💬</span><span class="val">11.1K</span><span class="lbl">评论</span></div>
+          <div class="metric"><span class="icon">⭐</span><span class="val">115.5K</span><span class="lbl">收藏</span></div>
+          <div class="metric"><span class="icon">🔗</span><span class="val">77.3K</span><span class="lbl">分享</span></div>
+        </div>
+        <div class="tags">
+          <span class="tag emotion">#震撼</span>
+          <span class="tag emotion">#惊叹</span>
+          <span class="tag emotion">#满足感</span>
+          <span class="tag format">#创作过程展示</span>
+          <span class="tag format">#结果揭晓</span>
+        </div>
+        <div>
+          <div class="analysis-title">UA 素材可复用点</div>
+          <ul class="analysis-list">
+            <li><strong>「过程积累 + 最终成品震撼」</strong>结构：全程保持悬念，结尾爆发视觉冲击，天然留存</li>
+            <li>游戏素材：基地/城堡建造过程快进 → 最终盛况展示，「从零到史诗」的叙事节奏</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- #9 mamato.viral -->
+    <div class="video-card">
+      <div class="video-cover">
+        <img src="./index_files/10_mamato.jpg" alt="mamato">
+        <div class="rank-badge">9</div>
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-header">
+          <div>
+            <div class="video-title">什么工具能切穿 5 层黄瓜？<br><span style="font-size:12px;color:#666;font-weight:400">#experiment #satisfying #asmr #scienceexperiments</span></div>
+            <div style="margin-top:6px;"><span class="score-badge">综合分 1.95M</span></div>
+          </div>
           <a class="video-author" href="https://www.tiktok.com/@mamato.viral/video/7606026318492273950" target="_blank">@mamato.viral ↗</a>
         </div>
         <div class="metrics">
@@ -688,12 +742,51 @@
       </div>
     </div>
 
+    <!-- #10 theodoretroyce3 -->
+    <div class="video-card">
+      <div class="video-cover">
+        <img src="./index_files/08_theodore.jpg" alt="theodore">
+        <div class="rank-badge">10</div>
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"></path></svg>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="video-header">
+          <div>
+            <div class="video-title">阁楼杂乱空间揭秘<br><span style="font-size:12px;color:#666;font-weight:400">Kondisi terkini — 真实场景记录</span></div>
+            <div style="margin-top:6px;"><span class="score-badge">综合分 0.6M</span></div>
+          </div>
+          <a class="video-author" href="https://www.tiktok.com/@theodoretroyce3/video/7596990959116766494" target="_blank">@theodoretroyce3 ↗</a>
+        </div>
+        <div class="metrics">
+          <div class="metric"><span class="icon">❤️</span><span class="val">398.6K</span><span class="lbl">点赞</span></div>
+          <div class="metric"><span class="icon">💬</span><span class="val">13.9K</span><span class="lbl">评论</span></div>
+          <div class="metric"><span class="icon">⭐</span><span class="val">43.7K</span><span class="lbl">收藏</span></div>
+          <div class="metric"><span class="icon">🔗</span><span class="val">38.2K</span><span class="lbl">分享</span></div>
+        </div>
+        <div class="tags">
+          <span class="tag emotion">#猎奇</span>
+          <span class="tag emotion">#好奇心</span>
+          <span class="tag format">#场景揭秘</span>
+          <span class="tag format">#第一视角探索</span>
+        </div>
+        <div>
+          <div class="analysis-title">UA 素材可复用点</div>
+          <ul class="analysis-list">
+            <li><strong>「打开一扇门/进入一个空间」</strong>的揭秘结构天然吸引点击，低数据但算法偶发推流说明可遇不可求</li>
+            <li>游戏 UA：「进入副本/地下城」第一视角探索开场，保留真实粗粒感而非精修画面增加代入感</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
   </div><!-- /video-grid -->
 
   <!-- Data Table -->
   <div class="section-title" style="margin-top:16px;">
     <span>数据总览</span>
-    <span class="num">排行榜</span>
+    <span class="num">综合分排行榜</span>
   </div>
   <table class="data-table" style="margin-bottom:48px;">
     <thead>
@@ -705,19 +798,110 @@
         <th>评论</th>
         <th>收藏</th>
         <th>分享</th>
+        <th>综合分</th>
       </tr>
     </thead>
     <tbody>
-      <tr><td class="rank-num">1</td><td><a class="author-link" href="https://www.tiktok.com/@bbranson8/video/7605949028395781389" target="_blank">@bbranson8</a></td><td>男友背部贴闪钻</td><td class="num-cell">9.8M</td><td class="num-cell">17.4K</td><td class="num-cell">457.8K</td><td class="num-cell">1.5M</td></tr>
-      <tr><td class="rank-num">2</td><td><a class="author-link" href="https://www.tiktok.com/@ishowspeed/video/7621300668329905422" target="_blank">@ishowspeed</a></td><td>Deku Cosplay 展示</td><td class="num-cell">16.3M</td><td class="num-cell top-val">371.3K 🏆</td><td class="num-cell">1.2M</td><td class="num-cell">1.5M</td></tr>
-      <tr><td class="rank-num">3</td><td><a class="author-link" href="https://www.tiktok.com/@fakeltfunny0021/video/7603344058680888607" target="_blank">@fakeltfunny0021</a></td><td>POV: 你是个奶爸</td><td class="num-cell">12M</td><td class="num-cell">15.2K</td><td class="num-cell top-val">559.4K 🏆</td><td class="num-cell">1.5M</td></tr>
-      <tr><td class="rank-num">4</td><td><a class="author-link" href="https://www.tiktok.com/@gymmmmm23/video/7611573338502090015" target="_blank">@gymmmmm23</a></td><td>1 Day 健身挑战</td><td class="num-cell">6.6M</td><td class="num-cell">77.9K</td><td class="num-cell">370.7K</td><td class="num-cell">1.2M</td></tr>
-      <tr style="background:#1a0508;"><td class="rank-num">5</td><td><a class="author-link" href="https://www.tiktok.com/@collinskey/video/7616849748359728415" target="_blank">@collinskey</a></td><td>轮胎脑袋 Brainrot</td><td class="num-cell top-val">19.2M 🏆</td><td class="num-cell">79.8K</td><td class="num-cell">1.6M</td><td class="num-cell top-val">9.1M 🏆</td></tr>
-      <tr><td class="rank-num">6</td><td><a class="author-link" href="https://www.tiktok.com/@restore.craft/video/7611156273236593951" target="_blank">@restore.craft</a></td><td>星形海洋地板</td><td class="num-cell">1.6M</td><td class="num-cell">11.1K</td><td class="num-cell">115.5K</td><td class="num-cell">77.3K</td></tr>
-      <tr><td class="rank-num">7</td><td><a class="author-link" href="https://www.tiktok.com/@ellon.keli/video/7601218938181143839" target="_blank">@ellon.keli</a></td><td>AI 嘻哈小猴子</td><td class="num-cell">3M</td><td class="num-cell">27.4K</td><td class="num-cell">238.9K</td><td class="num-cell">900.7K</td></tr>
-      <tr><td class="rank-num">8</td><td><a class="author-link" href="https://www.tiktok.com/@theodoretroyce3/video/7596990959116766494" target="_blank">@theodoretroyce3</a></td><td>阁楼杂乱揭秘</td><td class="num-cell">398.6K</td><td class="num-cell">13.9K</td><td class="num-cell">43.7K</td><td class="num-cell">38.2K</td></tr>
-      <tr><td class="rank-num">9</td><td><a class="author-link" href="https://www.tiktok.com/@andr3w_wave/video/7600089922267008278" target="_blank">@andr3w_wave</a></td><td>好莱坞街拍互动</td><td class="num-cell">11.7M</td><td class="num-cell">88K</td><td class="num-cell">416.4K</td><td class="num-cell">255.5K</td></tr>
-      <tr><td class="rank-num">10</td><td><a class="author-link" href="https://www.tiktok.com/@mamato.viral/video/7606026318492273950" target="_blank">@mamato.viral</a></td><td>切穿5层黄瓜实验</td><td class="num-cell">1.7M</td><td class="num-cell">6K</td><td class="num-cell">70.4K</td><td class="num-cell">44.6K</td></tr>
+      <tr style="background:#1a0508;">
+        <td class="rank-num">1</td>
+        <td><a class="author-link" href="https://www.tiktok.com/@collinskey/video/7616849748359728415" target="_blank">@collinskey</a></td>
+        <td>轮胎脑袋 Brainrot</td>
+        <td class="num-cell top-val">19.2M 🏆</td>
+        <td class="num-cell">79.8K</td>
+        <td class="num-cell">1.6M</td>
+        <td class="num-cell top-val">9.1M 🏆</td>
+        <td class="score-cell">40.8M</td>
+      </tr>
+      <tr>
+        <td class="rank-num">2</td>
+        <td><a class="author-link" href="https://www.tiktok.com/@ishowspeed/video/7621300668329905422" target="_blank">@ishowspeed</a></td>
+        <td>Deku Cosplay 展示</td>
+        <td class="num-cell">16.3M</td>
+        <td class="num-cell top-val">371.3K 🏆</td>
+        <td class="num-cell">1.2M</td>
+        <td class="num-cell">1.5M</td>
+        <td class="score-cell">22.8M</td>
+      </tr>
+      <tr>
+        <td class="rank-num">3</td>
+        <td><a class="author-link" href="https://www.tiktok.com/@fakeltfunny0021/video/7603344058680888607" target="_blank">@fakeltfunny0021</a></td>
+        <td>POV: 你是个奶爸</td>
+        <td class="num-cell">12M</td>
+        <td class="num-cell">15.2K</td>
+        <td class="num-cell top-val">559.4K 🏆</td>
+        <td class="num-cell">1.5M</td>
+        <td class="score-cell">16.2M</td>
+      </tr>
+      <tr>
+        <td class="rank-num">4</td>
+        <td><a class="author-link" href="https://www.tiktok.com/@bbranson8/video/7605949028395781389" target="_blank">@bbranson8</a></td>
+        <td>男友背部贴闪钻</td>
+        <td class="num-cell">9.8M</td>
+        <td class="num-cell">17.4K</td>
+        <td class="num-cell">457.8K</td>
+        <td class="num-cell">1.5M</td>
+        <td class="score-cell">13.8M</td>
+      </tr>
+      <tr>
+        <td class="rank-num">5</td>
+        <td><a class="author-link" href="https://www.tiktok.com/@andr3w_wave/video/7600089922267008278" target="_blank">@andr3w_wave</a></td>
+        <td>好莱坞街拍互动</td>
+        <td class="num-cell">11.7M</td>
+        <td class="num-cell">88K</td>
+        <td class="num-cell">416.4K</td>
+        <td class="num-cell">255.5K</td>
+        <td class="score-cell">13.3M</td>
+      </tr>
+      <tr>
+        <td class="rank-num">6</td>
+        <td><a class="author-link" href="https://www.tiktok.com/@gymmmmm23/video/7611573338502090015" target="_blank">@gymmmmm23</a></td>
+        <td>1 Day 健身挑战</td>
+        <td class="num-cell">6.6M</td>
+        <td class="num-cell">77.9K</td>
+        <td class="num-cell">370.7K</td>
+        <td class="num-cell">1.2M</td>
+        <td class="score-cell">10.0M</td>
+      </tr>
+      <tr>
+        <td class="rank-num">7</td>
+        <td><a class="author-link" href="https://www.tiktok.com/@ellon.keli/video/7601218938181143839" target="_blank">@ellon.keli</a></td>
+        <td>AI 嘻哈小猴子</td>
+        <td class="num-cell">3M</td>
+        <td class="num-cell">27.4K</td>
+        <td class="num-cell">238.9K</td>
+        <td class="num-cell">900.7K</td>
+        <td class="score-cell">5.4M</td>
+      </tr>
+      <tr>
+        <td class="rank-num">8</td>
+        <td><a class="author-link" href="https://www.tiktok.com/@restore.craft/video/7611156273236593951" target="_blank">@restore.craft</a></td>
+        <td>星形海洋地板</td>
+        <td class="num-cell">1.6M</td>
+        <td class="num-cell">11.1K</td>
+        <td class="num-cell">115.5K</td>
+        <td class="num-cell">77.3K</td>
+        <td class="score-cell">2.0M</td>
+      </tr>
+      <tr>
+        <td class="rank-num">9</td>
+        <td><a class="author-link" href="https://www.tiktok.com/@mamato.viral/video/7606026318492273950" target="_blank">@mamato.viral</a></td>
+        <td>切穿5层黄瓜实验</td>
+        <td class="num-cell">1.7M</td>
+        <td class="num-cell">6K</td>
+        <td class="num-cell">70.4K</td>
+        <td class="num-cell">44.6K</td>
+        <td class="score-cell">1.95M</td>
+      </tr>
+      <tr>
+        <td class="rank-num">10</td>
+        <td><a class="author-link" href="https://www.tiktok.com/@theodoretroyce3/video/7596990959116766494" target="_blank">@theodoretroyce3</a></td>
+        <td>阁楼杂乱揭秘</td>
+        <td class="num-cell">398.6K</td>
+        <td class="num-cell">13.9K</td>
+        <td class="num-cell">43.7K</td>
+        <td class="num-cell">38.2K</td>
+        <td class="score-cell">0.6M</td>
+      </tr>
     </tbody>
   </table>
 
@@ -757,8 +941,8 @@
         <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
       </div>
       <div class="bar-item">
-        <div class="bar-label"><span>收藏王</span><span>@collinskey · 1.6M</span></div>
-        <div class="bar-track"><div class="bar-fill" style="width:75%"></div></div>
+        <div class="bar-label"><span>收藏王</span><span>@fakeltfunny0021 · 559.4K</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:60%"></div></div>
       </div>
       <div class="bar-item">
         <div class="bar-label"><span>分享王</span><span>@collinskey · 9.1M</span></div>
@@ -770,23 +954,23 @@
   <!-- Key Insights -->
   <div class="section-title">
     <span>UA 制作核心洞察</span>
-    <span class="num">4 Key Points</span>
+    <span class="num">6 Key Points</span>
   </div>
   <div class="insights">
     <div class="insight-card">
       <div class="icon-big">🔥</div>
       <h3>Brainrot = 最强裂变</h3>
-      <p>@collinskey 的轮胎脑袋视频分享量 <span class="highlight-text">9.1M</span>，是点赞的 47%。荒诞反常识内容的"传播冲动"远高于其他类型，适合做病毒传播向素材。</p>
+      <p>@collinskey 的轮胎脑袋视频分享量 <span class="highlight-text">9.1M</span>，是点赞的 47%。荒诞反常识内容的"传播冲动"远高于其他类型，综合分高达 40.8M 稳居第一。</p>
     </div>
     <div class="insight-card">
       <div class="icon-big">💬</div>
       <h3>KOL 驱动深度互动</h3>
-      <p>@ishowspeed 评论量 <span class="highlight-text">371K</span>，是第二名的 4 倍。头部 KOL + cosplay 组合能带来强粉丝讨论，适合新角色/新版本上线的社区造势。</p>
+      <p>@ishowspeed 评论量 <span class="highlight-text">371K</span>，是第二名的 4 倍。评论在综合分中权重×3，KOL 内容"引发讨论"的价值被正确放大。</p>
     </div>
     <div class="insight-card">
       <div class="icon-big">⭐</div>
       <h3>POV 情感 = 高收藏</h3>
-      <p>@fakeltfunny0021 的奶爸 POV 收藏量 <span class="highlight-text">559K</span> 全场最高。高收藏 = 用户有强烈认同感且想反复看，情感共鸣类素材留存质量更高。</p>
+      <p>@fakeltfunny0021 的奶爸 POV 收藏量 <span class="highlight-text">559K</span> 全场最高。高收藏 = 用户认同感强且想反复看，是留存质量最高的内容类型。</p>
     </div>
     <div class="insight-card">
       <div class="icon-big">❓</div>
@@ -806,12 +990,11 @@
   </div>
 
   <div class="footer">
-    TikTok 美国区热门视频研究报告 · 2026-04-01<br>
+    TikTok 美国区热门视频研究报告 · Vol.001 · 2026-04-01<br>
+    排名采用综合传播力评分：点赞 + 评论×3 + 收藏×2 + 分享×2<br>
     数据通过 CDP 浏览器实时抓取 · 内容来源：tiktok.com Explore（美国区 IP）<br>
     图片版权归原作者所有，仅用于研究分析目的
   </div>
 
 </div>
-
-
 </body></html>
