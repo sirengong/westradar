@@ -3,338 +3,545 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TikTok 美区热门视频研究 · 归档</title>
+<title>TikTok Radar · 美区热门视频研究</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: #0f0f0f;
-    color: #e8e8e8;
-    padding: 40px 20px;
-    min-height: 100vh;
-  }
-  .container { max-width: 900px; margin: 0 auto; }
+/* ── Reset & Base ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:      #0a0a0a;
+  --bg2:     #111111;
+  --bg3:     #1a1a1a;
+  --border:  #222222;
+  --border2: #2e2e2e;
+  --red:     #fe2c55;
+  --red2:    #ff0050;
+  --white:   #ffffff;
+  --gray1:   #e0e0e0;
+  --gray2:   #999999;
+  --gray3:   #555555;
+  --gray4:   #333333;
+  --blue:    #4a9eff;
+  --green:   #4ade80;
+  --yellow:  #fbbf24;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  background: var(--bg);
+  color: var(--gray1);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
 
-  /* Header */
-  .header {
-    text-align: center;
-    padding: 60px 0 48px;
-    border-bottom: 1px solid #2a2a2a;
-    margin-bottom: 56px;
-  }
-  .badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #fe2c55, #ff0050);
-    color: white;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    padding: 4px 14px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-  }
-  .header h1 {
-    font-size: 36px;
-    font-weight: 800;
-    color: #fff;
-    line-height: 1.2;
-    margin-bottom: 12px;
-  }
-  .header h1 span { color: #fe2c55; }
-  .header p {
-    font-size: 14px;
-    color: #666;
-    margin-top: 12px;
-    line-height: 1.8;
-  }
+/* ── Noise texture overlay ─────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: 0.4;
+}
 
-  /* Section */
-  .section-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: #555;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
+/* ── Nav ────────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 64px;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 18px; font-weight: 800; color: var(--white);
+  letter-spacing: -0.5px;
+}
+.nav-logo .dot { color: var(--red); font-size: 28px; line-height: 1; }
+.nav-links { display: flex; align-items: center; gap: 8px; }
+.nav-links a {
+  font-size: 13px; color: var(--gray2); padding: 6px 14px;
+  border-radius: 20px; transition: all 0.2s;
+}
+.nav-links a:hover { color: var(--white); background: var(--border); }
+.nav-cta {
+  font-size: 13px; font-weight: 600; color: var(--white);
+  background: var(--red); padding: 7px 18px; border-radius: 20px;
+  transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.85; }
 
-  /* Report cards */
-  .reports { display: flex; flex-direction: column; gap: 16px; margin-bottom: 64px; }
+/* ── Hero ───────────────────────────────────────────────────── */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 80px 24px 60px;
+  overflow: hidden;
+}
+.hero-glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -60%);
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(254,44,85,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(254,44,85,0.12); border: 1px solid rgba(254,44,85,0.3);
+  color: var(--red); font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 20px; margin-bottom: 28px;
+}
+.hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.hero h1 {
+  font-size: clamp(42px, 7vw, 80px);
+  font-weight: 900; line-height: 1.05; letter-spacing: -2px;
+  color: var(--white); margin-bottom: 8px;
+}
+.hero h1 em { color: var(--red); font-style: normal; }
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--gray2); font-weight: 400; line-height: 1.6;
+  max-width: 520px; margin: 16px auto 48px;
+}
+.hero-stats {
+  display: flex; gap: 0; flex-wrap: wrap; justify-content: center;
+  border: 1px solid var(--border2); border-radius: 16px;
+  overflow: hidden; background: var(--bg2);
+  margin-bottom: 56px;
+}
+.hero-stat {
+  padding: 20px 36px; text-align: center;
+  border-right: 1px solid var(--border2);
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat .val {
+  font-size: 28px; font-weight: 900; color: var(--white);
+  letter-spacing: -1px; line-height: 1;
+}
+.hero-stat .val span { color: var(--red); }
+.hero-stat .lbl { font-size: 11px; color: var(--gray3); margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; }
+.hero-scroll {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--gray3); font-size: 12px; letter-spacing: 1px;
+  animation: float 2s ease-in-out infinite;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+.hero-scroll svg { width: 20px; opacity: 0.5; }
 
-  .report-card {
-    background: #1a1a1a;
-    border: 1px solid #2a2a2a;
-    border-radius: 14px;
-    padding: 0;
-    display: grid;
-    grid-template-columns: 160px 1fr auto;
-    align-items: stretch;
-    overflow: hidden;
-    transition: border-color 0.2s, transform 0.15s;
-    text-decoration: none;
-    color: inherit;
-  }
-  .report-card:hover {
-    border-color: #fe2c55;
-    transform: translateY(-2px);
-  }
-  .report-card.latest { border-color: #fe2c55; }
+/* ── Section layout ─────────────────────────────────────────── */
+.section { max-width: 1100px; margin: 0 auto; padding: 80px 24px; }
+.section-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 40px; gap: 16px; flex-wrap: wrap;
+}
+.section-label {
+  font-size: 11px; font-weight: 700; color: var(--red);
+  letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px;
+}
+.section-title {
+  font-size: clamp(24px, 4vw, 36px); font-weight: 800;
+  color: var(--white); letter-spacing: -0.5px; line-height: 1.2;
+}
+.section-desc { font-size: 14px; color: var(--gray2); line-height: 1.6; max-width: 400px; }
 
-  .card-date {
-    background: #111;
-    padding: 24px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-right: 1px solid #2a2a2a;
-    flex-shrink: 0;
-  }
-  .date-month {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: #fe2c55;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .date-day {
-    font-size: 40px;
-    font-weight: 900;
-    color: #fff;
-    line-height: 1;
-    margin-bottom: 2px;
-  }
-  .date-year {
-    font-size: 11px;
-    color: #555;
-  }
+/* ── Report cards grid ──────────────────────────────────────── */
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
 
-  .card-body {
-    padding: 22px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    justify-content: center;
-  }
-  .card-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1.3;
-  }
-  .card-meta { font-size: 12px; color: #555; }
-  .card-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
-  .tag {
-    font-size: 10px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 20px;
-    background: #222;
-    color: #888;
-    border: 1px solid #333;
-  }
-  .tag.hot { background: #2a0810; color: #ff6b8a; border-color: #5c1a2a; }
-  .tag.new { background: #0f2a1a; color: #4ade80; border-color: #1a5c2a; }
+.report-card {
+  position: relative;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+.report-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--red);
+  box-shadow: 0 20px 60px rgba(254,44,85,0.12);
+}
+.report-card.featured {
+  border-color: var(--red);
+  grid-column: 1 / -1;
+  flex-direction: row;
+}
 
-  .card-stats {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 6px;
-    padding: 22px 24px;
-    border-left: 1px solid #2a2a2a;
-    flex-shrink: 0;
-    min-width: 110px;
-  }
-  .stat-item { text-align: right; }
-  .stat-val { font-size: 15px; font-weight: 800; color: #fe2c55; }
-  .stat-lbl { font-size: 10px; color: #555; }
+/* Card header strip */
+.card-header {
+  background: linear-gradient(135deg, #1a0509, #110208);
+  padding: 28px 28px 24px;
+  border-bottom: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.card-header::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--red), transparent);
+}
+.report-card.featured .card-header {
+  min-width: 280px; max-width: 280px;
+  border-bottom: none; border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; justify-content: center;
+}
 
-  .card-arrow {
-    display: flex;
-    align-items: center;
-    padding-right: 4px;
-  }
+.card-edition {
+  font-size: 11px; font-weight: 700; color: var(--red);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+.card-edition .dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--red);
+}
+.report-card.featured .card-edition .dot { animation: pulse 1.5s infinite; }
 
-  /* Latest badge */
-  .latest-badge {
-    display: inline-block;
-    background: #fe2c55;
-    color: white;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    margin-left: 8px;
-    vertical-align: middle;
-    text-transform: uppercase;
-  }
+.card-date-big {
+  font-size: 52px; font-weight: 900; color: var(--white);
+  letter-spacing: -3px; line-height: 0.9; margin-bottom: 8px;
+}
+.card-date-sub {
+  font-size: 13px; color: var(--gray3); letter-spacing: 1px;
+}
 
-  /* How-to section */
-  .howto {
-    background: #111;
-    border: 1px solid #2a2a2a;
-    border-radius: 14px;
-    padding: 32px;
-    margin-bottom: 48px;
-  }
-  .howto h2 {
-    font-size: 16px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .step {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 16px;
-    font-size: 13px;
-    color: #888;
-    line-height: 1.6;
-  }
-  .step:last-child { margin-bottom: 0; }
-  .step-num {
-    flex-shrink: 0;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: #fe2c55;
-    color: white;
-    font-size: 12px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1px;
-  }
-  .step strong { color: #ccc; }
-  code {
-    background: #1e1e1e;
-    border: 1px solid #333;
-    border-radius: 4px;
-    padding: 1px 6px;
-    font-size: 11px;
-    color: #4ade80;
-    font-family: monospace;
-  }
+/* Card body */
+.card-body {
+  padding: 24px 28px; flex: 1;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.card-title { font-size: 17px; font-weight: 700; color: var(--white); line-height: 1.4; }
+.card-summary { font-size: 13px; color: var(--gray2); line-height: 1.7; }
 
-  /* Footer */
-  .footer {
-    text-align: center;
-    font-size: 12px;
-    color: #444;
-    padding-top: 32px;
-    border-top: 1px solid #1e1e1e;
-    line-height: 2;
-  }
-  .footer a { color: #fe2c55; text-decoration: none; }
-  .footer a:hover { text-decoration: underline; }
+/* Metrics row */
+.card-metrics {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--border); border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--border);
+}
+.metric {
+  background: var(--bg3); padding: 10px 8px; text-align: center;
+}
+.metric .m-val { font-size: 14px; font-weight: 800; color: var(--white); }
+.metric .m-val.hot { color: var(--red); }
+.metric .m-lbl { font-size: 9px; color: var(--gray3); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Tags */
+.card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-size: 10px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+  border: 1px solid transparent;
+}
+.tag-red    { background: rgba(254,44,85,0.1);  color: #ff8099; border-color: rgba(254,44,85,0.2); }
+.tag-blue   { background: rgba(74,158,255,0.1); color: #8ac4ff; border-color: rgba(74,158,255,0.2); }
+.tag-green  { background: rgba(74,222,128,0.1); color: #86efac; border-color: rgba(74,222,128,0.2); }
+.tag-yellow { background: rgba(251,191,36,0.1); color: #fcd34d; border-color: rgba(251,191,36,0.2); }
+.tag-gray   { background: var(--bg3); color: var(--gray2); border-color: var(--border2); }
+
+/* Card footer */
+.card-footer {
+  padding: 16px 28px; border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.view-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; color: var(--red);
+  transition: gap 0.2s;
+}
+.report-card:hover .view-btn { gap: 10px; }
+.view-btn svg { width: 14px; transition: transform 0.2s; }
+.report-card:hover .view-btn svg { transform: translateX(3px); }
+.card-num { font-size: 11px; color: var(--gray3); }
+
+/* Coming soon card */
+.coming-soon {
+  border-style: dashed; cursor: default;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 200px;
+}
+.coming-soon:hover { transform: none; border-color: var(--border2); box-shadow: none; }
+.coming-content { text-align: center; padding: 32px; }
+.coming-content p { font-size: 13px; color: var(--gray3); margin-top: 8px; }
+
+/* ── Divider ────────────────────────────────────────────────── */
+.divider {
+  border: none; border-top: 1px solid var(--border);
+  margin: 0 auto; max-width: 1100px;
+}
+
+/* ── About section ──────────────────────────────────────────── */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+}
+.about-features { display: flex; flex-direction: column; gap: 20px; }
+.feature {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 20px; background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 14px; transition: border-color 0.2s;
+}
+.feature:hover { border-color: var(--border); }
+.feat-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(254,44,85,0.1); border: 1px solid rgba(254,44,85,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.feat-title { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+.feat-desc { font-size: 12px; color: var(--gray2); line-height: 1.6; }
+.about-text .section-title { margin-bottom: 20px; }
+.about-text p { font-size: 14px; color: var(--gray2); line-height: 1.8; margin-bottom: 16px; }
+.about-text p:last-child { margin-bottom: 0; }
+
+/* ── Footer ─────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 24px;
+  text-align: center;
+}
+.footer-logo { font-size: 20px; font-weight: 900; color: var(--white); margin-bottom: 12px; }
+.footer-logo span { color: var(--red); }
+.footer-desc { font-size: 12px; color: var(--gray3); line-height: 1.8; margin-bottom: 24px; }
+.footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+.footer-links a { font-size: 12px; color: var(--gray3); transition: color 0.2s; }
+.footer-links a:hover { color: var(--red); }
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hero-stats { flex-direction: column; }
+  .hero-stat { border-right: none; border-bottom: 1px solid var(--border2); }
+  .hero-stat:last-child { border-bottom: none; }
+  .report-card.featured { flex-direction: column; }
+  .report-card.featured .card-header { min-width: unset; max-width: unset; border-right: none; border-bottom: 1px solid var(--border); }
+  .about-grid { grid-template-columns: 1fr; }
+  .card-metrics { grid-template-columns: repeat(2, 1fr); }
+}
 </style>
 </head>
 <body>
-<div class="container">
 
-  <div class="header">
-    <div class="badge">Research Archive</div>
-    <h1>TikTok 美区热门视频<br><span>研究报告</span> 归档</h1>
-    <p>每期抓取美国区 TikTok Explore 热门内容<br>分析情绪 · 表现形式 · UA 素材可复用点</p>
+<!-- ── Nav ─────────────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-logo">
+    <span class="dot">●</span>
+    TikTok Radar
+  </div>
+  <div class="nav-links">
+    <a href="#reports">报告</a>
+    <a href="#about">关于</a>
+    <a href="https://github.com/sirengong/tiktokreport" target="_blank">GitHub</a>
+  </div>
+  <a class="nav-cta" href="#reports">查看报告 →</a>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge"><span></span> Live Research</div>
+  <h1>TikTok 美区<br><em>热门视频</em> 研究</h1>
+  <p class="hero-sub">持续追踪美区 TikTok Explore 热门内容，拆解情绪密码、表现形式与 UA 素材可复用公式</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="val"><span id="total-editions">1</span></div>
+      <div class="lbl">期 报 告</div>
+    </div>
+    <div class="hero-stat">
+      <div class="val"><span>82.3M</span></div>
+      <div class="lbl">总点赞量</div>
+    </div>
+    <div class="hero-stat">
+      <div class="val"><span>10</span></div>
+      <div class="lbl">视频 / 期</div>
+    </div>
+    <div class="hero-stat">
+      <div class="val"><span>每周</span></div>
+      <div class="lbl">更新频率</div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    SCROLL
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── Reports ─────────────────────────────────────────────────── -->
+<section class="section" id="reports">
+  <div class="section-header">
+    <div>
+      <div class="section-label">All Editions</div>
+      <h2 class="section-title">选择期数</h2>
+    </div>
+    <p class="section-desc">点击任意一期查看完整报告，每期永久保存、随时可访问</p>
   </div>
 
-  <div class="section-label">所有期数 · All Reports</div>
+  <div class="reports-grid">
 
-  <div class="reports" id="reports-list">
-
-    <!-- ★ 每次新增一期，在这里复制一个 .report-card 块 ★ -->
-
-    <a class="report-card latest" href="./2026-04-01/">
-      <div class="card-date">
-        <div class="date-month">Apr</div>
-        <div class="date-day">01</div>
-        <div class="date-year">2026</div>
+    <!-- ★ 最新一期（featured 大卡） ★ -->
+    <a class="report-card featured" href="./2026-04-01/">
+      <div class="card-header">
+        <div class="card-edition"><span class="dot"></span> Latest · Vol.001</div>
+        <div class="card-date-big">04·01</div>
+        <div class="card-date-sub">2026 APR</div>
       </div>
-      <div class="card-body">
-        <div class="card-title">
-          Top 10 热门视频分析
-          <span class="latest-badge">Latest</span>
+      <div style="flex:1; display:flex; flex-direction:column;">
+        <div class="card-body">
+          <div class="card-title">美区 Top 10 热门视频 · 情绪 × 形式 × UA 分析</div>
+          <div class="card-summary">
+            本期覆盖 TikTok 美区 Explore 页 10 个热门视频。
+            <strong style="color:var(--white)">Brainrot 内容分享量高达 9.1M</strong>，
+            POV 情感向视频收藏量达 559K。
+            核心公式：抽象魔性裂变 · 问题钩子完播 · AI 低成本病毒。
+          </div>
+          <div class="card-metrics">
+            <div class="metric"><div class="m-val hot">82.3M</div><div class="m-lbl">点赞</div></div>
+            <div class="metric"><div class="m-val">807K</div><div class="m-lbl">评论</div></div>
+            <div class="metric"><div class="m-val">7.1M</div><div class="m-lbl">收藏</div></div>
+            <div class="metric"><div class="m-val hot">18.1M</div><div class="m-lbl">分享</div></div>
+          </div>
+          <div class="card-tags">
+            <span class="tag tag-red">#Brainrot</span>
+            <span class="tag tag-blue">#POV情感</span>
+            <span class="tag tag-green">#AI生成</span>
+            <span class="tag tag-yellow">#KOL合作</span>
+            <span class="tag tag-gray">#进度叙事</span>
+            <span class="tag tag-gray">#问题钩子</span>
+          </div>
         </div>
-        <div class="card-meta">10 个视频 · 82.3M 总点赞 · 美国区 Explore</div>
-        <div class="card-tags">
-          <span class="tag hot">#Brainrot</span>
-          <span class="tag">#POV情感</span>
-          <span class="tag">#KOL合作</span>
-          <span class="tag">#AI生成</span>
-          <span class="tag">#进度叙事</span>
-        </div>
-      </div>
-      <div class="card-stats">
-        <div class="stat-item">
-          <div class="stat-val">10</div>
-          <div class="stat-lbl">视频</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-val">82.3M</div>
-          <div class="stat-lbl">总点赞</div>
+        <div class="card-footer">
+          <span class="view-btn">
+            查看完整报告
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </span>
+          <span class="card-num">10 个视频</span>
         </div>
       </div>
     </a>
 
-    <!-- 示例：下一期报告长这样（到时候取消注释并填入数据）
+    <!-- ★ 后续期数在这里追加，示例如下（取消注释并填入真实数据）★
+
     <a class="report-card" href="./2026-04-08/">
-      <div class="card-date">
-        <div class="date-month">Apr</div>
-        <div class="date-day">08</div>
-        <div class="date-year">2026</div>
+      <div class="card-header">
+        <div class="card-edition"><span class="dot"></span> Vol.002</div>
+        <div class="card-date-big">04·08</div>
+        <div class="card-date-sub">2026 APR</div>
       </div>
       <div class="card-body">
-        <div class="card-title">Top 10 热门视频分析</div>
-        <div class="card-meta">10 个视频 · 美国区 Explore</div>
+        <div class="card-title">美区 Top 10 热门视频 · 情绪 × 形式 × UA 分析</div>
+        <div class="card-summary">本期重点内容概要……</div>
+        <div class="card-metrics">
+          <div class="metric"><div class="m-val hot">??M</div><div class="m-lbl">点赞</div></div>
+          <div class="metric"><div class="m-val">??K</div><div class="m-lbl">评论</div></div>
+          <div class="metric"><div class="m-val">??K</div><div class="m-lbl">收藏</div></div>
+          <div class="metric"><div class="m-val">??M</div><div class="m-lbl">分享</div></div>
+        </div>
         <div class="card-tags">
-          <span class="tag">#待填</span>
+          <span class="tag tag-red">#待填</span>
         </div>
       </div>
-      <div class="card-stats">
-        <div class="stat-item"><div class="stat-val">10</div><div class="stat-lbl">视频</div></div>
+      <div class="card-footer">
+        <span class="view-btn">查看完整报告
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+        <span class="card-num">10 个视频</span>
       </div>
     </a>
+
     -->
 
-  </div>
+    <!-- 占位卡：下一期 -->
+    <div class="report-card coming-soon">
+      <div class="coming-content">
+        <div style="font-size:32px;margin-bottom:12px;">📡</div>
+        <div style="font-size:14px;font-weight:700;color:var(--gray2);">下一期 · 即将发布</div>
+        <p>每周更新，敬请期待</p>
+      </div>
+    </div>
 
-  <div class="howto">
-    <h2>📋 如何新增一期报告</h2>
-    <div class="step">
-      <div class="step-num">1</div>
-      <div>生成新的报告 HTML 文件，命名为 <strong>index.html</strong>，封面图片放在同级的 <code>index_files/</code> 文件夹内</div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div>在本仓库新建一个以日期命名的文件夹，例如 <code>2026-04-08/</code>，把 <strong>index.html</strong> 和 <strong>index_files/</strong> 放进去</div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div>打开根目录的 <strong>index.html</strong>（本页），把示例注释里的卡片复制一份，填入新一期的日期和数据，并把旧的 <code>latest</code> class 去掉</div>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <div>把改动 <strong>commit & push</strong> 到 GitHub，几秒后新报告就自动上线了</div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── About ───────────────────────────────────────────────────── -->
+<section class="section" id="about">
+  <div class="section-header">
+    <div>
+      <div class="section-label">About</div>
+      <h2 class="section-title">这是什么？</h2>
     </div>
   </div>
+  <div class="about-grid">
+    <div class="about-features">
+      <div class="feature">
+        <div class="feat-icon">📡</div>
+        <div>
+          <div class="feat-title">实时数据采集</div>
+          <div class="feat-desc">通过美国区 IP + CDP 浏览器技术实时抓取 TikTok Explore 页热门内容，确保数据真实可靠</div>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">🧠</div>
+        <div>
+          <div class="feat-title">AI 深度分析</div>
+          <div class="feat-desc">每个视频分析情绪标签、表现形式、完播驱动因素，提炼可直接复用的 UA 素材公式</div>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">📊</div>
+        <div>
+          <div class="feat-title">完整数据指标</div>
+          <div class="feat-desc">涵盖点赞、评论、收藏、分享四项核心指标，标注各维度冠军，横向对比更直观</div>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">🔄</div>
+        <div>
+          <div class="feat-title">持续更新归档</div>
+          <div class="feat-desc">每期报告永久保存，历史内容随时可访问，追踪内容趋势的长期变化</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-desc" style="max-width:100%;margin-bottom:24px;">持续追踪 TikTok 美区热门内容规律，为内容创作和广告素材提供数据支撑</p>
+      <p>每期选取 TikTok Explore 页面当期最热门的 10 个视频，记录真实播放数据，拆解内容结构、情绪调性和传播机制，提炼出可直接落地的 UA 素材制作思路。</p>
+      <p>不同于泛泛的趋势报告，这里每一个结论都来自真实数据，每一个复用点都对应具体的内容公式。</p>
+    </div>
+  </div>
+</section>
 
-  <div class="footer">
+<!-- ── Footer ───────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-logo">TikTok <span>Radar</span></div>
+  <div class="footer-desc">
     数据通过 CDP 浏览器实时采集 · 内容来源：TikTok Explore（美国区 IP）<br>
-    <a href="https://github.com/sirengong/tiktok.top10.0401" target="_blank">GitHub 仓库 ↗</a>
-    &nbsp;·&nbsp;
-    <a href="./2026-04-01/" target="_blank">最新期报告 ↗</a>
+    图片版权归原作者所有，仅用于研究分析目的
   </div>
+  <div class="footer-links">
+    <a href="#reports">所有报告</a>
+    <a href="#about">关于项目</a>
+    <a href="https://github.com/sirengong/tiktokreport" target="_blank">GitHub ↗</a>
+    <a href="./2026-04-01/">最新报告 ↗</a>
+  </div>
+</footer>
 
-</div>
+<script>
+  // 统计卡片数量，更新 hero 数字
+  const cards = document.querySelectorAll('.report-card:not(.coming-soon)');
+  document.getElementById('total-editions').textContent = cards.length;
+</script>
+
 </body>
 </html>
