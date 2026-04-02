@@ -63,5 +63,5 @@ git push origin main
 
 echo ""
 echo "✅  发布成功！"
-echo "🌐  新报告地址: https://sirengong.github.io/tiktok.top10.0401/$DATE/"
-echo "📋  归档首页:   https://sirengong.github.io/tiktok.top10.0401/"
+echo "🌐  新报告地址: https://sirengong.github.io/westradar/$DATE/hub.html"
+echo "📋  归档首页:   https://sirengong.github.io/westradar/"
