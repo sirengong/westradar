@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>欧美内容情报站 · Vol.001 · 2026-04-01</title>
+<style>
+:root {
+  --red: #fe2c55;
+  --bg: #000;
+  --bg2: #0a0a0a;
+  --bg3: #111;
+  --bg4: #1a1a1a;
+  --border: #222;
+  --border2: #2a2a2a;
+  --white: #fff;
+  --gray1: #e0e0e0;
+  --gray2: #999;
+  --gray3: #555;
+  --gray4: #333;
+  --accent: #25f4ee;
+  --gold: #ffd700;
+  --header-h: 56px;
+  --sidebar-w: 188px;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--gray1); font-family: -apple-system,"PingFang SC","Microsoft YaHei",sans-serif; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+
+/* ── Fixed Header ── */
+.hub-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: var(--header-h);
+  background: rgba(0,0,0,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 20px 0 0;
+  gap: 0;
+}
+.header-brand {
+  width: var(--sidebar-w);
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 16px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  height: 100%;
+}
+.header-brand .dot { color: var(--red); font-size: 22px; line-height: 1; }
+.header-brand .name { font-size: 14px; font-weight: 800; color: var(--white); line-height: 1.2; }
+.header-brand .name small { display: block; font-size: 10px; font-weight: 400; color: var(--gray3); }
+.header-meta {
+  flex: 1; padding: 0 20px;
+  display: flex; align-items: center; gap: 16px;
+}
+.header-tag {
+  font-size: 11px; font-weight: 700; color: var(--gray3); letter-spacing: 1px;
+}
+.header-badge {
+  background: rgba(254,44,85,0.12); border: 1px solid rgba(254,44,85,0.3);
+  color: var(--red); font-size: 10px; font-weight: 700;
+  padding: 2px 10px; border-radius: 20px; letter-spacing: 0.5px;
+}
+.header-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.header-back {
+  font-size: 11px; color: var(--gray3); padding: 5px 12px;
+  border: 1px solid var(--border); border-radius: 6px; transition: all 0.2s;
+}
+.header-back:hover { color: var(--white); border-color: var(--gray3); }
+
+/* ── Layout ── */
+.hub-layout {
+  display: flex;
+  padding-top: var(--header-h);
+  min-height: 100vh;
+}
+
+/* ── Sidebar ── */
+.hub-sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  bottom: 0;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  z-index: 100;
+  display: flex; flex-direction: column;
+}
+.sidebar-group { padding: 20px 12px 8px; }
+.sidebar-group-label {
+  font-size: 9px; font-weight: 700; color: var(--gray4);
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 0 8px; margin-bottom: 6px;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 9px;
+  width: 100%; padding: 9px 10px;
+  border: none; background: none; border-radius: 8px;
+  cursor: pointer; color: var(--gray2); font-size: 12px;
+  text-align: left; transition: all 0.15s;
+  text-decoration: none;
+}
+.nav-item:hover { background: var(--bg4); color: var(--white); }
+.nav-item.active { background: rgba(254,44,85,0.12); color: var(--red); }
+.nav-item .ni-icon { font-size: 14px; flex-shrink: 0; width: 18px; text-align: center; }
+.nav-item .ni-label { flex: 1; }
+.ni-badge-new { background: var(--red); color: #fff; font-size: 8px; font-weight: 700; padding: 1px 5px; border-radius: 4px; }
+.ni-badge-soon { background: var(--bg4); color: var(--gray4); font-size: 8px; padding: 1px 5px; border-radius: 4px; }
+.sidebar-divider { height: 1px; background: var(--border); margin: 8px 12px; }
+.sidebar-spacer { flex: 1; }
+.sidebar-footer { padding: 12px 16px; border-top: 1px solid var(--border); }
+.sidebar-footer p { font-size: 9px; color: var(--gray4); line-height: 1.6; }
+
+/* ── Content Area ── */
+.hub-content {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Section panels ── */
+.section-panel { display: none; }
+.section-panel.active { display: block; }
+
+/* ── Section inner wrapper ── */
+.sec-inner {
+  max-width: 1020px;
+  padding: 32px 36px 60px;
+}
+
+/* ─────────── SHARED COMPONENT STYLES ─────────── */
+.sec-kicker { font-size: 11px; font-weight: 700; color: var(--red); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+.sec-title { font-size: 26px; font-weight: 800; letter-spacing: -0.4px; line-height: 1.2; color: var(--white); margin-bottom: 8px; }
+.sec-desc { font-size: 13px; color: var(--gray2); line-height: 1.7; max-width: 620px; margin-bottom: 24px; }
+.stats-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
+.stat-pill { background: var(--bg3); border: 1px solid var(--border); border-radius: 20px; padding: 5px 14px; font-size: 11px; color: var(--gray2); display: flex; align-items: center; gap: 6px; }
+.stat-pill strong { color: var(--white); }
+.sec-divider { height: 1px; background: var(--border); margin: 32px 0; }
+
+/* ─────────── TIKTOK SECTION STYLES ─────────── */
+.method-box {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-left: 3px solid var(--red); border-radius: 12px;
+  padding: 14px 18px; margin-bottom: 28px;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.method-box .icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.method-box .title { font-size: 12px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+.method-box .desc { font-size: 11px; color: var(--gray3); line-height: 1.7; }
+.method-box code { background: var(--bg4); color: var(--red); padding: 1px 7px; border-radius: 4px; font-size: 11px; font-family: monospace; }
+
+.tk-section-title {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 14px; font-weight: 700; color: var(--white);
+  border-bottom: 1px solid var(--border2); padding-bottom: 12px; margin-bottom: 20px;
+}
+.tk-section-title .num { font-size: 11px; color: var(--gray3); font-weight: 400; }
+
+.video-grid { display: flex; flex-direction: column; gap: 20px; margin-bottom: 36px; }
+
+.video-card {
+  background: var(--bg3); border: 1px solid var(--border2); border-radius: 16px;
+  overflow: hidden;
+  display: grid; grid-template-columns: 260px 1fr;
+}
+.video-card.champion { border-color: var(--red); }
+
+.video-cover {
+  position: relative; width: 260px; height: 464px; overflow: hidden; flex-shrink: 0;
+  background: var(--bg4);
+}
+.video-cover iframe {
+  width: 325px; height: 580px; border: none; display: block;
+  transform: scale(0.8); transform-origin: top left;
+}
+.rank-badge {
+  position: absolute; top: 10px; left: 10px; z-index: 10;
+  background: rgba(0,0,0,0.75); color: var(--white);
+  font-size: 16px; font-weight: 900; width: 32px; height: 32px;
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.rank-badge.gold { background: var(--gold); color: #000; border-color: transparent; }
+
+.video-info { padding: 20px 22px; display: flex; flex-direction: column; gap: 14px; }
+.video-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.video-title { font-size: 15px; font-weight: 700; color: var(--white); line-height: 1.4; }
+.video-author { font-size: 12px; font-weight: 600; color: var(--red); white-space: nowrap; }
+.score-badge { background: rgba(254,44,85,0.1); border: 1px solid rgba(254,44,85,0.25); color: var(--red); font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 20px; }
+
+.metrics { display: flex; gap: 16px; background: var(--bg4); border-radius: 10px; padding: 10px 14px; flex-wrap: wrap; }
+.metric { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 56px; }
+.metric .icon { font-size: 14px; }
+.metric .val { font-size: 14px; font-weight: 800; color: var(--white); }
+.metric .lbl { font-size: 9px; color: var(--gray3); }
+.metric.highlight .val { color: var(--red); }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 10px; font-weight: 600; padding: 2px 9px; border-radius: 20px; letter-spacing: 0.3px; }
+.tag.emotion { background: rgba(254,44,85,0.1); color: #ff8099; border: 1px solid rgba(254,44,85,0.2); }
+.tag.format { background: rgba(74,158,255,0.1); color: #8ac4ff; border: 1px solid rgba(74,158,255,0.2); }
+
+.analysis-title { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; color: var(--gray3); text-transform: uppercase; margin-bottom: 6px; }
+.analysis-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.analysis-list li { font-size: 12px; color: #aaa; line-height: 1.55; padding-left: 14px; position: relative; }
+.analysis-list li::before { content: '→'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+
+/* Data table */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 36px; }
+.data-table th { background: var(--bg4); color: var(--gray3); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border2); }
+.data-table td { padding: 10px 14px; border-bottom: 1px solid #1e1e1e; color: #ccc; vertical-align: middle; }
+.data-table tr:hover td { background: var(--bg4); }
+.rank-num { font-weight: 800; color: var(--red); }
+.num-cell { font-weight: 700; color: var(--white); }
+.top-val { color: var(--red); }
+.author-link { color: var(--red); text-decoration: none; font-weight: 600; }
+.score-cell { color: var(--red); font-weight: 800; }
+
+/* Trend bars */
+.trend-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 28px; }
+.trend-card { background: var(--bg4); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+.trend-card h3 { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 14px; }
+.bar-item { margin-bottom: 10px; }
+.bar-label { display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-bottom: 3px; }
+.bar-label span:last-child { color: var(--white); font-weight: 600; }
+.bar-track { background: var(--border2); border-radius: 4px; height: 5px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--red), #ff6b8a); }
+
+/* Insights */
+.insights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+.insight-card { background: var(--bg4); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+.insight-card .icon-big { font-size: 24px; margin-bottom: 8px; }
+.insight-card h3 { font-size: 13px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+.insight-card p { font-size: 11px; color: #777; line-height: 1.6; }
+.highlight-text { color: var(--red); font-weight: 700; }
+
+/* ─────────── TRENDS SECTION STYLES ─────────── */
+.trend-topic-card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 16px; margin-bottom: 20px; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.trend-topic-card:hover { border-color: var(--gray3); }
+.ttc-top { display: grid; grid-template-columns: 190px 1fr; }
+.ttc-images { background: var(--bg4); display: flex; flex-direction: column; gap: 2px; padding: 2px; }
+.ttc-images img { width: 100%; flex: 1; object-fit: cover; display: block; border-radius: 3px; min-height: 0; }
+.img-trio { display: flex; flex-direction: column; gap: 2px; height: 230px; }
+.img-trio img { flex: 1; }
+.ttc-info { padding: 18px 22px; }
+.ttc-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.ttc-rank { font-size: 32px; font-weight: 900; color: var(--red); line-height: 1; flex-shrink: 0; min-width: 40px; }
+.ttc-topic-meta { flex: 1; }
+.ttc-en { font-size: 17px; font-weight: 800; color: var(--white); line-height: 1.2; margin-bottom: 2px; }
+.ttc-zh { font-size: 12px; color: var(--gray2); }
+.ttc-traffic { background: rgba(254,44,85,0.1); border: 1px solid rgba(254,44,85,0.25); color: var(--red); font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 20px; align-self: center; white-space: nowrap; }
+.ttc-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+.ttc-tag { background: var(--bg4); color: var(--gray2); font-size: 10px; padding: 2px 8px; border-radius: 20px; border: 1px solid var(--border); }
+.ttc-bullets { list-style: none; margin-bottom: 12px; }
+.ttc-bullets li { font-size: 12px; color: #aaa; line-height: 1.6; padding: 3px 0 3px 14px; position: relative; }
+.ttc-bullets li::before { content: '·'; position: absolute; left: 4px; color: var(--gray3); }
+.ttc-ua { background: var(--bg4); border: 1px solid var(--border); border-radius: 9px; padding: 12px 14px; }
+.ttc-ua-label { font-size: 9px; font-weight: 700; color: var(--red); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+.ttc-ua-list { list-style: none; }
+.ttc-ua-list li { font-size: 11px; color: #aaa; line-height: 1.7; padding: 4px 0 4px 18px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.ttc-ua-list li:last-child { border-bottom: none; }
+.ttc-ua-list li::before { content: '▸'; position: absolute; left: 3px; color: var(--red); font-size: 9px; top: 6px; }
+.ttc-ua-list li strong { color: var(--white); font-weight: 600; }
+
+/* ─────────── COMING SOON SECTION ─────────── */
+.coming-soon-panel {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 70vh;
+}
+.cs-box {
+  text-align: center; padding: 60px;
+  background: var(--bg3); border: 1px dashed var(--border);
+  border-radius: 24px; max-width: 400px;
+}
+.cs-icon { font-size: 48px; margin-bottom: 20px; }
+.cs-title { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+.cs-desc { font-size: 13px; color: var(--gray3); line-height: 1.7; }
+.cs-badge { display: inline-block; margin-top: 16px; background: var(--bg4); border: 1px solid var(--border); color: var(--gray3); font-size: 11px; padding: 4px 14px; border-radius: 20px; }
+</style>
+</head>
+<body>
+
+<!-- ── Fixed Header ── -->
+<header class="hub-header">
+  <div class="header-brand">
+    <span class="dot">●</span>
+    <div class="name">欧美内容情报站<small>Western Content Intel</small></div>
+  </div>
+  <div class="header-meta">
+    <span class="header-tag">Vol.001</span>
+    <span class="header-tag">·</span>
+    <span class="header-tag">2026-04-01</span>
+    <span class="header-badge">Live</span>
+  </div>
+  <div class="header-right">
+    <a class="header-back" href="../index.html">← 归档首页</a>
+  </div>
+</header>
+
+<!-- ── Layout ── -->
+<div class="hub-layout">
+
+  <!-- ── Sidebar ── -->
+  <nav class="hub-sidebar">
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">本期内容</div>
+      <button class="nav-item active" data-target="s-trends" onclick="switchSection('s-trends',this)">
+        <span class="ni-icon">🔥</span>
+        <span class="ni-label">热搜分析</span>
+        <span class="ni-badge-new">NEW</span>
+      </button>
+      <button class="nav-item" data-target="s-tiktok" onclick="switchSection('s-tiktok',this)">
+        <span class="ni-icon">🎵</span>
+        <span class="ni-label">TikTok 热门</span>
+      </button>
+      <button class="nav-item" data-target="s-youtube" onclick="switchSection('s-youtube',this)">
+        <span class="ni-icon">▶️</span>
+        <span class="ni-label">YouTube Shorts</span>
+        <span class="ni-badge-soon">即将</span>
+      </button>
+      <button class="nav-item" data-target="s-memes" onclick="switchSection('s-memes',this)">
+        <span class="ni-icon">😂</span>
+        <span class="ni-label">表情包 Memes</span>
+        <span class="ni-badge-soon">即将</span>
+      </button>
+      <button class="nav-item" data-target="s-ads" onclick="switchSection('s-ads',this)">
+        <span class="ni-icon">📢</span>
+        <span class="ni-label">平台热门广告</span>
+        <span class="ni-badge-soon">即将</span>
+      </button>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">站点导航</div>
+      <a class="nav-item" href="../index.html">
+        <span class="ni-icon">📋</span>
+        <span class="ni-label">全部归档</span>
+      </a>
+    </div>
+    <div class="sidebar-spacer"></div>
+    <div class="sidebar-footer">
+      <p>欧美内容情报站<br>游戏营销人参考手册<br>每周更新</p>
+    </div>
+  </nav>
+
+  <!-- ── Content Area ── -->
+  <main class="hub-content">
+
+    <!-- ══════════════════════════════════════ -->
+    <!--  SECTION: 热搜分析                     -->
+    <!-- ══════════════════════════════════════ -->
+    <div id="s-trends" class="section-panel active">
+      <div class="sec-inner">
+        <div class="sec-kicker">🔥 US Google Trends · 热搜分析</div>
+        <div class="sec-title">美区热搜 Top 10</div>
+        <div class="sec-desc">基于 Google Trends 美国地区实时数据，精选 3 月底至 4 月初搜索量峰值最高、与游戏营销相关度最强的 10 大话题，每条附 UA 素材可复用洞察。</div>
+        <div class="stats-row">
+          <div class="stat-pill">📅 <strong>数据周期</strong> 2026.03.25 – 04.01</div>
+          <div class="stat-pill">🌎 <strong>地区</strong> 美国</div>
+          <div class="stat-pill">📊 <strong>来源</strong> Google Trends RSS + Web</div>
+          <div class="stat-pill">🎮 <strong>视角</strong> 游戏营销 UA 向</div>
+        </div>
+
+        <!-- 01 Zootopia 2 -->
+        <div class="trend-topic-card">
+          <div class="ttc-top">
+            <div class="ttc-images"><div class="img-trio">
+              <img src="trend_images/01_zootopia2_1.jpg" alt="Zootopia 2">
+              <img src="trend_images/01_zootopia2_2.jpg" alt="Zootopia 2">
+              <img src="trend_images/01_zootopia2_3.jpg" alt="Zootopia 2">
+            </div></div>
+            <div class="ttc-info">
+              <div class="ttc-header">
+                <div class="ttc-rank">01</div>
+                <div class="ttc-topic-meta"><div class="ttc-en">Zootopia 2</div><div class="ttc-zh">疯狂动物城 2</div></div>
+                <div class="ttc-traffic">2M+ 搜索</div>
+              </div>
+              <div class="ttc-tags"><span class="ttc-tag">#Zootopia2</span><span class="ttc-tag">#Disney</span><span class="ttc-tag">#DisneyPlus</span></div>
+              <ul class="ttc-bullets">
+                <li>2025年11月院线公映，以 18.5 亿美元全球票房打破动画电影史上映纪录；2026年3月11日登陆 Disney+，引发新一轮讨论热潮。</li>
+                <li>延续 Judy Hopps 与 Nick Wilde 搭档破案，引入 Ke Huy Quan 等新声优，加入沙漠区等全新场景。</li>
+                <li>IMDB 7.4/10，Z 世代与家庭观众双覆盖，社媒热度跨圈层持续扩散。</li>
+              </ul>
+              <div class="ttc-ua"><div class="ttc-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="ttc-ua-list">
+                <li><strong>【搭档公式】</strong> 视觉反差搭档（小只×大只角色组合）= 天然钩子，RPG/放置类素材可套用"意想不到的 duo"框架。</li>
+                <li><strong>【流媒体上线窗口】</strong> 用户刷完电影后处于娱乐欲高峰，3月中旬至4月是投放休闲/剧情手游的黄金窗口，文案用"The adventure continues"蹭续集情绪。</li>
+                <li><strong>【制服+职业扮演审美】</strong> 动物警探造型契合美区玩家"穿搭+职业扮演"偏好，角色换装/职业解锁类素材点击率预期高。</li>
+              </ul></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02 March Madness -->
+        <div class="trend-topic-card">
+          <div class="ttc-top">
+            <div class="ttc-images"><div class="img-trio">
+              <img src="trend_images/02_march_madness_1.png" alt="March Madness">
+              <img src="trend_images/02_march_madness_2.png" alt="March Madness">
+              <img src="trend_images/02_march_madness_3.jpg" alt="March Madness">
+            </div></div>
+            <div class="ttc-info">
+              <div class="ttc-header">
+                <div class="ttc-rank">02</div>
+                <div class="ttc-topic-meta"><div class="ttc-en">March Madness 2026</div><div class="ttc-zh">NCAA 疯狂三月</div></div>
+                <div class="ttc-traffic">5M+ 搜索</div>
+              </div>
+              <div class="ttc-tags"><span class="ttc-tag">#MarchMadness</span><span class="ttc-tag">#FinalFour</span><span class="ttc-tag">#NCAABasketball</span></div>
+              <ul class="ttc-bullets">
+                <li>2026 NCAA 男篮锦标赛创收视历史纪录；UConn 19 分大逆转淘汰杜克，Braylon Mullins 压哨球视频全网刷屏。</li>
+                <li>四强：密歇根大学 vs 亚利桑那、康涅狄格 vs 伊利诺伊，冠军赛 4 月 6 日在印第安纳波利斯举行。</li>
+                <li>全美约 24% 成年人参与 Bracket 竞猜，广告市场在此两周集中爆发。</li>
+              </ul>
+              <div class="ttc-ua"><div class="ttc-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="ttc-ua-list">
+                <li><strong>【逆转叙事钩子】</strong> "Down 19 → Still won" 结构在美国玩家中极具共鸣，竞技/策略类手游素材直接沿用绝地翻盘框架。</li>
+                <li><strong>【Bracket 决策心理】</strong> "选择→结果"决策循环与策略/卡牌游戏核心玩法同构，"Build your team / Make your pick"框架切入阵容搭配。</li>
+                <li><strong>【倒计时压迫感】</strong> 4月6日冠军赛前1-2周，投放"赛程积分榜"样式素材，契合用户当下信息接收习惯。</li>
+              </ul></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 03 Coachella -->
+        <div class="trend-topic-card">
+          <div class="ttc-top">
+            <div class="ttc-images"><div class="img-trio">
+              <img src="trend_images/03_coachella_1.jpg" alt="Coachella">
+              <img src="trend_images/03_coachella_2.png" alt="Coachella">
+              <img src="trend_images/03_coachella_3.jpg" alt="Coachella">
+            </div></div>
+            <div class="ttc-info">
+              <div class="ttc-header">
+                <div class="ttc-rank">03</div>
+                <div class="ttc-topic-meta"><div class="ttc-en">Coachella 2026</div><div class="ttc-zh">科切拉音乐节</div></div>
+                <div class="ttc-traffic">3M+ 搜索</div>
+              </div>
+              <div class="ttc-tags"><span class="ttc-tag">#Coachella2026</span><span class="ttc-tag">#SabrinaCarpenter</span><span class="ttc-tag">#JustinBieber</span></div>
+              <ul class="ttc-bullets">
+                <li>4月10-12日及17-19日在加州印第奥举办，门票宣布后不到一周售罄。</li>
+                <li>三大压轴：Sabrina Carpenter（周五）、Justin Bieber 回归首演（周六）、Karol G（周日）；另有 BIGBANG、Young Thug 参演。</li>
+                <li>时尚与美妆是最大 UGC 驱动力，TikTok"Coachella Outfit"相关标签累计浏览超 10 亿次。</li>
+              </ul>
+              <div class="ttc-ua"><div class="ttc-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="ttc-ua-list">
+                <li><strong>【Festival Look 换装钩子】</strong> Coachella 是美区 Z 世代年度最高"换装自我表达"情绪峰值，换装/皮肤类手游素材用"Your Coachella fit, in-game"精准命中。</li>
+                <li><strong>【情怀回归叙事】</strong> Justin Bieber 回归、BIGBANG 参演引发跨圈层情感浓度，适合"角色/活动回归"类运营素材借势。</li>
+                <li><strong>【KOL 内容密度蹭势】</strong> 节日期间达人内容密集爆发，素材中加入沙漠/霓虹/帐篷等视觉元素，即可通过视觉联想捕获节日情绪流量。</li>
+              </ul></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04 Euphoria S3 -->
+        <div class="trend-topic-card">
+          <div class="ttc-top">
+            <div class="ttc-images"><div class="img-trio">
+              <img src="trend_images/04_euphoria_s3_1.png" alt="Euphoria S3">
+              <img src="trend_images/04_euphoria_s3_2.jpg" alt="Euphoria S3">
+              <img src="trend_images/04_euphoria_s3_3.jpg" alt="Euphoria S3">
+            </div></div>
+            <div class="ttc-info">
+              <div class="ttc-header">
+                <div class="ttc-rank">04</div>
+                <div class="ttc-topic-meta"><div class="ttc-en">Euphoria Season 3</div><div class="ttc-zh">《亢奋》第三季</div></div>
+                <div class="ttc-traffic">2M+ 搜索</div>
+              </div>
+              <div class="ttc-tags"><span class="ttc-tag">#Euphoria</span><span class="ttc-tag">#EuphoriaS3</span><span class="ttc-tag">#Zendaya</span></div>
+              <ul class="ttc-bullets">
+                <li>HBO/Max《亢奋》第三季 4 月 12 日首播，距第二季时隔近四年，预告片 48 小时内播放突破 5000 万次。</li>
+                <li>本季"5 年时间跳跃"，角色从高中步入成年社会；新增 Natasha Lyonne、Sharon Stone、Rosalía 加盟。</li>
+                <li>高饱和霓虹美学与 Z 世代焦虑议题著称，Zendaya 造型和配乐每季都引发大规模二创内容爆发。</li>
+              </ul>
+              <div class="ttc-ua"><div class="ttc-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="ttc-ua-list">
+                <li><strong>【霓虹美学借鉴】</strong> 深色背景+霓虹紫/金高光配色是标志性视觉语言，手游 UA 素材沿用这套打光风格，即可触发"亢奋氛围"联想，延长视觉驻留。</li>
+                <li><strong>【成年焦虑叙事】</strong> "New chapter starts now"文案框架精准命中正在追剧的 18-26 岁用户，适合剧情 RPG/互动小说品类。</li>
+                <li><strong>【首播日抢量窗口】</strong> 每周播出日 ±2 天集中提高出价，使用青春/情感冲突题材素材，是高性价比的周期性追热点策略。</li>
+              </ul></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 Grok AI -->
+        <div class="trend-topic-card">
+          <div class="ttc-top">
+            <div class="ttc-images"><div class="img-trio">
+              <img src="trend_images/05_grok_ai_1.png" alt="Grok AI">
+              <img src="trend_images/05_grok_ai_2.png" alt="Grok AI">
+              <img src="trend_images/05_grok_ai_3.jpg" alt="Grok AI">
+            </div></div>
+            <div class="ttc-info">
+              <div class="ttc-header">
+                <div class="ttc-rank">05</div>
+                <div class="ttc-topic-meta"><div class="ttc-en">Grok AI</div><div class="ttc-zh">Grok 人工智能</div></div>
+                <div class="ttc-traffic">1M+ 搜索</div>
+              </div>
+              <div class="ttc-tags"><span class="ttc-tag">#Grok</span><span class="ttc-tag">#xAI</span><span class="ttc-tag">#ElonMusk</span></div>
+              <ul class="ttc-bullets">
+                <li>xAI 推出 SuperGrok Lite 订阅档（月费 $10），提供 Grok 3.5 访问及基础图像/视频创作能力，定价引发大量"值不值"讨论。</li>
+                <li>Grok Imagine 重大更新，新增风格化图像模板；同期收紧免费层权限，引发大规模用户抱怨。</li>
+                <li>Elon Musk 预告"Grok 5 将史诗级"，发布时间已延误，科技媒体与用户持续高期待等待。</li>
+              </ul>
+              <div class="ttc-ua"><div class="ttc-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="ttc-ua-list">
+                <li><strong>【AI 好奇心借势】</strong> "AI 到底能做什么"好奇心搜索用户具有高科技接受度，益智/策略类素材用"AI-level strategy"钩子暗示游戏深度。</li>
+                <li><strong>【付费分层心理共鸣】</strong> SuperGrok Lite $10 引发"数字服务值不值"讨论高峰，"Free to start"框架此时降低内购转化门槛效果最显著。</li>
+                <li><strong>【AI 失控焦虑流量】</strong> Grok 生成不良内容争议引发"AI 边界"讨论，赛博朋克/末日主题手游可用"What if AI had no rules?"钩子精准捕获这批用户。</li>
+              </ul></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06 Pokemon -->
+        <div class="trend-topic-card">
+          <div class="ttc-top">
+            <div class="ttc-images"><div class="img-trio">
+              <img src="trend_images/06_pokemon_1.jpg" alt="Pokemon 30th">
+              <img src="trend_images/06_pokemon_2.jpg" alt="Pokemon 30th">
+              <img src="trend_images/06_pokemon_3.jpg" alt="Pokemon 30th">
+            </div></div>
+            <div class="ttc-info">
+              <div class="ttc-header">
+                <div class="ttc-rank">06</div>
+                <div class="ttc-topic-meta"><div class="ttc-en">Pokémon 30th Anniversary</div><div class="ttc-zh">宝可梦 30 周年</div></div>
+                <div class="ttc-traffic">3M+ 搜索</div>
+              </div>
+              <div class="ttc-tags"><span class="ttc-tag">#Pokemon30</span><span class="ttc-tag">#PokemonDay</span><span class="ttc-tag">#Nintendo</span></div>
+              <ul class="ttc-bullets">
+                <li>30 周年系列庆典延续至 3-4 月，限量卡牌包 eBay 转手价溢价 300%+，引爆收藏圈和社交媒体。</li>
+                <li>TCG 宝可梦卡牌市场过去 12 个月流通量增长 140%，开盒视频大量涌现，TikTok #PokemonCards 单周曝光超 5 亿次。</li>
+                <li>Nintendo Switch 2 发布前后新作传言持续发酵，玩家社区高度活跃，情怀话题跨全年龄层共鸣强烈。</li>
+              </ul>
+              <div class="ttc-ua"><div class="ttc-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="ttc-ua-list">
+                <li><strong>【开盒/抽卡情绪极值】</strong> 开盒视频惊喜感与抽卡动画高度同构，手游抽卡/开宝箱素材在此周期"高光展示+夸张反应"击中情绪记忆点。</li>
+                <li><strong>【收集完整度强迫症】</strong> "Gotta catch 'em all"是 30 年传承的强迫收集钩子，图鉴完成度/角色解锁进度条类素材转化效率在此情绪背景下达峰值。</li>
+                <li><strong>【情怀+新奇双引擎】</strong> "你是从哪一代开始的"互动句式可唤起群体记忆，适合有资深玩家社区的手游引发评论互动，降低 CPE。</li>
+              </ul></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 07 Ohtani -->
+        <div class="trend-topic-card">
+          <div class="ttc-top">
+            <div class="ttc-images"><div class="img-trio">
+              <img src="trend_images/07_ohtani_1.jpg" alt="Ohtani">
+              <img src="trend_images/07_ohtani_2.jpg" alt="Ohtani">
+              <img src="trend_images/07_ohtani_3.jpg" alt="Ohtani">
+            </div></div>
+            <div class="ttc-info">
+              <div class="ttc-header">
+                <div class="ttc-rank">07</div>
+                <div class="ttc-topic-meta"><div class="ttc-en">Shohei Ohtani / MLB Opening Day</div><div class="ttc-zh">大谷翔平 / MLB 开幕日</div></div>
+                <div class="ttc-traffic">4M+ 搜索</div>
+              </div>
+              <div class="ttc-tags"><span class="ttc-tag">#ShoheOhtani</span><span class="ttc-tag">#MLB</span><span class="ttc-tag">#OpeningDay</span></div>
+              <ul class="ttc-bullets">
+                <li>2026 MLB 开幕日（3月26日），大谷翔平以 MVP + 本垒打王身份出战，投打两用首场表现引发全美狂欢，社媒实时讨论量超超级碗前半场。</li>
+                <li>道奇队 $700M/10年合同仍是职业体育史上最大合同，球迷对每场比赛保持极高关注度。</li>
+                <li>大谷个人 TikTok 账号粉丝 3 月单月增长 120 万，在非棒球观众群体中也建立了广泛认知。</li>
+              </ul>
+              <div class="ttc-ua"><div class="ttc-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="ttc-ua-list">
+                <li><strong>【双栖超人叙事】</strong> "One player, two roles"框架展示角色多技能/多形态切换，传递全能感，适合有复杂职业系统的 RPG。</li>
+                <li><strong>【赛季开幕仪式感】</strong> 开幕日带有强烈"新开始"情绪，与新服开启/版本更新逻辑高度契合，"Season starts now / Who's ready?"框架捕获开幕期兴奋情绪。</li>
+                <li><strong>【跨圈层明星流量】</strong> 大谷在非棒球受众中也有高知名度，投放运动竞技类素材时，"全能超人"叙事可拓展非硬核体育玩家圈层。</li>
+              </ul></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 08 Jessica Simpson -->
+        <div class="trend-topic-card">
+          <div class="ttc-top">
+            <div class="ttc-images"><div class="img-trio">
+              <img src="trend_images/08_jessica_1.jpg" alt="Jessica Simpson">
+              <img src="trend_images/08_jessica_2.jpg" alt="Jessica Simpson">
+              <img src="trend_images/08_jessica_3.jpg" alt="Jessica Simpson">
+            </div></div>
+            <div class="ttc-info">
+              <div class="ttc-header">
+                <div class="ttc-rank">08</div>
+                <div class="ttc-topic-meta"><div class="ttc-en">Jessica Simpson Y2K Revival</div><div class="ttc-zh">杰西卡·辛普森 Y2K 复古回潮</div></div>
+                <div class="ttc-traffic">1M+ 搜索</div>
+              </div>
+              <div class="ttc-tags"><span class="ttc-tag">#JessicaSimpson</span><span class="ttc-tag">#Y2K</span><span class="ttc-tag">#Y2KFashion</span></div>
+              <ul class="ttc-bullets">
+                <li>杰西卡·辛普森宣布回归音乐圈，正值 Y2K 美学在 TikTok 强势复活周期，大量"当年的她 vs 现在"对比内容爆发。</li>
+                <li>其 2000 年代造型（超低腰牛仔裤、闪亮上衣）被 Z 世代重新演绎，#Y2KFashion TikTok 单周浏览超 8 亿次。</li>
+                <li>个人品牌宣布与多家零售商新一轮合作，商业和文化热度双线爆发。</li>
+              </ul>
+              <div class="ttc-ua"><div class="ttc-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="ttc-ua-list">
+                <li><strong>【Y2K 时间差钩子】</strong> "2005 you vs 2026 you"对比结构是 TikTok 高分留存公式，角色复古外观 vs 最新皮肤对比精准触发 25-35 岁用户怀旧情绪。</li>
+                <li><strong>【闪亮+低饱和滤镜美学】</strong> Y2K 视觉特征（玻璃质感、金属光泽、低饱和粉/银配色）与当前手游皮肤设计趋势高度契合，素材加入这套视觉滤镜可钩住目标受众。</li>
+                <li><strong>【"She's back"回归情绪】</strong> "复古回归"叙事框架引发用户集体情绪共振，手游"经典角色/活动回归"类运营素材套用这一公式制造稀缺感。</li>
+              </ul></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 09 Stranger Things -->
+        <div class="trend-topic-card">
+          <div class="ttc-top">
+            <div class="ttc-images"><div class="img-trio">
+              <img src="trend_images/09_strangerthings_1.jpg" alt="Stranger Things">
+              <img src="trend_images/09_strangerthings_2.jpg" alt="Stranger Things">
+              <img src="trend_images/09_strangerthings_3.jpg" alt="Stranger Things">
+            </div></div>
+            <div class="ttc-info">
+              <div class="ttc-header">
+                <div class="ttc-rank">09</div>
+                <div class="ttc-topic-meta"><div class="ttc-en">Stranger Things: Tales from the Upside Down</div><div class="ttc-zh">《怪奇物语》衍生宇宙</div></div>
+                <div class="ttc-traffic">2M+ 搜索</div>
+              </div>
+              <div class="ttc-tags"><span class="ttc-tag">#StrangerThings</span><span class="ttc-tag">#UpsideDown</span><span class="ttc-tag">#Netflix</span></div>
+              <ul class="ttc-bullets">
+                <li>Netflix 宣布《怪奇物语》衍生项目《Tales from the Upside Down》开发确认，同时公布第五季（终季）最终回播出时间窗口，引爆粉丝社群。</li>
+                <li>衍生宇宙扩展计划曝光：包括动画剧集、舞台剧全球巡演及游戏联名合作，Netflix 给予高优先级资源倾斜。</li>
+                <li>系列在 Netflix 全球播放量历史 Top 5，任何官宣动作都能触发跨平台社媒联动，3 月末话题热度持续两周以上。</li>
+              </ul>
+              <div class="ttc-ua"><div class="ttc-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="ttc-ua-list">
+                <li><strong>【翻转现实视觉钩子】</strong> 颠倒世界的镜像扭曲概念是极强好奇心触发器，手游素材借用"翻转/扭曲现实"视觉特效作为前 3 秒钩子，诱发"这是什么？"的点击冲动。</li>
+                <li><strong>【IP 宇宙延续感】</strong> "The story doesn't end here"框架强化游戏世界观深度感，适合有丰富剧情积累的手游。</li>
+                <li><strong>【复古80s霓虹美学】</strong> 与 Y2K 复古热叠加，双重情怀共振，素材使用这套视觉语言在当前 TikTok/Shorts 算法中完播率更高。</li>
+              </ul></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10 Zendaya -->
+        <div class="trend-topic-card">
+          <div class="ttc-top">
+            <div class="ttc-images"><div class="img-trio">
+              <img src="trend_images/10_zendaya_1.jpg" alt="Zendaya">
+              <img src="trend_images/10_zendaya_2.jpg" alt="Zendaya">
+              <img src="trend_images/10_zendaya_3.jpg" alt="Zendaya">
+            </div></div>
+            <div class="ttc-info">
+              <div class="ttc-header">
+                <div class="ttc-rank">10</div>
+                <div class="ttc-topic-meta"><div class="ttc-en">Zendaya "The Drama"</div><div class="ttc-zh">赞达亚·科尔曼 全面霸屏</div></div>
+                <div class="ttc-traffic">3M+ 搜索</div>
+              </div>
+              <div class="ttc-tags"><span class="ttc-tag">#Zendaya</span><span class="ttc-tag">#Dune3</span><span class="ttc-tag">#TimotheeChalamet</span></div>
+              <ul class="ttc-bullets">
+                <li>Zendaya 以《亢奋》第三季 + 《沙丘3》双线同步话题在 3-4 月达到个人热度历史峰值，4 月颁奖季获多项表演奖提名。</li>
+                <li>与 Timothée Chalamet 确认恋情正式公开，#Zendaya 标签连续 5 天位居 X/TikTok 趋势榜首，单日产生超 1200 万条相关内容。</li>
+                <li>3 月封面同时出现在 Vogue US、Vanity Fair、Harper's Bazaar，全球 Google 时尚搜索量达峰值。</li>
+              </ul>
+              <div class="ttc-ua"><div class="ttc-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="ttc-ua-list">
+                <li><strong>【多线叙事爆发策略】</strong> 多个频道同期投放互补角度素材制造"话题包围感"，可提升跨渠道 Recall，适合大版本更新期间的多端联动。</li>
+                <li><strong>【CP 话题流量】</strong> 角色情侣/搭档关系向素材（选择你的队友/CP 配对玩法）在此情绪背景下精准触发收藏和分享。</li>
+                <li><strong>【高质感视觉标准提升】</strong> 三刊同封提升用户视觉审美阈值，此周期游戏素材整体画质和构图精度应有意识地拔高，以匹配注意力门槛。</li>
+              </ul></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /sec-inner -->
+    </div><!-- /s-trends -->
+
+
+    <!-- ══════════════════════════════════════ -->
+    <!--  SECTION: TikTok 热门                  -->
+    <!-- ══════════════════════════════════════ -->
+    <div id="s-tiktok" class="section-panel">
+      <div class="sec-inner">
+        <div class="sec-kicker">🎵 TikTok Explore · 热门视频分析</div>
+        <div class="sec-title">美区 TikTok 热门 Top 10</div>
+        <div class="sec-desc">通过美国 VPN + CDP 浏览器实时抓取 TikTok Explore 美区热门内容，拆解情绪、表现形式与 UA 素材可复用点。</div>
+        <div class="stats-row">
+          <div class="stat-pill">❤️ <strong>82.3M</strong> 总点赞</div>
+          <div class="stat-pill">💬 <strong>807K</strong> 总评论</div>
+          <div class="stat-pill">⭐ <strong>7.1M</strong> 总收藏</div>
+          <div class="stat-pill">🔗 <strong>18.1M</strong> 总分享</div>
+        </div>
+
+        <div class="method-box">
+          <div class="icon">📐</div>
+          <div>
+            <div class="title">排名方法论 · 综合传播力评分</div>
+            <div class="desc">本期排名采用<strong style="color:#e0e0e0">综合分</strong>，而非单一点赞数。公式：<code>综合分 = 点赞 + 评论×3 + 收藏×2 + 分享×2</code> 评论权重更高，因为它代表深度互动；收藏和分享体现主动留存与传播意愿，这也是为什么 collinskey 的 Brainrot 视频（分享 9.1M）从第 5 名跃升为第 1 名。</div>
+          </div>
+        </div>
+
+        <div class="tk-section-title"><span>视频详情分析</span><span class="num">综合分排名</span></div>
+        <div class="video-grid">
+
+          <!-- #1 collinskey -->
+          <div class="video-card champion">
+            <div class="video-cover">
+              <div class="rank-badge gold">1</div>
+              <iframe src="https://www.tiktok.com/embed/v2/7616849748359728415" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-header">
+                <div><div class="video-title">轮胎脑袋逛商场 Brainrot<br><span style="font-size:11px;color:#555;">#boneka #brainrot — Collins Key</span></div>
+                  <div style="margin-top:5px;display:flex;gap:6px;flex-wrap:wrap;"><span class="score-badge">综合分 40.8M</span><span style="font-size:10px;color:#f59e0b;font-weight:700;">🏆 点赞王</span><span style="font-size:10px;color:#f59e0b;font-weight:700;">🏆 分享王</span></div></div>
+                <a class="video-author" href="https://www.tiktok.com/@collinskey/video/7616849748359728415" target="_blank">@collinskey ↗</a>
+              </div>
+              <div class="metrics">
+                <div class="metric highlight"><span class="icon">❤️</span><span class="val">19.2M</span><span class="lbl">点赞 🏆</span></div>
+                <div class="metric"><span class="icon">💬</span><span class="val">79.8K</span><span class="lbl">评论</span></div>
+                <div class="metric highlight"><span class="icon">⭐</span><span class="val">1.6M</span><span class="lbl">收藏</span></div>
+                <div class="metric highlight"><span class="icon">🔗</span><span class="val">9.1M</span><span class="lbl">分享 🏆</span></div>
+              </div>
+              <div class="tags"><span class="tag emotion">#抽象</span><span class="tag emotion">#魔性</span><span class="tag emotion">#反常识</span><span class="tag format">#Brainrot荒诞喜剧</span><span class="tag format">#情景剧</span></div>
+              <div><div class="analysis-title">UA 素材可复用点</div>
+              <ul class="analysis-list">
+                <li><strong>分享量 9.1M</strong>，是点赞的近一半——Brainrot 内容传播裂变能力极强，适合病毒素材方向</li>
+                <li>把游戏怪物/BOSS "塞进" 真实生活场景（坐地铁、逛超市）制造反差魔性感</li>
+              </ul></div>
+            </div>
+          </div>
+
+          <!-- #2 ishowspeed -->
+          <div class="video-card">
+            <div class="video-cover">
+              <div class="rank-badge">2</div>
+              <iframe src="https://www.tiktok.com/embed/v2/7621300668329905422" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-header">
+                <div><div class="video-title">IShowSpeed Deku Cosplay 展示<br><span style="font-size:11px;color:#555;">#ishowspeed</span></div>
+                  <div style="margin-top:5px;display:flex;gap:6px;flex-wrap:wrap;"><span class="score-badge">综合分 22.8M</span><span style="font-size:10px;color:#f59e0b;font-weight:700;">🏆 评论王</span></div></div>
+                <a class="video-author" href="https://www.tiktok.com/@ishowspeed/video/7621300668329905422" target="_blank">@ishowspeed ↗</a>
+              </div>
+              <div class="metrics">
+                <div class="metric highlight"><span class="icon">❤️</span><span class="val">16.3M</span><span class="lbl">点赞</span></div>
+                <div class="metric highlight"><span class="icon">💬</span><span class="val">371.3K</span><span class="lbl">评论 🏆</span></div>
+                <div class="metric"><span class="icon">⭐</span><span class="val">1.2M</span><span class="lbl">收藏</span></div>
+                <div class="metric"><span class="icon">🔗</span><span class="val">1.5M</span><span class="lbl">分享</span></div>
+              </div>
+              <div class="tags"><span class="tag emotion">#搞笑</span><span class="tag emotion">#粉丝共鸣</span><span class="tag emotion">#热血</span><span class="tag format">#KOL出镜</span><span class="tag format">#cosplay</span></div>
+              <div><div class="analysis-title">UA 素材可复用点</div>
+              <ul class="analysis-list">
+                <li>评论量 <strong>371K</strong>（全场最高），KOL 效应带来极强粉丝互动</li>
+                <li><strong>游戏角色 cosplay + 达人夸张表演</strong> = 低成本高辨识度素材公式；适合新英雄上线时的达人合作</li>
+              </ul></div>
+            </div>
+          </div>
+
+          <!-- #3 fakeltfunny0021 -->
+          <div class="video-card">
+            <div class="video-cover">
+              <div class="rank-badge">3</div>
+              <iframe src="https://www.tiktok.com/embed/v2/7603344058680888607" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-header">
+                <div><div class="video-title">poV: 你是个奶爸<br><span style="font-size:11px;color:#555;">Being a girl dad is an "unprecedented" experience</span></div>
+                  <div style="margin-top:5px;display:flex;gap:6px;flex-wrap:wrap;"><span class="score-badge">综合分 16.2M</span><span style="font-size:10px;color:#f59e0b;font-weight:700;">🏆 收藏王</span></div></div>
+                <a class="video-author" href="https://www.tiktok.com/@fakeltfunny0021/video/7603344058680888607" target="_blank">@fakeltfunny0021 ↗</a>
+              </div>
+              <div class="metrics">
+                <div class="metric highlight"><span class="icon">❤️</span><span class="val">12M</span><span class="lbl">点赞</span></div>
+                <div class="metric"><span class="icon">💬</span><span class="val">15.2K</span><span class="lbl">评论</span></div>
+                <div class="metric highlight"><span class="icon">⭐</span><span class="val">559.4K</span><span class="lbl">收藏 🏆</span></div>
+                <div class="metric"><span class="icon">🔗</span><span class="val">1.5M</span><span class="lbl">分享</span></div>
+              </div>
+              <div class="tags"><span class="tag emotion">#温馨</span><span class="tag emotion">#真实共鸣</span><span class="tag emotion">#搞笑</span><span class="tag format">#POV主观视角</span><span class="tag format">#生活记录</span></div>
+              <div><div class="analysis-title">UA 素材可复用点</div>
+              <ul class="analysis-list">
+                <li><strong>"pov: 你是___"</strong> 是 TikTok 长青钩子结构，代入感极强，收藏量 559K 说明用户高度认同</li>
+                <li>游戏 UA 套用：「pov: 你是联盟里最后一个幸存者」/ 「pov: 你刚刚开到 SSR」</li>
+              </ul></div>
+            </div>
+          </div>
+
+          <!-- #4 bbranson8 -->
+          <div class="video-card">
+            <div class="video-cover">
+              <div class="rank-badge">4</div>
+              <iframe src="https://www.tiktok.com/embed/v2/7605949028395781389" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-header">
+                <div><div class="video-title">在男友背上贴满彩色闪钻<br><span style="font-size:11px;color:#555;">decorating my boyfriend's back with sparkles</span></div>
+                  <div style="margin-top:5px;"><span class="score-badge">综合分 13.8M</span></div></div>
+                <a class="video-author" href="https://www.tiktok.com/@bbranson8/video/7605949028395781389" target="_blank">@bbranson8 ↗</a>
+              </div>
+              <div class="metrics">
+                <div class="metric highlight"><span class="icon">❤️</span><span class="val">9.8M</span><span class="lbl">点赞</span></div>
+                <div class="metric"><span class="icon">💬</span><span class="val">17.4K</span><span class="lbl">评论</span></div>
+                <div class="metric"><span class="icon">⭐</span><span class="val">457.8K</span><span class="lbl">收藏</span></div>
+                <div class="metric"><span class="icon">🔗</span><span class="val">1.5M</span><span class="lbl">分享</span></div>
+              </div>
+              <div class="tags"><span class="tag emotion">#治愈</span><span class="tag emotion">#满足感</span><span class="tag emotion">#情侣</span><span class="tag format">#手工DIY</span><span class="tag format">#ASMR</span></div>
+              <div><div class="analysis-title">UA 素材可复用点</div>
+              <ul class="analysis-list">
+                <li>极度细腻的亮片铺满画面，视觉上有强烈 ASMR 感，天然高完播率</li>
+                <li><strong>「为另一半做某件事」</strong>情侣互动框架：游戏礼包/皮肤赠送场景 → "给 TA 一个惊喜"</li>
+              </ul></div>
+            </div>
+          </div>
+
+          <!-- #5 andr3w_wave -->
+          <div class="video-card">
+            <div class="video-cover">
+              <div class="rank-badge">5</div>
+              <iframe src="https://www.tiktok.com/embed/v2/7600089922267008278" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-header">
+                <div><div class="video-title">好莱坞星光大道真实街拍互动<br><span style="font-size:11px;color:#555;">That walk said everything @korraobidi #RedCarpetBoy</span></div>
+                  <div style="margin-top:5px;"><span class="score-badge">综合分 13.3M</span></div></div>
+                <a class="video-author" href="https://www.tiktok.com/@andr3w_wave/video/7600089922267008278" target="_blank">@andr3w_wave ↗</a>
+              </div>
+              <div class="metrics">
+                <div class="metric highlight"><span class="icon">❤️</span><span class="val">11.7M</span><span class="lbl">点赞</span></div>
+                <div class="metric"><span class="icon">💬</span><span class="val">88K</span><span class="lbl">评论</span></div>
+                <div class="metric"><span class="icon">⭐</span><span class="val">416.4K</span><span class="lbl">收藏</span></div>
+                <div class="metric"><span class="icon">🔗</span><span class="val">255.5K</span><span class="lbl">分享</span></div>
+              </div>
+              <div class="tags"><span class="tag emotion">#快乐</span><span class="tag emotion">#轻松</span><span class="tag emotion">#社交感</span><span class="tag format">#街拍</span><span class="tag format">#真人真实反应</span></div>
+              <div><div class="analysis-title">UA 素材可复用点</div>
+              <ul class="analysis-list">
+                <li>真实街头互动、自然笑声，接近素人感，信任度高，评论 88K 说明引发强烈讨论</li>
+                <li><strong>「路人的真实反应」</strong>= 社交证明结构：达人在公共场所玩游戏 → 路人停下来围观，增加可信度</li>
+              </ul></div>
+            </div>
+          </div>
+
+          <!-- #6 gymmmmm23 -->
+          <div class="video-card">
+            <div class="video-cover">
+              <div class="rank-badge">6</div>
+              <iframe src="https://www.tiktok.com/embed/v2/7611573338502090015" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-header">
+                <div><div class="video-title">「1 Day」健身极限挑战<br><span style="font-size:11px;color:#555;">#gym #gymmotivation #beforeandafter</span></div>
+                  <div style="margin-top:5px;"><span class="score-badge">综合分 10.0M</span></div></div>
+                <a class="video-author" href="https://www.tiktok.com/@gymmmmm23/video/7611573338502090015" target="_blank">@gymmmmm23 ↗</a>
+              </div>
+              <div class="metrics">
+                <div class="metric highlight"><span class="icon">❤️</span><span class="val">6.6M</span><span class="lbl">点赞</span></div>
+                <div class="metric"><span class="icon">💬</span><span class="val">77.9K</span><span class="lbl">评论</span></div>
+                <div class="metric"><span class="icon">⭐</span><span class="val">370.7K</span><span class="lbl">收藏</span></div>
+                <div class="metric"><span class="icon">🔗</span><span class="val">1.2M</span><span class="lbl">分享</span></div>
+              </div>
+              <div class="tags"><span class="tag emotion">#励志</span><span class="tag emotion">#震撼</span><span class="tag emotion">#自我挑战</span><span class="tag format">#前后对比</span><span class="tag format">#进度叙事</span></div>
+              <div><div class="analysis-title">UA 素材可复用点</div>
+              <ul class="analysis-list">
+                <li><strong>「Day 1 / Day X」进度标签</strong>是强钩子，激发好奇"接下来会怎样"，保留悬念驱动完播</li>
+                <li>套用到游戏：「Day 1 新手」→「Day 30 满级」对比素材，配合倒计时节奏剪辑</li>
+              </ul></div>
+            </div>
+          </div>
+
+          <!-- #7 ellon.keli -->
+          <div class="video-card">
+            <div class="video-cover">
+              <div class="rank-badge">7</div>
+              <iframe src="https://www.tiktok.com/embed/v2/7601218938181143839" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-header">
+                <div><div class="video-title">AI 嘻哈小猴子走路<br><span style="font-size:11px;color:#555;">#Balinotmogis #TrendingReels #ViralTiktok</span></div>
+                  <div style="margin-top:5px;"><span class="score-badge">综合分 5.4M</span></div></div>
+                <a class="video-author" href="https://www.tiktok.com/@ellon.keli/video/7601218938181143839" target="_blank">@ellon.keli ↗</a>
+              </div>
+              <div class="metrics">
+                <div class="metric"><span class="icon">❤️</span><span class="val">3M</span><span class="lbl">点赞</span></div>
+                <div class="metric"><span class="icon">💬</span><span class="val">27.4K</span><span class="lbl">评论</span></div>
+                <div class="metric"><span class="icon">⭐</span><span class="val">238.9K</span><span class="lbl">收藏</span></div>
+                <div class="metric"><span class="icon">🔗</span><span class="val">900.7K</span><span class="lbl">分享</span></div>
+              </div>
+              <div class="tags"><span class="tag emotion">#魔性</span><span class="tag emotion">#抽象</span><span class="tag emotion">#可爱</span><span class="tag format">#AI生成</span><span class="tag format">#魔性角色循环动作</span></div>
+              <div><div class="analysis-title">UA 素材可复用点</div>
+              <ul class="analysis-list">
+                <li><strong>AI 生成角色 + 魔性音乐 + 简单循环动作</strong> = 极低成本病毒素材公式</li>
+                <li>用游戏角色做类似「swag walk」循环动画，配合热门 BGM，适合开屏/插屏广告</li>
+              </ul></div>
+            </div>
+          </div>
+
+          <!-- #8 restore.craft -->
+          <div class="video-card">
+            <div class="video-cover">
+              <div class="rank-badge">8</div>
+              <iframe src="https://www.tiktok.com/embed/v2/7611156273236593951" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-header">
+                <div><div class="video-title">奶奶想潜水 · 在地板上造了一个星形海洋<br><span style="font-size:11px;color:#555;">Granny wants to go diving — ocean epoxy flooring</span></div>
+                  <div style="margin-top:5px;"><span class="score-badge">综合分 2.0M</span></div></div>
+                <a class="video-author" href="https://www.tiktok.com/@restore.craft/video/7611156273236593951" target="_blank">@restore.craft ↗</a>
+              </div>
+              <div class="metrics">
+                <div class="metric"><span class="icon">❤️</span><span class="val">1.6M</span><span class="lbl">点赞</span></div>
+                <div class="metric"><span class="icon">💬</span><span class="val">11.1K</span><span class="lbl">评论</span></div>
+                <div class="metric"><span class="icon">⭐</span><span class="val">115.5K</span><span class="lbl">收藏</span></div>
+                <div class="metric"><span class="icon">🔗</span><span class="val">77.3K</span><span class="lbl">分享</span></div>
+              </div>
+              <div class="tags"><span class="tag emotion">#震撼</span><span class="tag emotion">#惊叹</span><span class="tag emotion">#满足感</span><span class="tag format">#创作过程展示</span><span class="tag format">#结果揭晓</span></div>
+              <div><div class="analysis-title">UA 素材可复用点</div>
+              <ul class="analysis-list">
+                <li><strong>「过程积累 + 最终成品震撼」</strong>结构：全程保持悬念，结尾爆发视觉冲击，天然留存</li>
+                <li>游戏素材：基地/城堡建造过程快进 → 最终盛况展示，「从零到史诗」的叙事节奏</li>
+              </ul></div>
+            </div>
+          </div>
+
+          <!-- #9 mamato.viral -->
+          <div class="video-card">
+            <div class="video-cover">
+              <div class="rank-badge">9</div>
+              <iframe src="https://www.tiktok.com/embed/v2/7606026318492273950" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-header">
+                <div><div class="video-title">什么工具能切穿 5 层黄瓜？<br><span style="font-size:11px;color:#555;">#experiment #satisfying #asmr</span></div>
+                  <div style="margin-top:5px;"><span class="score-badge">综合分 1.95M</span></div></div>
+                <a class="video-author" href="https://www.tiktok.com/@mamato.viral/video/7606026318492273950" target="_blank">@mamato.viral ↗</a>
+              </div>
+              <div class="metrics">
+                <div class="metric"><span class="icon">❤️</span><span class="val">1.7M</span><span class="lbl">点赞</span></div>
+                <div class="metric"><span class="icon">💬</span><span class="val">6K</span><span class="lbl">评论</span></div>
+                <div class="metric"><span class="icon">⭐</span><span class="val">70.4K</span><span class="lbl">收藏</span></div>
+                <div class="metric"><span class="icon">🔗</span><span class="val">44.6K</span><span class="lbl">分享</span></div>
+              </div>
+              <div class="tags"><span class="tag emotion">#好奇心</span><span class="tag emotion">#实验感</span><span class="tag emotion">#满足感</span><span class="tag format">#问题驱动</span><span class="tag format">#悬念揭晓</span></div>
+              <div><div class="analysis-title">UA 素材可复用点</div>
+              <ul class="analysis-list">
+                <li><strong>标题即钩子</strong>：用一个具体问题驱动完播，每次工具切换都是小高潮，节奏清晰</li>
+                <li>游戏 UA 直接套用：「哪个英雄能 1v5？」/ 「这个装备能打穿最终 BOSS 吗？」</li>
+              </ul></div>
+            </div>
+          </div>
+
+          <!-- #10 theodoretroyce3 -->
+          <div class="video-card">
+            <div class="video-cover">
+              <div class="rank-badge">10</div>
+              <iframe src="https://www.tiktok.com/embed/v2/7596990959116766494" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-header">
+                <div><div class="video-title">阁楼杂乱空间揭秘<br><span style="font-size:11px;color:#555;">Kondisi terkini — 真实场景记录</span></div>
+                  <div style="margin-top:5px;"><span class="score-badge">综合分 0.6M</span></div></div>
+                <a class="video-author" href="https://www.tiktok.com/@theodoretroyce3/video/7596990959116766494" target="_blank">@theodoretroyce3 ↗</a>
+              </div>
+              <div class="metrics">
+                <div class="metric"><span class="icon">❤️</span><span class="val">398.6K</span><span class="lbl">点赞</span></div>
+                <div class="metric"><span class="icon">💬</span><span class="val">13.9K</span><span class="lbl">评论</span></div>
+                <div class="metric"><span class="icon">⭐</span><span class="val">43.7K</span><span class="lbl">收藏</span></div>
+                <div class="metric"><span class="icon">🔗</span><span class="val">38.2K</span><span class="lbl">分享</span></div>
+              </div>
+              <div class="tags"><span class="tag emotion">#猎奇</span><span class="tag emotion">#好奇心</span><span class="tag format">#场景揭秘</span><span class="tag format">#第一视角探索</span></div>
+              <div><div class="analysis-title">UA 素材可复用点</div>
+              <ul class="analysis-list">
+                <li><strong>「打开一扇门/进入一个空间」</strong>的揭秘结构天然吸引点击，低数据但算法偶发推流说明潜力存在</li>
+                <li>游戏 UA：「进入副本/地下城」第一视角探索开场，保留真实粗粒感而非精修画面增加代入感</li>
+              </ul></div>
+            </div>
+          </div>
+
+        </div><!-- /video-grid -->
+
+        <!-- Data Table -->
+        <div class="tk-section-title" style="margin-top:8px;"><span>数据总览</span><span class="num">综合分排行榜</span></div>
+        <table class="data-table" style="margin-bottom:28px;">
+          <thead><tr><th>#</th><th>账号</th><th>内容</th><th>点赞</th><th>评论</th><th>收藏</th><th>分享</th><th>综合分</th></tr></thead>
+          <tbody>
+            <tr style="background:#1a0508;"><td class="rank-num">1</td><td><a class="author-link" href="https://www.tiktok.com/@collinskey/video/7616849748359728415" target="_blank">@collinskey</a></td><td>轮胎脑袋 Brainrot</td><td class="num-cell top-val">19.2M 🏆</td><td class="num-cell">79.8K</td><td class="num-cell">1.6M</td><td class="num-cell top-val">9.1M 🏆</td><td class="score-cell">40.8M</td></tr>
+            <tr><td class="rank-num">2</td><td><a class="author-link" href="https://www.tiktok.com/@ishowspeed/video/7621300668329905422" target="_blank">@ishowspeed</a></td><td>Deku Cosplay 展示</td><td class="num-cell">16.3M</td><td class="num-cell top-val">371.3K 🏆</td><td class="num-cell">1.2M</td><td class="num-cell">1.5M</td><td class="score-cell">22.8M</td></tr>
+            <tr><td class="rank-num">3</td><td><a class="author-link" href="https://www.tiktok.com/@fakeltfunny0021/video/7603344058680888607" target="_blank">@fakeltfunny0021</a></td><td>POV: 你是个奶爸</td><td class="num-cell">12M</td><td class="num-cell">15.2K</td><td class="num-cell top-val">559.4K 🏆</td><td class="num-cell">1.5M</td><td class="score-cell">16.2M</td></tr>
+            <tr><td class="rank-num">4</td><td><a class="author-link" href="https://www.tiktok.com/@bbranson8/video/7605949028395781389" target="_blank">@bbranson8</a></td><td>男友背部贴闪钻</td><td class="num-cell">9.8M</td><td class="num-cell">17.4K</td><td class="num-cell">457.8K</td><td class="num-cell">1.5M</td><td class="score-cell">13.8M</td></tr>
+            <tr><td class="rank-num">5</td><td><a class="author-link" href="https://www.tiktok.com/@andr3w_wave/video/7600089922267008278" target="_blank">@andr3w_wave</a></td><td>好莱坞街拍互动</td><td class="num-cell">11.7M</td><td class="num-cell">88K</td><td class="num-cell">416.4K</td><td class="num-cell">255.5K</td><td class="score-cell">13.3M</td></tr>
+            <tr><td class="rank-num">6</td><td><a class="author-link" href="https://www.tiktok.com/@gymmmmm23/video/7611573338502090015" target="_blank">@gymmmmm23</a></td><td>1 Day 健身挑战</td><td class="num-cell">6.6M</td><td class="num-cell">77.9K</td><td class="num-cell">370.7K</td><td class="num-cell">1.2M</td><td class="score-cell">10.0M</td></tr>
+            <tr><td class="rank-num">7</td><td><a class="author-link" href="https://www.tiktok.com/@ellon.keli/video/7601218938181143839" target="_blank">@ellon.keli</a></td><td>AI 嘻哈小猴子</td><td class="num-cell">3M</td><td class="num-cell">27.4K</td><td class="num-cell">238.9K</td><td class="num-cell">900.7K</td><td class="score-cell">5.4M</td></tr>
+            <tr><td class="rank-num">8</td><td><a class="author-link" href="https://www.tiktok.com/@restore.craft/video/7611156273236593951" target="_blank">@restore.craft</a></td><td>星形海洋地板</td><td class="num-cell">1.6M</td><td class="num-cell">11.1K</td><td class="num-cell">115.5K</td><td class="num-cell">77.3K</td><td class="score-cell">2.0M</td></tr>
+            <tr><td class="rank-num">9</td><td><a class="author-link" href="https://www.tiktok.com/@mamato.viral/video/7606026318492273950" target="_blank">@mamato.viral</a></td><td>切穿5层黄瓜实验</td><td class="num-cell">1.7M</td><td class="num-cell">6K</td><td class="num-cell">70.4K</td><td class="num-cell">44.6K</td><td class="score-cell">1.95M</td></tr>
+            <tr><td class="rank-num">10</td><td><a class="author-link" href="https://www.tiktok.com/@theodoretroyce3/video/7596990959116766494" target="_blank">@theodoretroyce3</a></td><td>阁楼杂乱揭秘</td><td class="num-cell">398.6K</td><td class="num-cell">13.9K</td><td class="num-cell">43.7K</td><td class="num-cell">38.2K</td><td class="score-cell">0.6M</td></tr>
+          </tbody>
+        </table>
+
+        <!-- Trends -->
+        <div class="tk-section-title"><span>趋势分析</span><span class="num">Insights</span></div>
+        <div class="trend-grid" style="margin-bottom:28px;">
+          <div class="trend-card"><h3>📊 内容类型分布</h3>
+            <div class="bar-item"><div class="bar-label"><span>魔性 / Brainrot / 抽象</span><span>3 / 10</span></div><div class="bar-track"><div class="bar-fill" style="width:30%"></div></div></div>
+            <div class="bar-item"><div class="bar-label"><span>情感共鸣 / 生活真实</span><span>3 / 10</span></div><div class="bar-track"><div class="bar-fill" style="width:30%"></div></div></div>
+            <div class="bar-item"><div class="bar-label"><span>震撼 / 视觉冲击</span><span>2 / 10</span></div><div class="bar-track"><div class="bar-fill" style="width:20%"></div></div></div>
+            <div class="bar-item"><div class="bar-label"><span>悬念 / 实验 / 问题驱动</span><span>2 / 10</span></div><div class="bar-track"><div class="bar-fill" style="width:20%"></div></div></div>
+          </div>
+          <div class="trend-card"><h3>🏆 各指标冠军</h3>
+            <div class="bar-item"><div class="bar-label"><span>点赞王</span><span>@collinskey · 19.2M</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
+            <div class="bar-item"><div class="bar-label"><span>评论王</span><span>@ishowspeed · 371.3K</span></div><div class="bar-track"><div class="bar-fill" style="width:85%"></div></div></div>
+            <div class="bar-item"><div class="bar-label"><span>收藏王</span><span>@fakeltfunny0021 · 559.4K</span></div><div class="bar-track"><div class="bar-fill" style="width:60%"></div></div></div>
+            <div class="bar-item"><div class="bar-label"><span>分享王</span><span>@collinskey · 9.1M</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div></div>
+          </div>
+        </div>
+
+        <!-- Key Insights -->
+        <div class="tk-section-title"><span>UA 制作核心洞察</span><span class="num">6 Key Points</span></div>
+        <div class="insights">
+          <div class="insight-card"><div class="icon-big">🔥</div><h3>Brainrot = 最强裂变</h3><p>@collinskey 分享量 <span class="highlight-text">9.1M</span>，是点赞的 47%。荒诞反常识内容的传播冲动远高于其他类型，综合分高达 40.8M。</p></div>
+          <div class="insight-card"><div class="icon-big">💬</div><h3>KOL 驱动深度互动</h3><p>@ishowspeed 评论量 <span class="highlight-text">371K</span>，是第二名的 4 倍。KOL 内容"引发讨论"的价值被综合分正确放大（评论×3）。</p></div>
+          <div class="insight-card"><div class="icon-big">⭐</div><h3>POV 情感 = 高收藏</h3><p>@fakeltfunny0021 的奶爸 POV 收藏量 <span class="highlight-text">559K</span> 全场最高。高收藏 = 用户认同感强且想反复看。</p></div>
+          <div class="insight-card"><div class="icon-big">❓</div><h3>问题钩子 = 完播保障</h3><p>"什么工具能切穿5层黄瓜？" 用具体问题开场，每次尝试都是小高潮。<span class="highlight-text">问题驱动 + 分段揭晓</span>直接对抗划走行为。</p></div>
+          <div class="insight-card"><div class="icon-big">🎬</div><h3>进度叙事 = 情绪积累</h3><p>「1 Day / Day X」时间轴让用户感知努力与成长。套用到游戏：<span class="highlight-text">「Day 1 → Day 30」</span>成长对比素材。</p></div>
+          <div class="insight-card"><div class="icon-big">🤖</div><h3>AI 生成 = 低成本病毒</h3><p>AI 魔性小猴子获 <span class="highlight-text">3M 点赞 + 900K 分享</span>。AI 生成角色 + 魔性音乐 + 循环动作，制作成本极低。</p></div>
+        </div>
+
+      </div><!-- /sec-inner -->
+    </div><!-- /s-tiktok -->
+
+
+    <!-- ══════════════════════════════════════ -->
+    <!--  SECTION: YouTube Shorts (Coming Soon) -->
+    <!-- ══════════════════════════════════════ -->
+    <div id="s-youtube" class="section-panel">
+      <div class="sec-inner">
+        <div class="coming-soon-panel">
+          <div class="cs-box">
+            <div class="cs-icon">▶️</div>
+            <div class="cs-title">YouTube Trending Shorts</div>
+            <div class="cs-desc">正在搭建数据采集与分析流程，即将上线。将覆盖美区 YouTube Shorts 热门内容拆解与 UA 洞察。</div>
+            <span class="cs-badge">预计 Vol.002 上线</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════ -->
+    <!--  SECTION: Memes (Coming Soon)          -->
+    <!-- ══════════════════════════════════════ -->
+    <div id="s-memes" class="section-panel">
+      <div class="sec-inner">
+        <div class="coming-soon-panel">
+          <div class="cs-box">
+            <div class="cs-icon">😂</div>
+            <div class="cs-title">表情包 Memes</div>
+            <div class="cs-desc">追踪美区当期最具传播力的 Meme 格式与话题，分析其情绪结构和游戏营销落地路径。</div>
+            <span class="cs-badge">预计 Vol.002 上线</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════ -->
+    <!--  SECTION: Hot Ads (Coming Soon)        -->
+    <!-- ══════════════════════════════════════ -->
+    <div id="s-ads" class="section-panel">
+      <div class="sec-inner">
+        <div class="coming-soon-panel">
+          <div class="cs-box">
+            <div class="cs-icon">📢</div>
+            <div class="cs-title">平台热门广告</div>
+            <div class="cs-desc">覆盖 YouTube、Facebook、X、Instagram 平台热门投放广告素材，拆解格式、钩子与投放策略。</div>
+            <span class="cs-badge">预计 Vol.002 上线</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function switchSection(targetId, btn) {
+  // Hide all sections
+  document.querySelectorAll('.section-panel').forEach(function(p) {
+    p.classList.remove('active');
+  });
+  // Deactivate all nav items
+  document.querySelectorAll('.nav-item').forEach(function(n) {
+    n.classList.remove('active');
+  });
+  // Show target section
+  document.getElementById(targetId).classList.add('active');
+  // Activate clicked nav item
+  if (btn) btn.classList.add('active');
+  // Scroll content to top
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
