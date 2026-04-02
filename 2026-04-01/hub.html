@@ -492,6 +492,74 @@ a { text-decoration: none; color: inherit; }
   cursor: pointer; transition: color 0.15s;
 }
 #lightbox-close:hover { color: #fff; }
+
+/* ── Overview Section ── */
+.ov-synthesis {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;
+  margin-bottom: 28px;
+}
+.ov-syn-card {
+  background: var(--bg3); border: 1px solid var(--border2);
+  border-radius: 12px; padding: 18px 16px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.ov-syn-header { display: flex; align-items: center; gap: 8px; }
+.ov-syn-icon { font-size: 16px; }
+.ov-syn-title { font-size: 12px; font-weight: 800; color: var(--white); flex: 1; }
+.ov-syn-priority { font-size: 9px; padding: 2px 8px; border-radius: 10px; background: rgba(255,255,255,0.07); color: var(--gray3); }
+.ov-syn-big { font-size: 14px; font-weight: 800; line-height: 1.4; }
+.ov-syn-char .ov-syn-big { color: #25f4ee; }
+.ov-syn-play .ov-syn-big { color: #ffd700; }
+.ov-syn-ad  .ov-syn-big { color: #fe2c55; }
+.ov-signals { display: flex; flex-direction: column; gap: 8px; }
+.ov-signal {
+  padding: 9px 10px; background: var(--bg4); border-radius: 7px;
+  border-left: 3px solid transparent;
+  display: flex; flex-direction: column; gap: 5px;
+}
+.ov-syn-char .ov-signal { border-left-color: rgba(37,244,238,0.5); }
+.ov-syn-play .ov-signal { border-left-color: rgba(255,215,0,0.5); }
+.ov-syn-ad  .ov-signal { border-left-color: rgba(254,44,85,0.5); }
+.ov-signal-badges { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
+.ov-plat-pill { font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 8px; color: #fff; white-space: nowrap; }
+.ov-signal-star { font-size: 9px; color: #ffd700; font-weight: 700; }
+.ov-signal-text { font-size: 11px; color: #bbb; line-height: 1.6; }
+.ov-signal-text strong { color: var(--white); }
+.ov-syn-conclusion {
+  font-size: 11px; color: var(--gray2);
+  background: rgba(255,255,255,0.04); border-radius: 6px;
+  padding: 8px 10px; line-height: 1.7;
+}
+.ov-matrix-wrap { margin-bottom: 28px; }
+.ov-matrix-label { font-size: 10px; font-weight: 700; color: var(--gray4); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+.ov-matrix {
+  width: 100%; border-collapse: collapse; font-size: 11px;
+  background: var(--bg3); border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--border2);
+}
+.ov-matrix th { text-align: left; padding: 10px 14px; background: var(--bg4); color: var(--gray3); font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+.ov-matrix td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.ov-matrix tr:last-child td { border-bottom: none; }
+.ov-matrix tr:hover td { background: var(--bg4); }
+.ov-matrix .plat-name { font-weight: 700; color: var(--white); font-size: 12px; }
+.sig-5 { color: #fe2c55; font-weight: 800; letter-spacing: 1px; }
+.sig-4 { color: #25f4ee; font-weight: 700; letter-spacing: 1px; }
+.sig-3 { color: #7dba5a; letter-spacing: 1px; }
+.sig-2 { color: var(--gray3); letter-spacing: 1px; }
+.ov-nav-label { font-size: 10px; font-weight: 700; color: var(--gray4); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
+.ov-nav-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.ov-nav-card {
+  background: var(--bg3); border: 1px solid var(--border2);
+  border-radius: 10px; padding: 14px 10px;
+  cursor: pointer; transition: all 0.15s;
+  text-align: center; display: flex; flex-direction: column;
+  gap: 6px; align-items: center;
+}
+.ov-nav-card:hover { border-color: var(--red); background: rgba(254,44,85,0.06); }
+.onc-icon { font-size: 20px; }
+.onc-label { font-size: 11px; font-weight: 700; color: var(--white); }
+.onc-count { font-size: 9px; color: var(--gray3); }
+.onc-arrow { font-size: 12px; color: var(--gray4); }
 </style>
 </head>
 <body>
@@ -520,7 +588,11 @@ a { text-decoration: none; color: inherit; }
   <nav class="hub-sidebar">
     <div class="sidebar-group">
       <div class="sidebar-group-label">Vol.001 · 2026-04-01</div>
-      <button class="nav-item active" data-target="s-trends" onclick="switchSection('s-trends',this)">
+      <button class="nav-item active" data-target="s-overview" onclick="switchSection('s-overview',this)">
+        <span class="ni-icon">🌐</span>
+        <span class="ni-label">本期总览</span>
+      </button>
+      <button class="nav-item" data-target="s-trends" onclick="switchSection('s-trends',this)">
         <span class="ni-icon">🔥</span>
         <span class="ni-label">热搜分析</span>
         <span class="ni-badge-new">NEW</span>
@@ -568,9 +640,229 @@ a { text-decoration: none; color: inherit; }
   <main class="hub-content">
 
     <!-- ══════════════════════════════════════ -->
+    <!--  SECTION: 本期总览                     -->
+    <!-- ══════════════════════════════════════ -->
+    <div id="s-overview" class="section-panel active">
+      <div class="sec-inner">
+        <div class="sec-kicker">🌐 跨平台综合分析 · Vol.001</div>
+        <div class="sec-title">本期情报总览</div>
+        <div class="sec-desc">汇总 5 大平台、48 条精选内容的研究结论，提取多平台交叉印证的最强信号，输出本期游戏研发最高优先级行动方向。</div>
+        <div class="stats-row">
+          <div class="stat-pill">📅 <strong>数据周期</strong> 2026-03-24 ~ 2026-04-02</div>
+          <div class="stat-pill">🌐 <strong>覆盖平台</strong> 热搜 / TikTok / YouTube / Memes / 广告</div>
+          <div class="stat-pill">📊 <strong>内容条目</strong> 48 条精选</div>
+          <div class="stat-pill">🎮 <strong>分析视角</strong> 角色 / 玩法 / 广告三维度</div>
+        </div>
+
+        <!-- ── 三大跨平台综合结论 ── -->
+        <div class="tk-section-title" style="margin-bottom:14px;"><span>本期最强跨平台信号</span><span class="num" style="color:var(--gray3);">多来源印证 = 更高优先级</span></div>
+
+        <div class="ov-synthesis">
+
+          <!-- 角色设计 -->
+          <div class="ov-syn-card ov-syn-char">
+            <div class="ov-syn-header">
+              <span class="ov-syn-icon">🎭</span>
+              <span class="ov-syn-title">角色设计方向</span>
+              <span class="ov-syn-priority">TikTok 优先</span>
+            </div>
+            <div class="ov-syn-big">陪伴型受难 NPC<br>× 反差搭档公式</div>
+            <div class="ov-signals">
+              <div class="ov-signal">
+                <div class="ov-signal-badges">
+                  <span class="ov-plat-pill" style="background:#ff4500;">Memes</span>
+                  <span class="ov-plat-pill" style="background:#e76e22;">广告</span>
+                  <span class="ov-signal-star">★ 双来源印证</span>
+                </div>
+                <div class="ov-signal-text"><strong>陪伴型受难 NPC</strong>——Punch-Kun 孤独婴猴 × 广告猫咪精灵屋，「能受难的标志性小角色」是低成本品牌记忆的最优路径</div>
+              </div>
+              <div class="ov-signal">
+                <div class="ov-signal-badges">
+                  <span class="ov-plat-pill" style="background:#4285f4;">热搜</span>
+                  <span class="ov-plat-pill" style="background:#222;border:1px solid #555;">TikTok</span>
+                  <span class="ov-signal-star">★ 双来源印证</span>
+                </div>
+                <div class="ov-signal-text"><strong>反差搭档公式</strong>——Zootopia 小聪明×大行动力 × TikTok 硬汉奶爸，角色对立感驱动情感共鸣</div>
+              </div>
+              <div class="ov-signal">
+                <div class="ov-signal-badges">
+                  <span class="ov-plat-pill" style="background:#e76e22;">广告</span>
+                </div>
+                <div class="ov-signal-text"><strong>载具/职业幻想角色</strong>——Pilot Games(飞行员) × Pick Me Up 3D(出租车司机)，功能型角色比传统英雄更易触达泛人群</div>
+              </div>
+            </div>
+            <div class="ov-syn-conclusion">🏷 建议优先：「能被玩家心疼的陪伴型宠物 NPC」+「反差感搭档组合」，比单一英雄叙事覆盖面更广</div>
+          </div>
+
+          <!-- 玩法/留存 -->
+          <div class="ov-syn-card ov-syn-play">
+            <div class="ov-syn-header">
+              <span class="ov-syn-icon">⚔️</span>
+              <span class="ov-syn-title">玩法/留存方向</span>
+              <span class="ov-syn-priority">热搜 优先</span>
+            </div>
+            <div class="ov-syn-big">每日习惯化设计<br>× 满足感即时 Loop</div>
+            <div class="ov-signals">
+              <div class="ov-signal">
+                <div class="ov-signal-badges">
+                  <span class="ov-plat-pill" style="background:#222;border:1px solid #555;">TikTok</span>
+                  <span class="ov-plat-pill" style="background:#e76e22;">广告</span>
+                  <span class="ov-signal-star">★ 双来源印证</span>
+                </div>
+                <div class="ov-signal-text"><strong>每日习惯化成长</strong>——TikTok「1 Day 健身 Before/After」× 广告「Color a Day 每日上色」，日签/每日任务是当前最高性价比留存机制</div>
+              </div>
+              <div class="ov-signal">
+                <div class="ov-signal-badges">
+                  <span class="ov-plat-pill" style="background:#222;border:1px solid #555;">TikTok</span>
+                  <span class="ov-plat-pill" style="background:#ff4500;">Memes</span>
+                  <span class="ov-signal-star">★ 双来源印证</span>
+                </div>
+                <div class="ov-signal-text"><strong>满足感即时 Loop</strong>——ASMR 切割满足感循环 × Meme 可重复情绪格式，即时反馈驱动高完播率与回流</div>
+              </div>
+              <div class="ov-signal">
+                <div class="ov-signal-badges">
+                  <span class="ov-plat-pill" style="background:#4285f4;">热搜</span>
+                </div>
+                <div class="ov-signal-text"><strong>图鉴收集/竞猜树</strong>——宝可梦 30 周年进化图鉴 × March Madness 淘汰赛 Bracket，收集完整度驱动 + 结果悬念是两大收藏留存引擎</div>
+              </div>
+            </div>
+            <div class="ov-syn-conclusion">🏷 建议优先：「每日一关/每日一图」习惯化设计 + 即时满足感反馈，比大型活动更稳定的 DAU 驱动器</div>
+          </div>
+
+          <!-- 广告创意 -->
+          <div class="ov-syn-card ov-syn-ad">
+            <div class="ov-syn-header">
+              <span class="ov-syn-icon">🎬</span>
+              <span class="ov-syn-title">广告创意方向</span>
+              <span class="ov-syn-priority">YouTube 优先</span>
+            </div>
+            <div class="ov-syn-big">具体数字钩子<br>× 放松品类缺口</div>
+            <div class="ov-signals">
+              <div class="ov-signal">
+                <div class="ov-signal-badges">
+                  <span class="ov-plat-pill" style="background:#ff0000;">YouTube</span>
+                  <span class="ov-plat-pill" style="background:#e76e22;">广告</span>
+                  <span class="ov-signal-star">★ 双来源印证</span>
+                </div>
+                <div class="ov-signal-text"><strong>具体数字钩子</strong>——MrBeast「Win $10,000」× 广告「试了 273 次还没找到」，精确数字比模糊描述可信度更强，直接提升点击转化</div>
+              </div>
+              <div class="ov-signal">
+                <div class="ov-signal-badges">
+                  <span class="ov-plat-pill" style="background:#e76e22;">广告</span>
+                  <span class="ov-plat-pill" style="background:#222;border:1px solid #555;">TikTok</span>
+                  <span class="ov-signal-star">★ 双来源印证</span>
+                </div>
+                <div class="ov-signal-text"><strong>Zen/放松定位蓝海</strong>——Zen Word + Word Chill 连续进 Top1% × TikTok ASMR 高完播，放松品类广告需求旺盛、竞争尚未饱和</div>
+              </div>
+              <div class="ov-signal">
+                <div class="ov-signal-badges">
+                  <span class="ov-plat-pill" style="background:#ff0000;">YouTube</span>
+                  <span class="ov-plat-pill" style="background:#222;border:1px solid #555;">TikTok</span>
+                  <span class="ov-signal-star">★ 双来源印证</span>
+                </div>
+                <div class="ov-signal-text"><strong>悬念揭晓结构</strong>——YouTube「Banksy 真实身份」× TikTok「问题驱动分段揭晓」，制造认知缺口强迫完播，再引导转化</div>
+              </div>
+            </div>
+            <div class="ov-syn-conclusion">🏷 建议优先：开头用「具体数字」建立信任，结构走「挫败感→揭晓」制造代入，定位选「Zen/Chill」打差异化</div>
+          </div>
+
+        </div><!-- /.ov-synthesis -->
+
+        <!-- ── 信号强度矩阵 ── -->
+        <div class="ov-matrix-wrap">
+          <div class="ov-matrix-label">平台 × 维度 · 信号强度矩阵</div>
+          <table class="ov-matrix">
+            <thead>
+              <tr>
+                <th>平台</th>
+                <th>🎭 角色设计</th>
+                <th>⚔️ 玩法/留存</th>
+                <th>🎬 广告创意</th>
+                <th>本期最强关键词</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="plat-name">🔥 热搜</span></td>
+                <td><span class="sig-4">████░</span></td>
+                <td><span class="sig-5">█████</span></td>
+                <td><span class="sig-3">███░░</span></td>
+                <td style="color:var(--gray2);font-size:11px;">反差搭档 · 淘汰赛/图鉴玩法</td>
+              </tr>
+              <tr>
+                <td><span class="plat-name">🎵 TikTok</span></td>
+                <td><span class="sig-5">█████</span></td>
+                <td><span class="sig-4">████░</span></td>
+                <td><span class="sig-4">████░</span></td>
+                <td style="color:var(--gray2);font-size:11px;">Brainrot 怪物美学 · 成长 Loop</td>
+              </tr>
+              <tr>
+                <td><span class="plat-name">▶️ YouTube</span></td>
+                <td><span class="sig-4">████░</span></td>
+                <td><span class="sig-4">████░</span></td>
+                <td><span class="sig-5">█████</span></td>
+                <td style="color:var(--gray2);font-size:11px;">MrBeast 公式 · 数字开场钩子</td>
+              </tr>
+              <tr>
+                <td><span class="plat-name">😂 Memes</span></td>
+                <td><span class="sig-3">███░░</span></td>
+                <td><span class="sig-3">███░░</span></td>
+                <td><span class="sig-3">███░░</span></td>
+                <td style="color:var(--gray2);font-size:11px;">萌物孤独感 · 可填空情绪格式</td>
+              </tr>
+              <tr>
+                <td><span class="plat-name">📢 广告</span></td>
+                <td><span class="sig-4">████░</span></td>
+                <td><span class="sig-5">█████</span></td>
+                <td><span class="sig-5">█████</span></td>
+                <td style="color:var(--gray2);font-size:11px;">挫败感钩子 · 习惯化留存 · Zen</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ── 快速导航 ── -->
+        <div class="ov-nav-label">前往各板块</div>
+        <div class="ov-nav-grid">
+          <div class="ov-nav-card" onclick="switchSection('s-trends', document.querySelector('[data-target=s-trends]'))">
+            <span class="onc-icon">🔥</span>
+            <span class="onc-label">热搜分析</span>
+            <span class="onc-count">Google Trends · 10条</span>
+            <span class="onc-arrow">→</span>
+          </div>
+          <div class="ov-nav-card" onclick="switchSection('s-tiktok', document.querySelector('[data-target=s-tiktok]'))">
+            <span class="onc-icon">🎵</span>
+            <span class="onc-label">TikTok 热门</span>
+            <span class="onc-count">美区异常值 · 10条</span>
+            <span class="onc-arrow">→</span>
+          </div>
+          <div class="ov-nav-card" onclick="switchSection('s-youtube', document.querySelector('[data-target=s-youtube]'))">
+            <span class="onc-icon">▶️</span>
+            <span class="onc-label">YouTube Shorts</span>
+            <span class="onc-count">Top 10 · 可播放</span>
+            <span class="onc-arrow">→</span>
+          </div>
+          <div class="ov-nav-card" onclick="switchSection('s-memes', document.querySelector('[data-target=s-memes]'))">
+            <span class="onc-icon">😂</span>
+            <span class="onc-label">表情包 Memes</span>
+            <span class="onc-count">Reddit · 10条</span>
+            <span class="onc-arrow">→</span>
+          </div>
+          <div class="ov-nav-card" onclick="switchSection('s-ads', document.querySelector('[data-target=s-ads]'))">
+            <span class="onc-icon">📢</span>
+            <span class="onc-label">平台热门广告</span>
+            <span class="onc-count">Top1% · 10条</span>
+            <span class="onc-arrow">→</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════ -->
     <!--  SECTION: 热搜分析                     -->
     <!-- ══════════════════════════════════════ -->
-    <div id="s-trends" class="section-panel active">
+    <div id="s-trends" class="section-panel">
       <div class="sec-inner">
         <div class="sec-kicker">🔥 US Google Trends · 文化热点情报</div>
         <div class="sec-title">美区热搜 Top 10</div>
