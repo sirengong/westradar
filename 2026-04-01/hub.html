@@ -244,11 +244,11 @@ a { text-decoration: none; color: inherit; }
   transition: border-color 0.2s;
 }
 .trend-topic-card:hover { border-color: var(--gray3); }
-.ttc-top { display: grid; grid-template-columns: 190px 1fr; }
-.ttc-images { background: var(--bg4); display: flex; flex-direction: column; gap: 2px; padding: 2px; }
-.ttc-images img { width: 100%; flex: 1; object-fit: cover; display: block; border-radius: 3px; min-height: 0; }
-.img-trio { display: flex; flex-direction: column; gap: 2px; height: 230px; }
-.img-trio img { flex: 1; }
+.ttc-top { display: grid; grid-template-columns: 190px 1fr; align-items: stretch; }
+.ttc-images { background: var(--bg4); display: flex; flex-direction: column; padding: 2px; height: 100%; }
+.img-trio { display: flex; flex-direction: column; gap: 2px; flex: 1; min-height: 220px; }
+.img-trio img { flex: 1; width: 100%; object-fit: cover; display: block; border-radius: 3px; min-height: 0; cursor: zoom-in; transition: opacity 0.15s; }
+.img-trio img:hover { opacity: 0.82; }
 .ttc-info { padding: 18px 22px; }
 .ttc-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
 .ttc-rank { font-size: 32px; font-weight: 900; color: var(--red); line-height: 1; flex-shrink: 0; min-width: 40px; }
@@ -283,6 +283,25 @@ a { text-decoration: none; color: inherit; }
 .cs-title { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
 .cs-desc { font-size: 13px; color: var(--gray3); line-height: 1.7; }
 .cs-badge { display: inline-block; margin-top: 16px; background: var(--bg4); border: 1px solid var(--border); color: var(--gray3); font-size: 11px; padding: 4px 14px; border-radius: 20px; }
+
+/* ─────────── LIGHTBOX ─────────── */
+#lightbox {
+  display: none; position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.93); align-items: center; justify-content: center;
+  cursor: zoom-out;
+}
+#lightbox.open { display: flex; }
+#lightbox-img {
+  max-width: 88vw; max-height: 88vh; object-fit: contain;
+  border-radius: 10px; box-shadow: 0 0 60px rgba(0,0,0,0.8);
+  user-select: none;
+}
+#lightbox-close {
+  position: absolute; top: 20px; right: 24px;
+  color: rgba(255,255,255,0.7); font-size: 28px; line-height: 1;
+  cursor: pointer; transition: color 0.15s;
+}
+#lightbox-close:hover { color: #fff; }
 </style>
 </head>
 <body>
@@ -372,9 +391,9 @@ a { text-decoration: none; color: inherit; }
         <div class="trend-topic-card">
           <div class="ttc-top">
             <div class="ttc-images"><div class="img-trio">
-              <img src="trend_images/01_zootopia2_1.jpg" alt="Zootopia 2">
-              <img src="trend_images/01_zootopia2_2.jpg" alt="Zootopia 2">
-              <img src="trend_images/01_zootopia2_3.jpg" alt="Zootopia 2">
+              <img src="trend_images/01_zootopia2_1.jpg" alt="Zootopia 2" onclick="openLightbox(this)">
+              <img src="trend_images/01_zootopia2_2.jpg" alt="Zootopia 2" onclick="openLightbox(this)">
+              <img src="trend_images/01_zootopia2_3.jpg" alt="Zootopia 2" onclick="openLightbox(this)">
             </div></div>
             <div class="ttc-info">
               <div class="ttc-header">
@@ -402,9 +421,9 @@ a { text-decoration: none; color: inherit; }
         <div class="trend-topic-card">
           <div class="ttc-top">
             <div class="ttc-images"><div class="img-trio">
-              <img src="trend_images/02_march_madness_1.png" alt="March Madness">
-              <img src="trend_images/02_march_madness_2.png" alt="March Madness">
-              <img src="trend_images/02_march_madness_3.jpg" alt="March Madness">
+              <img src="trend_images/02_march_madness_1.png" alt="March Madness" onclick="openLightbox(this)">
+              <img src="trend_images/02_march_madness_2.png" alt="March Madness" onclick="openLightbox(this)">
+              <img src="trend_images/02_march_madness_3.jpg" alt="March Madness" onclick="openLightbox(this)">
             </div></div>
             <div class="ttc-info">
               <div class="ttc-header">
@@ -432,9 +451,9 @@ a { text-decoration: none; color: inherit; }
         <div class="trend-topic-card">
           <div class="ttc-top">
             <div class="ttc-images"><div class="img-trio">
-              <img src="trend_images/03_coachella_1.jpg" alt="Coachella">
-              <img src="trend_images/03_coachella_2.png" alt="Coachella">
-              <img src="trend_images/03_coachella_3.jpg" alt="Coachella">
+              <img src="trend_images/03_coachella_1.jpg" alt="Coachella" onclick="openLightbox(this)">
+              <img src="trend_images/03_coachella_2.png" alt="Coachella" onclick="openLightbox(this)">
+              <img src="trend_images/03_coachella_3.jpg" alt="Coachella" onclick="openLightbox(this)">
             </div></div>
             <div class="ttc-info">
               <div class="ttc-header">
@@ -462,9 +481,9 @@ a { text-decoration: none; color: inherit; }
         <div class="trend-topic-card">
           <div class="ttc-top">
             <div class="ttc-images"><div class="img-trio">
-              <img src="trend_images/04_euphoria_s3_1.png" alt="Euphoria S3">
-              <img src="trend_images/04_euphoria_s3_2.jpg" alt="Euphoria S3">
-              <img src="trend_images/04_euphoria_s3_3.jpg" alt="Euphoria S3">
+              <img src="trend_images/04_euphoria_s3_1.png" alt="Euphoria S3" onclick="openLightbox(this)">
+              <img src="trend_images/04_euphoria_s3_2.jpg" alt="Euphoria S3" onclick="openLightbox(this)">
+              <img src="trend_images/04_euphoria_s3_3.jpg" alt="Euphoria S3" onclick="openLightbox(this)">
             </div></div>
             <div class="ttc-info">
               <div class="ttc-header">
@@ -492,9 +511,9 @@ a { text-decoration: none; color: inherit; }
         <div class="trend-topic-card">
           <div class="ttc-top">
             <div class="ttc-images"><div class="img-trio">
-              <img src="trend_images/05_grok_ai_1.png" alt="Grok AI">
-              <img src="trend_images/05_grok_ai_2.png" alt="Grok AI">
-              <img src="trend_images/05_grok_ai_3.jpg" alt="Grok AI">
+              <img src="trend_images/05_grok_ai_1.png" alt="Grok AI" onclick="openLightbox(this)">
+              <img src="trend_images/05_grok_ai_2.png" alt="Grok AI" onclick="openLightbox(this)">
+              <img src="trend_images/05_grok_ai_3.jpg" alt="Grok AI" onclick="openLightbox(this)">
             </div></div>
             <div class="ttc-info">
               <div class="ttc-header">
@@ -522,9 +541,9 @@ a { text-decoration: none; color: inherit; }
         <div class="trend-topic-card">
           <div class="ttc-top">
             <div class="ttc-images"><div class="img-trio">
-              <img src="trend_images/06_pokemon_1.jpg" alt="Pokemon 30th">
-              <img src="trend_images/06_pokemon_2.jpg" alt="Pokemon 30th">
-              <img src="trend_images/06_pokemon_3.jpg" alt="Pokemon 30th">
+              <img src="trend_images/06_pokemon_1.jpg" alt="Pokemon 30th" onclick="openLightbox(this)">
+              <img src="trend_images/06_pokemon_2.jpg" alt="Pokemon 30th" onclick="openLightbox(this)">
+              <img src="trend_images/06_pokemon_3.jpg" alt="Pokemon 30th" onclick="openLightbox(this)">
             </div></div>
             <div class="ttc-info">
               <div class="ttc-header">
@@ -552,9 +571,9 @@ a { text-decoration: none; color: inherit; }
         <div class="trend-topic-card">
           <div class="ttc-top">
             <div class="ttc-images"><div class="img-trio">
-              <img src="trend_images/07_ohtani_1.jpg" alt="Ohtani">
-              <img src="trend_images/07_ohtani_2.jpg" alt="Ohtani">
-              <img src="trend_images/07_ohtani_3.jpg" alt="Ohtani">
+              <img src="trend_images/07_ohtani_1.jpg" alt="Ohtani" onclick="openLightbox(this)">
+              <img src="trend_images/07_ohtani_2.jpg" alt="Ohtani" onclick="openLightbox(this)">
+              <img src="trend_images/07_ohtani_3.jpg" alt="Ohtani" onclick="openLightbox(this)">
             </div></div>
             <div class="ttc-info">
               <div class="ttc-header">
@@ -582,9 +601,9 @@ a { text-decoration: none; color: inherit; }
         <div class="trend-topic-card">
           <div class="ttc-top">
             <div class="ttc-images"><div class="img-trio">
-              <img src="trend_images/08_jessica_1.jpg" alt="Jessica Simpson">
-              <img src="trend_images/08_jessica_2.jpg" alt="Jessica Simpson">
-              <img src="trend_images/08_jessica_3.jpg" alt="Jessica Simpson">
+              <img src="trend_images/08_jessica_1.jpg" alt="Jessica Simpson" onclick="openLightbox(this)">
+              <img src="trend_images/08_jessica_2.jpg" alt="Jessica Simpson" onclick="openLightbox(this)">
+              <img src="trend_images/08_jessica_3.jpg" alt="Jessica Simpson" onclick="openLightbox(this)">
             </div></div>
             <div class="ttc-info">
               <div class="ttc-header">
@@ -612,9 +631,9 @@ a { text-decoration: none; color: inherit; }
         <div class="trend-topic-card">
           <div class="ttc-top">
             <div class="ttc-images"><div class="img-trio">
-              <img src="trend_images/09_strangerthings_1.jpg" alt="Stranger Things">
-              <img src="trend_images/09_strangerthings_2.jpg" alt="Stranger Things">
-              <img src="trend_images/09_strangerthings_3.jpg" alt="Stranger Things">
+              <img src="trend_images/09_strangerthings_1.jpg" alt="Stranger Things" onclick="openLightbox(this)">
+              <img src="trend_images/09_strangerthings_2.jpg" alt="Stranger Things" onclick="openLightbox(this)">
+              <img src="trend_images/09_strangerthings_3.jpg" alt="Stranger Things" onclick="openLightbox(this)">
             </div></div>
             <div class="ttc-info">
               <div class="ttc-header">
@@ -642,9 +661,9 @@ a { text-decoration: none; color: inherit; }
         <div class="trend-topic-card">
           <div class="ttc-top">
             <div class="ttc-images"><div class="img-trio">
-              <img src="trend_images/10_zendaya_1.jpg" alt="Zendaya">
-              <img src="trend_images/10_zendaya_2.jpg" alt="Zendaya">
-              <img src="trend_images/10_zendaya_3.jpg" alt="Zendaya">
+              <img src="trend_images/10_zendaya_1.jpg" alt="Zendaya" onclick="openLightbox(this)">
+              <img src="trend_images/10_zendaya_2.jpg" alt="Zendaya" onclick="openLightbox(this)">
+              <img src="trend_images/10_zendaya_3.jpg" alt="Zendaya" onclick="openLightbox(this)">
             </div></div>
             <div class="ttc-info">
               <div class="ttc-header">
@@ -1040,22 +1059,23 @@ a { text-decoration: none; color: inherit; }
         .yt-card {
           background: var(--bg3); border: 1px solid var(--border2); border-radius: 16px;
           overflow: hidden; margin-bottom: 20px;
-          display: grid; grid-template-columns: 200px 1fr;
+          display: grid; grid-template-columns: 200px 1fr; align-items: stretch;
           transition: border-color 0.2s;
         }
         .yt-card:hover { border-color: var(--gray3); }
         .yt-card.top { border-color: #ff0000; }
         .yt-thumb {
-          position: relative; width: 200px; background: #000;
-          display: flex; align-items: center; justify-content: center; overflow: hidden;
+          position: relative; width: 200px; height: 356px; background: #000;
+          overflow: hidden; flex-shrink: 0;
         }
-        .yt-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 180px; }
+        .yt-iframe { width: 100%; height: 100%; border: 0; display: block; }
         .yt-rank-badge {
           position: absolute; top: 8px; left: 8px; z-index: 10;
           background: rgba(0,0,0,0.8); color: #fff;
           font-size: 14px; font-weight: 900; width: 30px; height: 30px;
           border-radius: 7px; display: flex; align-items: center; justify-content: center;
           border: 1px solid rgba(255,255,255,0.15);
+          pointer-events: none;
         }
         .yt-rank-badge.yt-gold { background: var(--gold); color: #000; border-color: transparent; }
         .yt-views-chip {
@@ -1063,6 +1083,7 @@ a { text-decoration: none; color: inherit; }
           background: rgba(0,0,0,0.82); color: #fff;
           font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 6px;
           display: flex; align-items: center; gap: 5px;
+          pointer-events: none;
         }
         .yt-play-icon { color: #ff0000; font-size: 12px; }
         .yt-info { padding: 18px 22px; display: flex; flex-direction: column; gap: 12px; }
@@ -1093,7 +1114,7 @@ a { text-decoration: none; color: inherit; }
         <div class="yt-card top">
           <div class="yt-thumb">
             <div class="yt-rank-badge yt-gold">1</div>
-            <img src="yt_images/01_mrbeast_balloons.jpg" alt="Pop The Balloons Win $10,000">
+            <iframe class="yt-iframe" src="https://www.youtube.com/embed/IqL-ZunFfpk" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
             <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 6760万 播放</div>
           </div>
           <div class="yt-info">
@@ -1132,7 +1153,7 @@ a { text-decoration: none; color: inherit; }
         <div class="yt-card">
           <div class="yt-thumb">
             <div class="yt-rank-badge">2</div>
-            <img src="yt_images/02_mrbeast_strangers.jpg" alt="5 Strangers Split $100,000">
+            <iframe class="yt-iframe" src="https://www.youtube.com/embed/purAsH7pXTQ" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
             <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 4560万 播放</div>
           </div>
           <div class="yt-info">
@@ -1168,7 +1189,7 @@ a { text-decoration: none; color: inherit; }
         <div class="yt-card">
           <div class="yt-thumb">
             <div class="yt-rank-badge">3</div>
-            <img src="yt_images/03_mrbeast_vault.jpg" alt="I Hid $1,000,000 In This Vault">
+            <iframe class="yt-iframe" src="https://www.youtube.com/embed/jCE1Ol3PYDs" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
             <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 2820万 播放</div>
           </div>
           <div class="yt-info">
@@ -1204,7 +1225,7 @@ a { text-decoration: none; color: inherit; }
         <div class="yt-card">
           <div class="yt-thumb">
             <div class="yt-rank-badge">4</div>
-            <img src="yt_images/04_zachking_banksy.jpg" alt="Banksy Identity Revealed">
+            <iframe class="yt-iframe" src="https://www.youtube.com/embed/5jhEoRZXhjE" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
             <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 2510万 播放</div>
           </div>
           <div class="yt-info">
@@ -1240,7 +1261,7 @@ a { text-decoration: none; color: inherit; }
         <div class="yt-card">
           <div class="yt-thumb">
             <div class="yt-rank-badge">5</div>
-            <img src="yt_images/05_zackdfilms_omurice.jpg" alt="How Japanese Omelet Rice Is Made">
+            <iframe class="yt-iframe" src="https://www.youtube.com/embed/I-DFz6Id6DI" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
             <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 1100万 播放</div>
           </div>
           <div class="yt-info">
@@ -1276,7 +1297,7 @@ a { text-decoration: none; color: inherit; }
         <div class="yt-card">
           <div class="yt-thumb">
             <div class="yt-rank-badge">6</div>
-            <img src="yt_images/06_mrbeast_water.jpg" alt="Bring Me A Glass Of Water Win $10,000">
+            <iframe class="yt-iframe" src="https://www.youtube.com/embed/Z9NxQdQ8Rpg" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
             <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 737万 播放</div>
           </div>
           <div class="yt-info">
@@ -1312,7 +1333,7 @@ a { text-decoration: none; color: inherit; }
         <div class="yt-card">
           <div class="yt-thumb">
             <div class="yt-rank-badge">7</div>
-            <img src="yt_images/07_zackdfilms_gta6.jpg" alt="The Teen Who Leaked GTA 6">
+            <iframe class="yt-iframe" src="https://www.youtube.com/embed/7-heUMQhVko" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
             <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 620万 播放</div>
           </div>
           <div class="yt-info">
@@ -1348,7 +1369,7 @@ a { text-decoration: none; color: inherit; }
         <div class="yt-card">
           <div class="yt-thumb">
             <div class="yt-rank-badge">8</div>
-            <img src="yt_images/08_dudeperfect_quicksand.jpg" alt="Quicksand Football Battle">
+            <iframe class="yt-iframe" src="https://www.youtube.com/embed/tj-9sh8DG5o" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
             <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 230万 播放</div>
           </div>
           <div class="yt-info">
@@ -1384,7 +1405,7 @@ a { text-decoration: none; color: inherit; }
         <div class="yt-card">
           <div class="yt-thumb">
             <div class="yt-rank-badge">9</div>
-            <img src="yt_images/09_wwe_obafemi.jpg" alt="Oba Femi WWE">
+            <iframe class="yt-iframe" src="https://www.youtube.com/embed/0l8tn8hh--Y" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
             <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 123万 播放</div>
           </div>
           <div class="yt-info">
@@ -1420,7 +1441,7 @@ a { text-decoration: none; color: inherit; }
         <div class="yt-card">
           <div class="yt-thumb">
             <div class="yt-rank-badge">10</div>
-            <img src="yt_images/10_ellenBrian_bts.jpg" alt="BTS 2.0 Dance Cover Ellen and Brian">
+            <iframe class="yt-iframe" src="https://www.youtube.com/embed/4Fb5lCt3r94" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
             <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 88万 播放</div>
           </div>
           <div class="yt-info">
@@ -1519,23 +1540,58 @@ a { text-decoration: none; color: inherit; }
   </main>
 </div>
 
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+  <span id="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+</div>
+
 <script>
+function openLightbox(img) {
+  var lb = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = img.src;
+  document.getElementById('lightbox-img').alt = img.alt;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+
 function switchSection(targetId, btn) {
-  // Hide all sections
   document.querySelectorAll('.section-panel').forEach(function(p) {
     p.classList.remove('active');
   });
-  // Deactivate all nav items
   document.querySelectorAll('.nav-item').forEach(function(n) {
     n.classList.remove('active');
   });
-  // Show target section
   document.getElementById(targetId).classList.add('active');
-  // Activate clicked nav item
   if (btn) btn.classList.add('active');
-  // Scroll content to top
   window.scrollTo(0, 0);
+
+  // Mark as visited — remove NEW badge and persist
+  var visited = JSON.parse(localStorage.getItem('hub_visited') || '{}');
+  visited[targetId] = true;
+  localStorage.setItem('hub_visited', JSON.stringify(visited));
+  if (btn) {
+    var badge = btn.querySelector('.ni-badge-new');
+    if (badge) badge.remove();
+  }
 }
+
+// On load: hide NEW badges for already-visited sections
+(function() {
+  var visited = JSON.parse(localStorage.getItem('hub_visited') || '{}');
+  document.querySelectorAll('.nav-item[data-target]').forEach(function(item) {
+    var target = item.getAttribute('data-target');
+    if (visited[target]) {
+      var badge = item.querySelector('.ni-badge-new');
+      if (badge) badge.remove();
+    }
+  });
+})();
 </script>
 </body>
 </html>
