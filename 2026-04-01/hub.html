@@ -1021,20 +1021,468 @@ a { text-decoration: none; color: inherit; }
 
 
     <!-- ══════════════════════════════════════ -->
-    <!--  SECTION: YouTube Shorts (Coming Soon) -->
+    <!--  SECTION: YouTube Shorts              -->
     <!-- ══════════════════════════════════════ -->
     <div id="s-youtube" class="section-panel">
       <div class="sec-inner">
-        <div class="coming-soon-panel">
-          <div class="cs-box">
-            <div class="cs-icon">▶️</div>
-            <div class="cs-title">YouTube Trending Shorts</div>
-            <div class="cs-desc">正在搭建数据采集与分析流程，即将上线。将覆盖美区 YouTube Shorts 热门内容拆解与 UA 洞察。</div>
-            <span class="cs-badge">预计 Vol.002 上线</span>
+        <div class="sec-kicker">▶️ YouTube Shorts · 热门视频分析</div>
+        <div class="sec-title">美区 YouTube Shorts 热门 Top 10</div>
+        <div class="sec-desc">通过直接访问 YouTube 频道页与结构化数据，获取 2026 年 3 月中旬至 4 月初播放量最高的美区 Shorts，拆解钩子结构与 UA 素材复用点。</div>
+        <div class="stats-row">
+          <div class="stat-pill">📅 <strong>数据周期</strong> 2026.03.13 – 04.01</div>
+          <div class="stat-pill">🌎 <strong>地区</strong> 美国</div>
+          <div class="stat-pill">📊 <strong>来源</strong> YouTube 频道页直接采集</div>
+          <div class="stat-pill">🎮 <strong>视角</strong> 游戏营销 UA 向</div>
+        </div>
+
+        <!-- ── YouTube Shorts Card Styles (inline) ── -->
+        <style>
+        .yt-card {
+          background: var(--bg3); border: 1px solid var(--border2); border-radius: 16px;
+          overflow: hidden; margin-bottom: 20px;
+          display: grid; grid-template-columns: 200px 1fr;
+          transition: border-color 0.2s;
+        }
+        .yt-card:hover { border-color: var(--gray3); }
+        .yt-card.top { border-color: #ff0000; }
+        .yt-thumb {
+          position: relative; width: 200px; background: #000;
+          display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        .yt-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 180px; }
+        .yt-rank-badge {
+          position: absolute; top: 8px; left: 8px; z-index: 10;
+          background: rgba(0,0,0,0.8); color: #fff;
+          font-size: 14px; font-weight: 900; width: 30px; height: 30px;
+          border-radius: 7px; display: flex; align-items: center; justify-content: center;
+          border: 1px solid rgba(255,255,255,0.15);
+        }
+        .yt-rank-badge.yt-gold { background: var(--gold); color: #000; border-color: transparent; }
+        .yt-views-chip {
+          position: absolute; bottom: 8px; left: 8px; right: 8px;
+          background: rgba(0,0,0,0.82); color: #fff;
+          font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 6px;
+          display: flex; align-items: center; gap: 5px;
+        }
+        .yt-play-icon { color: #ff0000; font-size: 12px; }
+        .yt-info { padding: 18px 22px; display: flex; flex-direction: column; gap: 12px; }
+        .yt-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+        .yt-title { font-size: 15px; font-weight: 700; color: var(--white); line-height: 1.4; }
+        .yt-channel { font-size: 12px; font-weight: 600; color: #ff4444; white-space: nowrap; }
+        .yt-meta { display: flex; gap: 14px; background: var(--bg4); border-radius: 9px; padding: 9px 14px; flex-wrap: wrap; }
+        .yt-stat { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 52px; }
+        .yt-stat .sv { font-size: 14px; font-weight: 800; color: var(--white); }
+        .yt-stat .sv.hot { color: #ff4444; }
+        .yt-stat .sl { font-size: 9px; color: var(--gray3); }
+        .yt-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+        .yt-tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; letter-spacing: 0.3px; }
+        .yt-tag.hook { background: rgba(255,68,68,0.1); color: #ff8080; border: 1px solid rgba(255,68,68,0.2); }
+        .yt-tag.fmt { background: rgba(74,158,255,0.1); color: #8ac4ff; border: 1px solid rgba(74,158,255,0.2); }
+        .yt-ua { background: var(--bg4); border: 1px solid var(--border); border-radius: 9px; padding: 12px 14px; }
+        .yt-ua-label { font-size: 9px; font-weight: 700; color: #ff4444; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 7px; }
+        .yt-ua-list { list-style: none; }
+        .yt-ua-list li { font-size: 11px; color: #aaa; line-height: 1.65; padding: 3px 0 3px 18px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .yt-ua-list li:last-child { border-bottom: none; }
+        .yt-ua-list li::before { content: '▸'; position: absolute; left: 3px; color: #ff4444; font-size: 9px; top: 5px; }
+        .yt-ua-list li strong { color: var(--white); font-weight: 600; }
+        .yt-link { font-size: 11px; color: #ff4444; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+        .yt-link:hover { text-decoration: underline; }
+        </style>
+
+        <!-- ── 01 MrBeast Balloons ── -->
+        <div class="yt-card top">
+          <div class="yt-thumb">
+            <div class="yt-rank-badge yt-gold">1</div>
+            <img src="yt_images/01_mrbeast_balloons.jpg" alt="Pop The Balloons Win $10,000">
+            <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 6760万 播放</div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-header">
+              <div>
+                <div class="yt-title">Pop The Balloons, Win $10,000 🎈</div>
+                <div style="margin-top:4px;display:flex;gap:6px;align-items:center;">
+                  <a class="yt-channel" href="https://www.youtube.com/shorts/IqL-ZunFfpk" target="_blank">@MrBeast ↗</a>
+                  <span style="font-size:10px;color:#f59e0b;font-weight:700;">🏆 播放量冠军</span>
+                </div>
+              </div>
+              <span style="font-size:10px;color:var(--gray3);">2026-03-17</span>
+            </div>
+            <div class="yt-meta">
+              <div class="yt-stat"><span class="sv hot">6760万</span><span class="sl">播放 🏆</span></div>
+              <div class="yt-stat"><span class="sv">122.9万</span><span class="sl">点赞</span></div>
+              <div class="yt-stat"><span class="sv">~58秒</span><span class="sl">时长</span></div>
+            </div>
+            <div class="yt-tags">
+              <span class="yt-tag hook">#大额奖金</span><span class="yt-tag hook">#游戏挑战</span>
+              <span class="yt-tag fmt">#极简机制</span><span class="yt-tag fmt">#悬念选择</span>
+            </div>
+            <div style="font-size:12px;color:var(--gray2);line-height:1.6;">参与者用气泡膜弹弓射击气球，射中对应金额的气球即可获奖，极简规则 + 每次弹射都是小高潮，完播率极高。</div>
+            <div class="yt-ua">
+              <div class="yt-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="yt-ua-list">
+                <li><strong>【气球/随机格 = 抽卡钩子原型】</strong> 弹射气球选择奖项的机制与手游"转盘抽奖/宝箱爆率"视觉上高度同构，素材直接套用"射中哪个格子你就赢得它"的随机奖励框架，激发贪婪心理。</li>
+                <li><strong>【极简规则驱动高完播】</strong> 机制一句话说清，每次弹射都是独立小悬念，节奏紧凑。手游素材可用同等节奏：展示3-5次连抽结果，每次都是小高潮，杜绝拖沓。</li>
+                <li><strong>【大额数字开屏钩子】</strong> "$10,000"标题即钩子，前0.5秒就锁住注意力。游戏素材可借鉴：首帧展示战利品/奖励金额（"价值10000钻石"），同样原理。</li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+
+        <!-- ── 02 MrBeast Strangers ── -->
+        <div class="yt-card">
+          <div class="yt-thumb">
+            <div class="yt-rank-badge">2</div>
+            <img src="yt_images/02_mrbeast_strangers.jpg" alt="5 Strangers Split $100,000">
+            <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 4560万 播放</div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-header">
+              <div>
+                <div class="yt-title">5 Strangers Split $100,000 💰</div>
+                <div style="margin-top:4px;"><a class="yt-channel" href="https://www.youtube.com/shorts/purAsH7pXTQ" target="_blank">@MrBeast ↗</a></div>
+              </div>
+              <span style="font-size:10px;color:var(--gray3);">2026-03-13</span>
+            </div>
+            <div class="yt-meta">
+              <div class="yt-stat"><span class="sv hot">4560万</span><span class="sl">播放</span></div>
+              <div class="yt-stat"><span class="sv">140.2万</span><span class="sl">点赞 🏆</span></div>
+              <div class="yt-stat"><span class="sv">~60秒</span><span class="sl">时长</span></div>
+            </div>
+            <div class="yt-tags">
+              <span class="yt-tag hook">#社会实验</span><span class="yt-tag hook">#人性测试</span>
+              <span class="yt-tag fmt">#决策博弈</span><span class="yt-tag fmt">#真实反应</span>
+            </div>
+            <div style="font-size:12px;color:var(--gray2);line-height:1.6;">5位陌生人平分10万美元，但可以相互博弈争取更多份额，展示真实人性决策，点赞量全场最高（140万）。</div>
+            <div class="yt-ua">
+              <div class="yt-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="yt-ua-list">
+                <li><strong>【人性博弈 = 策略游戏核心情绪】</strong> "你会拿多少，还是分给别人？"的道德困境是策略/社交游戏的精髓所在。素材直接用"你会怎么选？"问题钩子切入，展示游戏内联盟/背刺机制，引发评论讨论。</li>
+                <li><strong>【陌生人协作叙事】</strong> 5个陌生人快速建立信任又相互猜疑的叙事弧，适合多人在线游戏素材：展示队友从陌生到默契的情感变化，比单纯展示战斗画面更有情感驻留。</li>
+                <li><strong>【评论率极高 = 话题性设计】</strong> 点赞140万但评论率高，说明内容触发了"我也想表态"的欲望。游戏素材可在结尾加"你会怎么选"投票选项，主动设计评论钩子，拉低 CPE。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 03 MrBeast Vault ── -->
+        <div class="yt-card">
+          <div class="yt-thumb">
+            <div class="yt-rank-badge">3</div>
+            <img src="yt_images/03_mrbeast_vault.jpg" alt="I Hid $1,000,000 In This Vault">
+            <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 2820万 播放</div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-header">
+              <div>
+                <div class="yt-title">I Hid $1,000,000 In This Vault 🔐</div>
+                <div style="margin-top:4px;"><a class="yt-channel" href="https://www.youtube.com/shorts/jCE1Ol3PYDs" target="_blank">@MrBeast ↗</a></div>
+              </div>
+              <span style="font-size:10px;color:var(--gray3);">2026-03-20</span>
+            </div>
+            <div class="yt-meta">
+              <div class="yt-stat"><span class="sv hot">2820万</span><span class="sl">播放</span></div>
+              <div class="yt-stat"><span class="sv">124.3万</span><span class="sl">点赞</span></div>
+              <div class="yt-stat"><span class="sv">~55秒</span><span class="sl">时长</span></div>
+            </div>
+            <div class="yt-tags">
+              <span class="yt-tag hook">#宝藏悬念</span><span class="yt-tag hook">#密码破解</span>
+              <span class="yt-tag fmt">#线索叙事</span><span class="yt-tag fmt">#品牌联名</span>
+            </div>
+            <div style="font-size:12px;color:var(--gray2);line-height:1.6;">与 Salesforce 联名，保险柜里藏100万美元，第一个 Slack 正确密码的人可飞到现场开锁，线上线下打通的病毒挑战。</div>
+            <div class="yt-ua">
+              <div class="yt-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="yt-ua-list">
+                <li><strong>【宝藏/副本锁定 = 游戏开箱前置钩子】</strong> 保险柜封存大奖的视觉与"副本入口/宝藏地图"高度同构，素材可用：展示封印中的稀有道具/皮肤，然后给玩家"解锁密码"，制造参与感和稀缺感。</li>
+                <li><strong>【任务性内容留存】</strong> "第一个找到密码的人赢得奖励"的挑战结构驱动观众反复观看寻找线索，直接对标游戏内的"隐藏成就/彩蛋"玩法，引发深度用户参与。</li>
+                <li><strong>【品牌联名可见度模板】</strong> 与 Salesforce 的合作方式（嵌入品牌产品作为挑战机制）是极自然的原生植入，对手游而言：达人使用游戏内特定道具完成现实挑战，是低排斥感的联名素材公式。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 04 Zach King Banksy ── -->
+        <div class="yt-card">
+          <div class="yt-thumb">
+            <div class="yt-rank-badge">4</div>
+            <img src="yt_images/04_zachking_banksy.jpg" alt="Banksy Identity Revealed">
+            <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 2510万 播放</div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-header">
+              <div>
+                <div class="yt-title">Banksy Identity Revealed 🎨</div>
+                <div style="margin-top:4px;"><a class="yt-channel" href="https://www.youtube.com/shorts/5jhEoRZXhjE" target="_blank">@ZachKing ↗</a></div>
+              </div>
+              <span style="font-size:10px;color:var(--gray3);">2026-03-22</span>
+            </div>
+            <div class="yt-meta">
+              <div class="yt-stat"><span class="sv hot">2510万</span><span class="sl">播放</span></div>
+              <div class="yt-stat"><span class="sv">15.2万</span><span class="sl">点赞</span></div>
+              <div class="yt-stat"><span class="sv">~45秒</span><span class="sl">时长</span></div>
+            </div>
+            <div class="yt-tags">
+              <span class="yt-tag hook">#揭秘悬念</span><span class="yt-tag hook">#视觉魔术</span>
+              <span class="yt-tag fmt">#无缝剪辑</span><span class="yt-tag fmt">#Zach King标志风格</span>
+            </div>
+            <div style="font-size:12px;color:var(--gray2);line-height:1.6;">Zach King 招牌无缝魔术剪辑，声称"揭露"神秘街头艺术家 Banksy 的真实身份，用视觉幻觉制造爆炸性话题，10天内快速破千万。</div>
+            <div class="yt-ua">
+              <div class="yt-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="yt-ua-list">
+                <li><strong>【揭秘结构 = 最强完播钩子】</strong> "揭露X的真相"是 YouTube/Shorts 完播率最高的叙事结构之一，观众必须看到最后。游戏素材可用：揭秘"传说英雄的真实背景故事"/"开发者从未说过的隐藏设定"。</li>
+                <li><strong>【视觉无缝跳切 = 高分留存技术】</strong> Zach King 的核心竞争力是让观众"看不穿剪辑点"，产生"这怎么做到的？"的留存驱动。游戏素材可借鉴：角色技能的无缝转换特效，或第一视角突然切换到全局地图，制造视觉惊喜驻留。</li>
+                <li><strong>【热点话题寄生策略】</strong> Banksy 是长期热点IP，Zach King 用自己的格式"寄生"在这个话题上放大传播力。游戏营销可用同样思路：用热门文化话题（Coachella、Euphoria等）作为视频钩子，再过渡到游戏内容。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 05 Zack D Films Omurice ── -->
+        <div class="yt-card">
+          <div class="yt-thumb">
+            <div class="yt-rank-badge">5</div>
+            <img src="yt_images/05_zackdfilms_omurice.jpg" alt="How Japanese Omelet Rice Is Made">
+            <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 1100万 播放</div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-header">
+              <div>
+                <div class="yt-title">How Japanese Omelet Rice Is Made 🤤</div>
+                <div style="margin-top:4px;"><a class="yt-channel" href="https://www.youtube.com/shorts/I-DFz6Id6DI" target="_blank">@ZackDFilms ↗</a></div>
+              </div>
+              <span style="font-size:10px;color:var(--gray3);">2026-03-29</span>
+            </div>
+            <div class="yt-meta">
+              <div class="yt-stat"><span class="sv hot">1100万</span><span class="sl">播放</span></div>
+              <div class="yt-stat"><span class="sv">约32万</span><span class="sl">点赞</span></div>
+              <div class="yt-stat"><span class="sv">~40秒</span><span class="sl">时长</span></div>
+            </div>
+            <div class="yt-tags">
+              <span class="yt-tag hook">#视觉满足感</span><span class="yt-tag hook">#ASMR制作</span>
+              <span class="yt-tag fmt">#涨知识</span><span class="yt-tag fmt">#高颜值过程</span>
+            </div>
+            <div style="font-size:12px;color:var(--gray2);line-height:1.6;">厨师在铁板上用流畅动作将嫩滑炒蛋铺在米饭上，一镜到底展示完整制作过程，强烈视觉满足感驱动自发分享，是 Zack D. Films 3月底播放量最高的视频。</div>
+            <div class="yt-ua">
+              <div class="yt-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="yt-ua-list">
+                <li><strong>【制作过程展示 = 满足感驱动留存】</strong> 从原材料到成品的完整制作过程，每一步都有视觉回报，与游戏"建造/升级/合成"动画高度同构。素材公式：展示资源→制作中→成品瞬间，结尾给足"满足一击"。</li>
+                <li><strong>【零解说依靠画面自述】</strong> 无旁白，全靠视觉和音效讲故事，在无声滑动 Shorts 流中仍然强力留存。游戏素材可学习：无需旁白，只靠绚丽技能特效+ASMR音效+满血回复动画，前3秒钩住用户。</li>
+                <li><strong>【异文化审美全球扩散】</strong> 日本料理对美区观众有天然的"异文化惊喜感"，与游戏中的"东方幻想/武侠/奇幻设定"具有同等跨文化吸引力，是出海游戏素材的有效借鉴方向。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 06 MrBeast Water ── -->
+        <div class="yt-card">
+          <div class="yt-thumb">
+            <div class="yt-rank-badge">6</div>
+            <img src="yt_images/06_mrbeast_water.jpg" alt="Bring Me A Glass Of Water Win $10,000">
+            <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 737万 播放</div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-header">
+              <div>
+                <div class="yt-title">Bring Me A Glass Of Water = Win $10,000 💧</div>
+                <div style="margin-top:4px;"><a class="yt-channel" href="https://www.youtube.com/shorts/Z9NxQdQ8Rpg" target="_blank">@MrBeast ↗</a></div>
+              </div>
+              <span style="font-size:10px;color:var(--gray3);">2026-03-26</span>
+            </div>
+            <div class="yt-meta">
+              <div class="yt-stat"><span class="sv hot">737万</span><span class="sl">播放</span></div>
+              <div class="yt-stat"><span class="sv">28.1万</span><span class="sl">点赞</span></div>
+              <div class="yt-stat"><span class="sv">~50秒</span><span class="sl">时长</span></div>
+            </div>
+            <div class="yt-tags">
+              <span class="yt-tag hook">#荒诞反差</span><span class="yt-tag hook">#日常小事大奖励</span>
+              <span class="yt-tag fmt">#街头真实反应</span><span class="yt-tag fmt">#素人参与</span>
+            </div>
+            <div style="font-size:12px;color:var(--gray2);line-height:1.6;">MrBeast 在街头随机拦人，要求对方端来一杯水即送$10,000，极度简单的任务换来极大回报，路人真实反应制造喜剧效果。</div>
+            <div class="yt-ua">
+              <div class="yt-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="yt-ua-list">
+                <li><strong>【极简任务=大奖励 反差钩子】</strong> "做一件超简单的事就能得到超大回报"是强烈反差钩子，手游素材可借鉴：登录即送稀有皮肤/新手任务完成即送SSR，文案强调"就这么简单？"的惊喜感。</li>
+                <li><strong>【路人真实反应 = 社交证明】</strong> 真实的路人惊喜表情比精心设计的演员反应更有说服力。游戏素材中加入素人玩家的真实首次体验反应，信任度和转化率均高于纯演示素材。</li>
+                <li><strong>【反常识叙事驱动传播】</strong> "端杯水=$10,000"的荒诞设定让人忍不住分享给朋友"你信吗？"，制造病毒传播的社交货币。游戏素材也可用"做到这件事送你XXX"的荒诞对比来引发分享。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 07 Zack D Films GTA6 ── -->
+        <div class="yt-card">
+          <div class="yt-thumb">
+            <div class="yt-rank-badge">7</div>
+            <img src="yt_images/07_zackdfilms_gta6.jpg" alt="The Teen Who Leaked GTA 6">
+            <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 620万 播放</div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-header">
+              <div>
+                <div class="yt-title">The Teen Who Leaked GTA 6 From A Hotel Room 😮</div>
+                <div style="margin-top:4px;"><a class="yt-channel" href="https://www.youtube.com/shorts/7-heUMQhVko" target="_blank">@ZackDFilms ↗</a></div>
+              </div>
+              <span style="font-size:10px;color:var(--gray3);">2026-03-30</span>
+            </div>
+            <div class="yt-meta">
+              <div class="yt-stat"><span class="sv hot">620万</span><span class="sl">播放</span></div>
+              <div class="yt-stat"><span class="sv">约18万</span><span class="sl">点赞</span></div>
+              <div class="yt-stat"><span class="sv">~55秒</span><span class="sl">时长</span></div>
+            </div>
+            <div class="yt-tags">
+              <span class="yt-tag hook">#真实犯罪故事</span><span class="yt-tag hook">#游戏话题</span>
+              <span class="yt-tag fmt">#快节奏叙事</span><span class="yt-tag fmt">#悬念反转</span>
+            </div>
+            <div style="font-size:12px;color:var(--gray2);line-height:1.6;">讲述2022年GTA 6泄露事件始末：一名英国少年在酒店用iPad入侵Rockstar服务器，下载数千个开发文件后被警方逮捕，真实犯罪+游戏话题双重流量叠加。</div>
+            <div class="yt-ua">
+              <div class="yt-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="yt-ua-list">
+                <li><strong>【游戏话题天然受众命中】</strong> GTA 6 是游戏圈长期热搜词，用游戏相关真实事件做内容钩子，能以极低 CPM 命中核心游戏用户群体，同等投入覆盖质量远超泛娱乐素材。</li>
+                <li><strong>【"你绝对不敢相信"叙事模板】</strong> 真实案例 + 意外反转（少年被抓）+ 快节奏60秒讲完是 Zack D. Films 爆款公式。游戏素材可套用：讲述游戏史上真实的意外事件/隐藏彩蛋发现过程，同等完播结构。</li>
+                <li><strong>【安全感反差焦虑】</strong> 泄露事件触发"任何东西都不安全"的现代科技焦虑，与赛博朋克/黑客/反乌托邦主题手游的核心情绪完美契合，素材可直接用"你的数据，你的命运"等焦虑化钩子。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 08 Dude Perfect Quicksand ── -->
+        <div class="yt-card">
+          <div class="yt-thumb">
+            <div class="yt-rank-badge">8</div>
+            <img src="yt_images/08_dudeperfect_quicksand.jpg" alt="Quicksand Football Battle">
+            <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 230万 播放</div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-header">
+              <div>
+                <div class="yt-title">Quicksand Football Battle 🤯</div>
+                <div style="margin-top:4px;"><a class="yt-channel" href="https://www.youtube.com/shorts/tj-9sh8DG5o" target="_blank">@DudePerfect ↗</a></div>
+              </div>
+              <span style="font-size:10px;color:var(--gray3);">2026-03-23</span>
+            </div>
+            <div class="yt-meta">
+              <div class="yt-stat"><span class="sv hot">230万</span><span class="sl">播放</span></div>
+              <div class="yt-stat"><span class="sv">约6.8万</span><span class="sl">点赞</span></div>
+              <div class="yt-stat"><span class="sv">~57秒</span><span class="sl">时长</span></div>
+            </div>
+            <div class="yt-tags">
+              <span class="yt-tag hook">#荒诞运动</span><span class="yt-tag hook">#搞笑跌倒</span>
+              <span class="yt-tag fmt">#场景改造挑战</span><span class="yt-tag fmt">#体育竞技</span>
+            </div>
+            <div style="font-size:12px;color:var(--gray2);line-height:1.6;">在流沙场地进行美式足球对战，运动员每走一步都深陷其中，真实身体困境 + 搞笑跌倒 + 竞技对抗，是 Dude Perfect 标志性"改造运动场"格式。</div>
+            <div class="yt-ua">
+              <div class="yt-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="yt-ua-list">
+                <li><strong>【熟悉规则+陌生环境 = 反差笑点】</strong> 已知规则（足球）+ 意外场景（流沙）产生强烈反差喜感，是制作笑点的高效公式。游戏素材：让已知英雄在完全意外的副本/环境中完成任务，反差制造幽默记忆点。</li>
+                <li><strong>【身体障碍 = 强共情完播】</strong> 看别人在困难环境中挣扎是天然高完播内容（"接下来会怎样？"）。手游卡关/挑战副本的失败画面 + 胜利反转结构，复用同款情绪驱动力。</li>
+                <li><strong>【体育+游戏人群高度重叠】</strong> NFL/足球观众与手游核心用户在美区人口中高度重叠（尤其男性18-34岁），体育题材素材在这批用户中天然高CTR，适合竞技/MOBA/体育类游戏定向投放。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 09 WWE Oba Femi ── -->
+        <div class="yt-card">
+          <div class="yt-thumb">
+            <div class="yt-rank-badge">9</div>
+            <img src="yt_images/09_wwe_obafemi.jpg" alt="Oba Femi WWE">
+            <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 123万 播放</div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-header">
+              <div>
+                <div class="yt-title">Oba Femi 突破安保 强势登场 💪 #WWERaw</div>
+                <div style="margin-top:4px;"><a class="yt-channel" href="https://www.youtube.com/shorts/0l8tn8hh--Y" target="_blank">@WWE ↗</a></div>
+              </div>
+              <span style="font-size:10px;color:var(--gray3);">2026-03-30</span>
+            </div>
+            <div class="yt-meta">
+              <div class="yt-stat"><span class="sv hot">123万</span><span class="sl">播放</span></div>
+              <div class="yt-stat"><span class="sv">约3万</span><span class="sl">点赞</span></div>
+              <div class="yt-stat"><span class="sv">~45秒</span><span class="sl">时长</span></div>
+            </div>
+            <div class="yt-tags">
+              <span class="yt-tag hook">#力量展示</span><span class="yt-tag hook">#霸王登场</span>
+              <span class="yt-tag fmt">#WWE高光</span><span class="yt-tag fmt">#WrestleMania预热</span>
+            </div>
+            <div style="font-size:12px;color:var(--gray2);line-height:1.6;">新星 Oba Femi 强行推开多名安保人员冲入擂台，一镜到底展示绝对力量统治感，是 WrestleMania 赛季前重要的角色高光时刻，WWE Shorts 本周播放量最高片段。</div>
+            <div class="yt-ua">
+              <div class="yt-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="yt-ua-list">
+                <li><strong>【Boss 式登场 = 最强角色展示公式】</strong> 推开所有阻碍、不可阻挡地登场，是格斗/动作类游戏角色展示素材的最佳范本。新英雄/新角色上线素材直接借用"无人能挡"的力量叙事，激发购买冲动。</li>
+                <li><strong>【赛前预热节奏迁移】</strong> WWE 用每周 Shorts 高光片段持续为 WrestleMania 积累用户期待，这套"大事件预热内容矩阵"策略，可直接用于游戏大版本/新赛季前的预热素材排期。</li>
+                <li><strong>【力量反差冲击 = 高CTR缩略图公式】</strong> 一个巨汉推开多人的封面画面天然高CTR，画面构图清晰传达"力量对比"信息，游戏素材缩略图可借鉴：主角 vs 压倒性数量敌人，1v多的力量反差构图。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 10 Ellen & Brian BTS ── -->
+        <div class="yt-card">
+          <div class="yt-thumb">
+            <div class="yt-rank-badge">10</div>
+            <img src="yt_images/10_ellenBrian_bts.jpg" alt="BTS 2.0 Dance Cover Ellen and Brian">
+            <div class="yt-views-chip"><span class="yt-play-icon">▶</span> 88万 播放</div>
+          </div>
+          <div class="yt-info">
+            <div class="yt-header">
+              <div>
+                <div class="yt-title">BTS - '2.0' Dance Cover | Ellen and Brian 💃</div>
+                <div style="margin-top:4px;"><a class="yt-channel" href="https://www.youtube.com/shorts/4Fb5lCt3r94" target="_blank">@EllenAndBrian ↗</a></div>
+              </div>
+              <span style="font-size:10px;color:var(--gray3);">2026-03-28</span>
+            </div>
+            <div class="yt-meta">
+              <div class="yt-stat"><span class="sv hot">88万</span><span class="sl">播放</span></div>
+              <div class="yt-stat"><span class="sv">约3.7万</span><span class="sl">点赞</span></div>
+              <div class="yt-stat"><span class="sv">~58秒</span><span class="sl">时长</span></div>
+            </div>
+            <div class="yt-tags">
+              <span class="yt-tag hook">#IP借势</span><span class="yt-tag hook">#BTS粉丝流量</span>
+              <span class="yt-tag fmt">#舞蹈翻跳</span><span class="yt-tag fmt">#情侣内容</span>
+            </div>
+            <div style="font-size:12px;color:var(--gray2);line-height:1.6;">舞蹈情侣 Ellen & Brian 翻跳 BTS 回归新曲《2.0》完整编舞，发布于 BTS 回归高峰期，精准捕获全球粉丝涌入 Shorts 的搜索流量。</div>
+            <div class="yt-ua">
+              <div class="yt-ua-label">🎮 UA 素材可复用点</div>
+              <ul class="yt-ua-list">
+                <li><strong>【粉丝经济搭便车策略】</strong> 在 IP 爆发期发布高质量同人/翻跳内容，精准截获涌入平台的粉丝流量，几乎零冷启动成本。游戏营销同理：在大型IP联动上线当天同步发布"向联名IP致敬"类内容，蹭 IP 热度定向截流。</li>
+                <li><strong>【情侣双人舞 = 情感代入高效率】</strong> 男女搭档 + 流畅协调的编舞，天然有"羡慕感"和"想分享给对象"的社交货币价值。手游情侣副本/双人任务的素材，可采用同款情侣协作视觉语言。</li>
+                <li><strong>【音乐游戏/节奏类品类天然流量池】</strong> 舞蹈翻跳内容的受众与音游、节奏类手游用户高度重合，在此类内容流行周期内定向投放，CPM 和 CTR 均优于均值。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Overview Table -->
+        <div class="tk-section-title" style="margin-top:8px;"><span>数据总览</span><span class="num">播放量排行</span></div>
+        <table class="data-table" style="margin-bottom:28px;">
+          <thead><tr><th>#</th><th>频道</th><th>标题</th><th>播放量</th><th>点赞</th><th>发布日期</th><th>内容类型</th></tr></thead>
+          <tbody>
+            <tr style="background:#1a0305;"><td class="rank-num">1</td><td><a class="author-link" href="https://www.youtube.com/shorts/IqL-ZunFfpk" target="_blank">@MrBeast</a></td><td>Pop Balloons Win $10,000</td><td class="num-cell" style="color:#ff4444;">6760万 🏆</td><td class="num-cell">122.9万</td><td class="num-cell">03-17</td><td class="num-cell">奖金挑战</td></tr>
+            <tr><td class="rank-num">2</td><td><a class="author-link" href="https://www.youtube.com/shorts/purAsH7pXTQ" target="_blank">@MrBeast</a></td><td>5 Strangers Split $100,000</td><td class="num-cell">4560万</td><td class="num-cell" style="color:#ff4444;">140.2万 🏆</td><td class="num-cell">03-13</td><td class="num-cell">社会实验</td></tr>
+            <tr><td class="rank-num">3</td><td><a class="author-link" href="https://www.youtube.com/shorts/jCE1Ol3PYDs" target="_blank">@MrBeast</a></td><td>I Hid $1,000,000 In This Vault</td><td class="num-cell">2820万</td><td class="num-cell">124.3万</td><td class="num-cell">03-20</td><td class="num-cell">悬念挑战</td></tr>
+            <tr><td class="rank-num">4</td><td><a class="author-link" href="https://www.youtube.com/shorts/5jhEoRZXhjE" target="_blank">@ZachKing</a></td><td>Banksy Identity Revealed</td><td class="num-cell">2510万</td><td class="num-cell">15.2万</td><td class="num-cell">03-22</td><td class="num-cell">视觉魔术</td></tr>
+            <tr><td class="rank-num">5</td><td><a class="author-link" href="https://www.youtube.com/shorts/I-DFz6Id6DI" target="_blank">@ZackDFilms</a></td><td>How Japanese Omelet Rice Is Made</td><td class="num-cell">1100万</td><td class="num-cell">约32万</td><td class="num-cell">03-29</td><td class="num-cell">视觉满足感</td></tr>
+            <tr><td class="rank-num">6</td><td><a class="author-link" href="https://www.youtube.com/shorts/Z9NxQdQ8Rpg" target="_blank">@MrBeast</a></td><td>Bring Me Water = Win $10,000</td><td class="num-cell">737万</td><td class="num-cell">28.1万</td><td class="num-cell">03-26</td><td class="num-cell">街头挑战</td></tr>
+            <tr><td class="rank-num">7</td><td><a class="author-link" href="https://www.youtube.com/shorts/7-heUMQhVko" target="_blank">@ZackDFilms</a></td><td>The Teen Who Leaked GTA 6</td><td class="num-cell">620万</td><td class="num-cell">约18万</td><td class="num-cell">03-30</td><td class="num-cell">真实犯罪</td></tr>
+            <tr><td class="rank-num">8</td><td><a class="author-link" href="https://www.youtube.com/shorts/tj-9sh8DG5o" target="_blank">@DudePerfect</a></td><td>Quicksand Football Battle</td><td class="num-cell">230万</td><td class="num-cell">约6.8万</td><td class="num-cell">03-23</td><td class="num-cell">荒诞运动</td></tr>
+            <tr><td class="rank-num">9</td><td><a class="author-link" href="https://www.youtube.com/shorts/0l8tn8hh--Y" target="_blank">@WWE</a></td><td>Oba Femi 突破安保登场</td><td class="num-cell">123万</td><td class="num-cell">约3万</td><td class="num-cell">03-30</td><td class="num-cell">体育高光</td></tr>
+            <tr><td class="rank-num">10</td><td><a class="author-link" href="https://www.youtube.com/shorts/4Fb5lCt3r94" target="_blank">@EllenAndBrian</a></td><td>BTS '2.0' Dance Cover</td><td class="num-cell">88万</td><td class="num-cell">约3.7万</td><td class="num-cell">03-28</td><td class="num-cell">舞蹈翻跳</td></tr>
+          </tbody>
+        </table>
+
+        <!-- Key Insights -->
+        <div class="tk-section-title"><span>YouTube Shorts UA 核心洞察</span><span class="num">5 Key Points</span></div>
+        <div class="insights" style="grid-template-columns:repeat(3,1fr);margin-bottom:20px;">
+          <div class="insight-card"><div class="icon-big">💰</div><h3>MrBeast 公式垄断顶端</h3><p>前4名播放量合计超 <span class="highlight-text">1.76亿</span>，MrBeast 独占前3。"大额奖金+极简机制+路人真实反应"是 Shorts 最稳定的流量公式，手游素材可学习此结构。</p></div>
+          <div class="insight-card"><div class="icon-big">🎭</div><h3>视觉魔术&冷知识强势</h3><p>Zach King 和 Zack D. Films 合计贡献 <span class="highlight-text">3230万</span> 播放，靠"你绝不会想到的结尾"完播钩子，是非大额资金创作者的最高效竞争路径。</p></div>
+          <div class="insight-card"><div class="icon-big">🎯</div><h3>完播 > 点赞</h3><p>Zach King（2510万播放，仅15万点赞）说明 Shorts 算法更看重完播信号而非点赞率。游戏素材应优化前3秒钩子和结尾反转，而不是优化CTA按钮设计。</p></div>
+          <div class="insight-card"><div class="icon-big">🎮</div><h3>游戏话题天然加成</h3><p>GTA 6 泄露故事（620万播放）证明游戏相关话题在 YouTube Shorts 有天然的精准受众池，游戏类素材在同平台的有效曝光成本显著低于泛娱乐内容。</p></div>
+          <div class="insight-card"><div class="icon-big">⚡</div><h3>Shorts 黄金时长 45-60秒</h3><p>10个视频平均时长52秒，YouTube Shorts 最长60秒，最优时长是 <span class="highlight-text">45-58秒</span>——够讲一个完整故事，又不拖慢节奏。游戏素材控制在此区间内。</p></div>
+          <div class="insight-card"><div class="icon-big">🌊</div><h3>IP 借势搭便车策略</h3><p>BTS《2.0》回归期间，粉丝翻跳视频无需冷启动即可截获大量搜索流量。游戏 IP 联动期同步发布相关内容，是零成本流量放大器。</p></div>
+        </div>
+
+      </div><!-- /sec-inner -->
+    </div><!-- /s-youtube -->
 
     <!-- ══════════════════════════════════════ -->
     <!--  SECTION: Memes (Coming Soon)          -->
