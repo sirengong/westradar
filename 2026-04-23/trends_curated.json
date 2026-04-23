@@ -1,0 +1,126 @@
+{
+  "generated_at": "2026-04-23",
+  "source": "Curated (pytrends + web search) — 8 sports topics replaced",
+  "note": "User-curated list: 2 sports retained for cultural value; 8 augmented from web search",
+  "topics": [
+    {
+      "rank": 1,
+      "topic": "Philadelphia 76ers vs Knicks",
+      "category": "sports/culture",
+      "rationale": "NBA Playoff city rivalry, 兄弟之城",
+      "keywords": [
+        "NBA",
+        "playoff",
+        "Philadelphia",
+        "Knicks",
+        "Embiid",
+        "Brunson"
+      ]
+    },
+    {
+      "rank": 2,
+      "topic": "Trump-Iran 停火延期",
+      "category": "politics/world",
+      "rationale": "中东战火延烧后停火谈判延期, 战争伦理/反战题材",
+      "keywords": [
+        "Trump",
+        "Iran",
+        "ceasefire",
+        "Middle East"
+      ]
+    },
+    {
+      "rank": 3,
+      "topic": "Met Gala 2026 预热",
+      "category": "fashion/culture",
+      "rationale": "5/4 红毯主题倒计时, 角色装扮/华丽造型灵感",
+      "keywords": [
+        "Met Gala 2026",
+        "theme",
+        "fashion",
+        "Anna Wintour"
+      ]
+    },
+    {
+      "rank": 4,
+      "topic": "Pragmata",
+      "category": "gaming",
+      "rationale": "Capcom 原创新 IP, 黑客谜题+情感叙事, 玩法机制可借鉴",
+      "keywords": [
+        "Pragmata",
+        "Capcom",
+        "new IP",
+        "sci-fi"
+      ]
+    },
+    {
+      "rank": 5,
+      "topic": "Avengers: Secret Wars 预热",
+      "category": "movies/franchise",
+      "rationale": "多宇宙角色crossover, 联动玩法启发",
+      "keywords": [
+        "Avengers",
+        "Secret Wars",
+        "Marvel",
+        "multiverse"
+      ]
+    },
+    {
+      "rank": 6,
+      "topic": "Color hunting challenge",
+      "category": "TikTok format/UGC",
+      "rationale": "颜色收集 UGC, 适配模拟经营/收集玩法",
+      "keywords": [
+        "color hunting",
+        "TikTok challenge",
+        "UGC"
+      ]
+    },
+    {
+      "rank": 7,
+      "topic": "Cubs game",
+      "category": "sports/culture",
+      "rationale": "Wrigley Field 文化, 棒球城市记忆",
+      "keywords": [
+        "Cubs",
+        "MLB",
+        "Chicago",
+        "Wrigley"
+      ]
+    },
+    {
+      "rank": 8,
+      "topic": "Uncomfortable life (TikTok)",
+      "category": "TikTok format/comedy",
+      "rationale": "White Lotus 衍生反差喜剧, 自嘲钩子, 适合广告快验证",
+      "keywords": [
+        "uncomfortable life",
+        "White Lotus",
+        "TikTok format"
+      ]
+    },
+    {
+      "rank": 9,
+      "topic": "Big Hops",
+      "category": "gaming",
+      "rationale": "3D 平台跳跃新游, 简约可爱, 子玩法参考",
+      "keywords": [
+        "Big Hops",
+        "platformer",
+        "indie"
+      ]
+    },
+    {
+      "rank": 10,
+      "topic": "Splatoon Raiders 5/5 官宣",
+      "category": "gaming/preheat",
+      "rationale": "Switch 2 路线图预热, 品牌营销节奏参考",
+      "keywords": [
+        "Splatoon Raiders",
+        "Nintendo",
+        "Switch 2",
+        "July release"
+      ]
+    }
+  ]
+}

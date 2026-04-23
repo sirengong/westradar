@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1080px;
+  background: #f5f5f5;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+}
+
+/* ── Header ── */
+.hd {
+  background: #0d0d0d;
+  padding: 28px 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.hd-brand { display: flex; align-items: center; gap: 11px; }
+.hd-dot { width: 9px; height: 9px; border-radius: 50%; background: #fe2c55; }
+.hd-name { font-size: 20px; font-weight: 900; color: #fff; letter-spacing: -0.5px; }
+.hd-name small { display: block; font-size: 10px; font-weight: 400; color: #444; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+.hd-right { text-align: right; }
+.hd-vol { font-size: 11px; font-weight: 800; color: #fe2c55; letter-spacing: 2px; text-transform: uppercase; }
+.hd-date { font-size: 10px; color: #3a3a3a; margin-top: 4px; letter-spacing: 0.5px; }
+
+/* ── Red banner ── */
+.banner {
+  background: #fe2c55;
+  padding: 20px 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.banner-title { font-size: 24px; font-weight: 900; color: #fff; letter-spacing: -0.5px; }
+.banner-stats { display: flex; gap: 20px; align-items: center; }
+.banner-stat { text-align: center; }
+.banner-stat .bsv { font-size: 22px; font-weight: 900; color: #fff; line-height: 1; }
+.banner-stat .bsl { font-size: 9px; color: rgba(255,255,255,0.7); margin-top: 3px; letter-spacing: 1px; text-transform: uppercase; }
+.banner-divider { width: 1px; height: 36px; background: rgba(255,255,255,0.25); }
+
+/* ── Section label ── */
+.sec-lbl {
+  font-size: 9px;
+  font-weight: 800;
+  color: #aaa;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 22px 44px 12px;
+  background: #f5f5f5;
+}
+
+/* ── Image grid ── */
+.img-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  padding: 0 44px;
+  margin-bottom: 12px;
+}
+.img-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 210px;
+  background: #222;
+  cursor: default;
+}
+.img-card img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  filter: brightness(0.82);
+}
+.img-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.85));
+  padding: 28px 14px 14px;
+}
+.img-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 9px; font-weight: 800;
+  padding: 3px 8px; border-radius: 6px;
+  margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase;
+}
+.tag-trend  { background: rgba(251,191,36,0.2); color: #fbbf24; border: 1px solid rgba(251,191,36,0.4); }
+.tag-yt     { background: rgba(255,0,0,0.2);    color: #ff5555; border: 1px solid rgba(255,0,0,0.3); }
+.tag-meme   { background: rgba(167,139,250,0.2); color: #a78bfa; border: 1px solid rgba(167,139,250,0.3); }
+.tag-ad     { background: rgba(74,222,128,0.2); color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
+.tag-tiktok { background: rgba(37,244,238,0.2); color: #25f4ee; border: 1px solid rgba(37,244,238,0.3); }
+.img-title { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.35; }
+.img-sub { font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 3px; }
+
+/* ── Signal cards ── */
+.sig-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px; padding: 0 44px; margin-bottom: 14px;
+}
+.sig-card {
+  background: #fff; border-radius: 12px;
+  padding: 18px 16px; border: 1px solid #e8e8e8;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.sig-top { display: flex; align-items: center; gap: 7px; }
+.sig-icon { font-size: 15px; }
+.sig-name { font-size: 11px; font-weight: 800; color: #333; }
+.sig-headline {
+  font-size: 15px; font-weight: 800; line-height: 1.35;
+  padding-bottom: 8px; border-bottom: 2px solid #f0f0f0;
+}
+.sig-char .sig-headline { color: #0891b2; border-color: #0891b2; }
+.sig-play .sig-headline { color: #d97706; border-color: #d97706; }
+.sig-ad   .sig-headline { color: #fe2c55; border-color: #fe2c55; }
+.sig-points { display: flex; flex-direction: column; gap: 5px; }
+.sig-point {
+  font-size: 10.5px; color: #555; line-height: 1.5;
+  padding-left: 10px; position: relative;
+}
+.sig-point::before { content: '·'; position: absolute; left: 0; color: #bbb; }
+.sig-point strong { color: #222; font-weight: 700; }
+.sig-confirm { font-size: 9px; font-weight: 700; color: #fe2c55; letter-spacing: 0.5px; margin-top: 4px; }
+
+/* ── Bottom stats ── */
+.bottom-bar { background: #0d0d0d; display: flex; align-items: stretch; }
+.bottom-stat {
+  flex: 1; padding: 20px 12px; text-align: center;
+  border-right: 1px solid #1a1a1a;
+}
+.bottom-stat:last-child { border-right: none; }
+.bs-val { font-size: 26px; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -1px; }
+.bs-val.red { color: #fe2c55; }
+.bs-lbl { font-size: 9px; color: #444; margin-top: 5px; letter-spacing: 1.5px; text-transform: uppercase; }
+
+/* ── Footer ── */
+.footer {
+  background: #0d0d0d; border-top: 1px solid #1a1a1a;
+  padding: 16px 44px; display: flex; align-items: center; justify-content: space-between;
+}
+.footer-url { font-size: 12px; color: #333; }
+.footer-url span { color: #fe2c55; }
+.footer-tag { font-size: 10px; color: #2a2a2a; letter-spacing: 1px; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="hd">
+  <div class="hd-brand">
+    <div class="hd-dot"></div>
+    <div class="hd-name">
+      欧美内容情报站
+      <small>Western Content Intelligence</small>
+    </div>
+  </div>
+  <div class="hd-right">
+    <div class="hd-vol">● Vol.004 · 2026 Week 17</div>
+    <div class="hd-date">April 23, 2026 · 游戏研发灵感参考</div>
+  </div>
+</div>
+
+<!-- Red banner -->
+<div class="banner">
+  <div class="banner-title">欧美游戏内容情报 · 本期速览</div>
+  <div class="banner-stats">
+    <div class="banner-stat">
+      <div class="bsv">5</div>
+      <div class="bsl">内容板块</div>
+    </div>
+    <div class="banner-divider"></div>
+    <div class="banner-stat">
+      <div class="bsv">50</div>
+      <div class="bsl">分析条目</div>
+    </div>
+    <div class="banner-divider"></div>
+    <div class="banner-stat">
+      <div class="bsv">18</div>
+      <div class="bsl">A 级洞察</div>
+    </div>
+  </div>
+</div>
+
+<!-- Image grid label -->
+<div class="sec-lbl">本期精选内容 · 跨5大平台</div>
+
+<!-- Image grid row 1 -->
+<div class="img-grid">
+
+  <div class="img-card">
+    <img src="trend_images/04_pragmata_1.jpg" alt="Pragmata">
+    <div class="img-overlay">
+      <div class="img-tag tag-trend">🔥 热搜 No.4</div>
+      <div class="img-title">Pragmata · Capcom 原创新 IP</div>
+      <div class="img-sub">黑客谜题+情感叙事 · AI 角色快验对标</div>
+    </div>
+  </div>
+
+  <div class="img-card">
+    <img src="yt_images/07_MenZuration.jpg" alt="Villains MV">
+    <div class="img-overlay">
+      <div class="img-tag tag-yt">▶️ YouTube No.7</div>
+      <div class="img-title">Villains aren't born, they are made</div>
+      <div class="img-sub">23.5M播放 · 反派觉醒 MV · 角色弧光黑暗化</div>
+    </div>
+  </div>
+
+  <div class="img-card">
+    <img src="meme_images/01_Dont_do_that_Dont_give_me_hope.jpg" alt="Don't give me hope">
+    <div class="img-overlay">
+      <div class="img-tag tag-meme">😂 Memes No.1</div>
+      <div class="img-title">Don't give me hope · 68.7K upvotes</div>
+      <div class="img-sub">假希望反信号 · 玩家挫败情绪原型 · 失败弹幕灵感</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Image grid row 2 -->
+<div class="img-grid">
+
+  <div class="img-card">
+    <img src="trend_images/03_met_gala_2026_1.jpg" alt="Met Gala 2026">
+    <div class="img-overlay">
+      <div class="img-tag tag-trend">🔥 热搜 No.3</div>
+      <div class="img-title">Met Gala 2026 · 红毯主题倒计时</div>
+      <div class="img-sub">5/4 走 · 角色装扮华丽造型灵感储备</div>
+    </div>
+  </div>
+
+  <div class="img-card">
+    <img src="tiktok_images/01_imnorag.jpg" alt="Hummingbird">
+    <div class="img-overlay">
+      <div class="img-tag tag-tt">🎵 TikTok No.1</div>
+      <div class="img-title">Special visitor ✨ · 蜂鸟祝福</div>
+      <div class="img-sub">15.4M播放 · 守护型小灵感原型 · 西幻召唤兽</div>
+    </div>
+  </div>
+
+  <div class="img-card">
+    <img src="trend_images/05_avengers_secret_wars_1.jpg" alt="Avengers Secret Wars">
+    <div class="img-overlay">
+      <div class="img-tag tag-trend">🔥 热搜 No.5</div>
+      <div class="img-title">Avengers: Secret Wars · 多宇宙预热</div>
+      <div class="img-sub">跨时空 crossover · 角色变体收集玩法启发</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Signals label -->
+<div class="sec-lbl" style="padding-top:18px;">本期最强跨平台信号 · 多来源印证</div>
+
+<!-- Signal cards -->
+<div class="sig-grid">
+
+  <div class="sig-card sig-char">
+    <div class="sig-top">
+      <span class="sig-icon">🎭</span>
+      <span class="sig-name">角色设计方向</span>
+    </div>
+    <div class="sig-headline">守护型搭档 × 反派觉醒<br>AI 出图快验链路成形</div>
+    <div class="sig-points">
+      <div class="sig-point"><strong>热搜 #4 Pragmata + TikTok #5 + YT #1</strong> 三源印证「守护型搭档」原型</div>
+      <div class="sig-point"><strong>YT #7 反派 MV + 热搜 #5 Avengers</strong> 双源印证英雄变体收集</div>
+      <div class="sig-point">主线「AI 角色验证闭环」开始有可量化锚点</div>
+    </div>
+    <div class="sig-confirm">★★★ 三来源印证 × 1组 + ★★ 双来源 × 2组</div>
+  </div>
+
+  <div class="sig-card sig-play">
+    <div class="sig-top">
+      <span class="sig-icon">⚔️</span>
+      <span class="sig-name">玩法/留存方向</span>
+    </div>
+    <div class="sig-headline">UGC 二创循环 × 自动产出<br>Idle 模拟经营窗口</div>
+    <div class="sig-points">
+      <div class="sig-point"><strong>TikTok #8 POKKO AI + Memes #7 source: me</strong> 双源印证 UGC 二创循环</div>
+      <div class="sig-point"><strong>广告 #2 My Cooking Idle</strong> Idle 经营循环 = 西幻卡牌模拟经营辅助玩法直接抄结构</div>
+      <div class="sig-point">Memes #2「假希望」反信号：玩家挫败情绪不可被廉价反转</div>
+    </div>
+    <div class="sig-confirm">★★★ 三来源印证 × 1组 + ★★ 双来源 × 2组</div>
+  </div>
+
+  <div class="sig-card sig-ad">
+    <div class="sig-top">
+      <span class="sig-icon">📢</span>
+      <span class="sig-name">广告创意方向</span>
+    </div>
+    <div class="sig-headline">反差钩子四连<br>× 假装失败 → 神操作公式</div>
+    <div class="sig-points">
+      <div class="sig-point"><strong>广告 #4/#6/#9/#10</strong> 四条反差钩子：Cash Merge / Nut Sort / Arrow Rush / 3D Bolt</div>
+      <div class="sig-point"><strong>YT #7 反派觉醒 + 广告反差</strong> 双源印证：反转结构 = 高互动公式</div>
+      <div class="sig-point">⚠️ 美区角色信号下沉，30 秒爽点优先；Trump-Iran 题材严禁广告复用</div>
+    </div>
+    <div class="sig-confirm">★★★ 三来源印证 × 1组 + ★★ 双来源 × 2组</div>
+  </div>
+
+</div>
+
+<!-- Bottom stats -->
+<div class="bottom-bar">
+  <div class="bottom-stat">
+    <div class="bs-val red">50</div>
+    <div class="bs-lbl">分析条目</div>
+  </div>
+  <div class="bottom-stat">
+    <div class="bs-val red">18</div>
+    <div class="bs-lbl">A 级洞察</div>
+  </div>
+  <div class="bottom-stat">
+    <div class="bs-val">10</div>
+    <div class="bs-lbl">热门广告 Top1%</div>
+  </div>
+  <div class="bottom-stat">
+    <div class="bs-val">9</div>
+    <div class="bs-lbl">★ 多来源印证</div>
+  </div>
+  <div class="bottom-stat">
+    <div class="bs-val">5</div>
+    <div class="bs-lbl">内容板块覆盖</div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="footer-url">sirengong.github.io/<span>westradar</span></div>
+  <div class="footer-tag">每周更新 · 游戏研发灵感</div>
+</div>
+
+</body>
+</html>

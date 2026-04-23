@@ -1,0 +1,167 @@
+{
+  "generated_at": "2026-04-23T02:23:29.084935+00:00",
+  "period": "now 7-d",
+  "geo": "US",
+  "total_topics": 10,
+  "topics": [
+    {
+      "rank": 1,
+      "topic": "jason robertson",
+      "category": "general",
+      "interest": {
+        "peak": 100,
+        "avg": 1.8,
+        "latest": 100
+      },
+      "trafficEstimate": "10M+",
+      "relatedQueries": {
+        "rising": [
+          "jason robertson wiki",
+          "how tall is jason robertson",
+          "jake oettinger",
+          "jason robertson ethnicity",
+          "is jason robertson asian",
+          "jason robertson asian",
+          "jason robertson nationality",
+          "jason robertson cat"
+        ],
+        "top": [
+          "jason robertson nhl",
+          "jason robertson stars",
+          "nhl",
+          "dallas stars jason robertson",
+          "jason robertson hockey",
+          "jason robertson stats",
+          "jason robertson contract",
+          "jason robertson ethnicity",
+          "jason robertson asian",
+          "jason robertson jersey"
+        ]
+      }
+    },
+    {
+      "rank": 2,
+      "topic": "steve hilton",
+      "category": "general",
+      "interest": {
+        "peak": 89,
+        "avg": 8.2,
+        "latest": 89
+      },
+      "trafficEstimate": "10M+",
+      "relatedQueries": {
+        "rising": [
+          "steve kerr",
+          "michael waltz",
+          "washington post trump ballroom analysis",
+          "harmeet dhillon",
+          "xavier becerra",
+          "becerra",
+          "xavier becerra aipac",
+          "betty yee"
+        ],
+        "top": [
+          "steve hilton governor",
+          "steve hilton california",
+          "california",
+          "steve hilton california governor",
+          "california governor",
+          "steve hilton for governor",
+          "bianco",
+          "steve hilton governor race",
+          "chad bianco",
+          "steve hilton california governor race"
+        ]
+      }
+    },
+    {
+      "rank": 3,
+      "topic": "austin vs san jose",
+      "category": "general",
+      "interest": {
+        "peak": 27,
+        "avg": 0.3,
+        "latest": 27
+      },
+      "trafficEstimate": "5M+",
+      "relatedQueries": {}
+    },
+    {
+      "rank": 4,
+      "topic": "andrew mccutchen",
+      "category": "general",
+      "interest": {
+        "peak": 28,
+        "avg": 1.7,
+        "latest": 28
+      },
+      "trafficEstimate": "5M+"
+    },
+    {
+      "rank": 5,
+      "topic": "luguentz dort",
+      "category": "general",
+      "interest": {
+        "peak": 14,
+        "avg": 0.7,
+        "latest": 14
+      },
+      "trafficEstimate": "2M+"
+    },
+    {
+      "rank": 6,
+      "topic": "jamie benn",
+      "category": "general",
+      "interest": {
+        "peak": 3,
+        "avg": 0.1,
+        "latest": 3
+      },
+      "trafficEstimate": "2M+"
+    },
+    {
+      "rank": 7,
+      "topic": "philadelphia",
+      "category": "general",
+      "interest": {
+        "peak": 100,
+        "avg": 67.0,
+        "latest": 85
+      },
+      "trafficEstimate": "2M+"
+    },
+    {
+      "rank": 8,
+      "topic": "shai gilgeous-alexander",
+      "category": "general",
+      "interest": {
+        "peak": 10,
+        "avg": 1.5,
+        "latest": 10
+      },
+      "trafficEstimate": "1M+"
+    },
+    {
+      "rank": 9,
+      "topic": "colorado vs lafc",
+      "category": "general",
+      "interest": {
+        "peak": 10,
+        "avg": 0.1,
+        "latest": 10
+      },
+      "trafficEstimate": "1M+"
+    },
+    {
+      "rank": 10,
+      "topic": "cubs game",
+      "category": "gaming",
+      "interest": {
+        "peak": 24,
+        "avg": 5.3,
+        "latest": 24
+      },
+      "trafficEstimate": "1M+"
+    }
+  ]
+}

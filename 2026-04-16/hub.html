@@ -492,6 +492,9 @@ a { text-decoration: none; color: inherit; }
     <div class="sidebar-divider"></div>
     <div class="sidebar-group">
       <div class="sidebar-group-label">全部期刊</div>
+      <a class="nav-item" href="../2026-04-23/hub.html">
+        <span class="ni-icon">🆕</span><span class="ni-label">Vol.004<span class="sidebar-issue"> · 04-23 最新</span></span>
+      </a>
       <a class="nav-item" href="../2026-04-16/hub.html" style="background:rgba(254,44,85,0.08);">
         <span class="ni-icon">📌</span><span class="ni-label">Vol.003<span class="sidebar-issue"> · 04-16 当前</span></span>
       </a>
@@ -4329,6 +4332,23 @@ function closeLightbox() {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') { closeVideo(); closeLightbox(); }
 });
+
+// Vol.002 兼容：TikTok 卡的 ⤢ 按钮使用 openVbox(src, type)
+// 必须保留，否则 TikTok 板块的放大按钮会报错
+function openVbox(src, type) {
+  var m = document.getElementById("vmbox"),
+      i = document.getElementById("vmbox-iframe"),
+      v = document.getElementById("vmbox-video");
+  if (type === "video") {
+    i.style.display = "none"; i.src = "";
+    v.style.display = "block"; v.src = src; v.play();
+  } else {
+    v.style.display = "none"; v.pause(); v.src = "";
+    i.style.display = "block"; i.src = src;
+  }
+  m.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
 
 </script>
 </body>
