@@ -258,7 +258,7 @@ meme_N:                              # N = 1..10
     remix: 4
   conclusion_label:
     code: "A"                        # A | B | C
-    text: "A 直接可用"               # A 直接可用 / B 结构借鉴 / C 观察储备
+    text: "A 契合度高"               # A 契合度高 / B 结构借鉴 / C 观察储备
     css_class: "ga-label-a"
 ```
 
@@ -383,7 +383,7 @@ r/{subreddit} · {赞数中文化} · {评论数} 评论
 ```
 - 4 项评分顺序固定：`视觉 / 情绪 / 角色 / Remix`（与 ma4 列顺序一致）
 - 数字用 `<b>` 包裹（不是 strong）
-- label 文字格式：`A 直接可用` / `B 结构借鉴` / `C 观察储备`
+- label 文字格式：`A 契合度高` / `B 结构借鉴` / `C 观察储备`
 
 ---
 

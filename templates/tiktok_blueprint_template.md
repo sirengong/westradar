@@ -111,7 +111,7 @@ video_N:                          # N = 1..10
   scores: {role: 5, play: 4, ad: 4, fit: 4}
   conclusion_label:
     code: "A"                     # A | B | C
-    text: "A 直接可用"
+    text: "A 契合度高"
     css_class: "ga-label-a"       # ga-label-a | ga-label-b | ga-label-c
 ```
 

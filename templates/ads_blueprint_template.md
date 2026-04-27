@@ -289,8 +289,8 @@ ad_N:                                # N = 1..10
     fit: 4                           # "适配" = 与西幻卡牌的契合度
   conclusion_label:
     code: "A"                        # A | B | C
-    text: "A 直接可用"               # A 直接可用 / B 结构借鉴 / C 观察储备
-                                     # ⭐ 顶级广告（如 Arknights）可加 ★ 前缀："★ A 直接可用"
+    text: "A 契合度高"               # A 契合度高 / B 结构借鉴 / C 观察储备
+                                     # ⭐ 顶级广告（如 Arknights）可加 ★ 前缀："★ A 契合度高"
     css_class: "ga-label-a"          # ga-label-a | ga-label-b | ga-label-c
 ```
 
@@ -375,14 +375,14 @@ ad_N:                                # N = 1..10
   <span class="ga-score">玩法 <b>4</b>/5</span>
   <span class="ga-score">广告 <b>4</b>/5</span>
   <span class="ga-score">适配 <b>4</b>/5</span>
-  <span class="ga-label ga-label-a">A 直接可用</span>
+  <span class="ga-label ga-label-a">A 契合度高</span>
 </div>
 ```
 - ⚠️ Vol.003 含 `style="border-top:none;padding-top:0;"` 内联样式，**必须保留**（Vol.002 没有）
 - 4 项评分顺序固定：`角色 / 玩法 / 广告 / 适配`
 - 数字用 `<b>` 包裹（不是 strong）
-- label 三选一："A 直接可用" / "B 结构借鉴" / "C 观察储备"
-- 顶级广告可加 `★` 前缀如 `★ A 直接可用`
+- label 三选一："A 契合度高" / "B 结构借鉴" / "C 观察储备"
+- 顶级广告可加 `★` 前缀如 `★ A 契合度高`
 
 **game-analysis 容器（Vol.003 加内联 style）**：
 ```html
@@ -495,7 +495,7 @@ ad_N:                                # N = 1..10
 - [ ] 每栏首条 bullet 含 `<strong>...</strong>`
 - [ ] ga-score-row 含 `style="border-top:none;padding-top:0;"`
 - [ ] ga-score 4 项齐全：角色 / 玩法 / 广告 / 适配（数字用 `<b>` 包裹）
-- [ ] ga-label 三选一：A 直接可用 / B 结构借鉴 / C 观察储备（顶级可加 ★）
+- [ ] ga-label 三选一：A 契合度高 / B 结构借鉴 / C 观察储备（顶级可加 ★）
 - [ ] css_class 与 code 一致（A→ga-label-a / B→ga-label-b / C→ga-label-c）
 
 ### 防混用

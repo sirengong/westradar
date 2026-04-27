@@ -238,7 +238,7 @@ trend_N:                            # N = 1..10
     fit: 5                           # "适配" 项 = 与西幻卡牌的契合度
   conclusion_label:
     code: "A"                        # A | B | C
-    text: "A 直接可用"               # 对应：A 直接可用 / B 需改造 / C 仅参考
+    text: "A 契合度高"               # 对应：A 契合度高 / B 需改造 / C 仅参考
     css_class: "ga-label-a"          # ga-label-a | ga-label-b | ga-label-c
 ```
 
@@ -308,7 +308,7 @@ trend_N:                            # N = 1..10
 ```
 - 4 项评分顺序固定：`角色 / 玩法 / 广告 / 适配`
 - 数字用 `<b>` 包裹（不是 strong）
-- label 文字格式："A 直接可用" / "B 需改造" / "C 仅参考"
+- label 文字格式："A 契合度高" / "B 需改造" / "C 仅参考"
 
 ---
 
