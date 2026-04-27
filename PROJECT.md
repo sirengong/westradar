@@ -253,7 +253,7 @@ grep -c "function openVbox" hub.html   # 期望输出 1
 
 #### 3d. 全局 + 附属文件检查
 
-- [ ] NEW 标记有 localStorage 清除逻辑（`switchSection` 内 `badge.remove()` + 页面加载恢复）
+- [ ] NEW 标记 localStorage key 是 `wr{当期}_visited`（不是上期残留的 wr{N-1}_visited，避免 NEW 全清 bug）
 - [ ] 侧栏「全部期刊」列出所有期数 + 当前期高亮
 - [ ] Emoji 全部正常渲染（无 ?? 或乱码）
 - [ ] share-card.html：填入真实内容（非占位符）
@@ -261,6 +261,69 @@ grep -c "function openVbox" hub.html   # 期望输出 1
 - [ ] index.html：coming-card 更新为 Vol.N+1
 - [ ] index.html：footer「最新一期」链接指向本期
 - [ ] 旧期刊（Vol.N-1, N-2）侧边栏已加入本期链接
+
+#### 3e. ★ 定位 + 文案 + 留白机制检查（2026-04-30 起强制）
+
+> Vol.004 教训：subagent 写完容易出现 110 处指令式/绝对化文案 + 14 张卡硬编无关联维度。本节是发布前自动化扫描清单。
+
+**自动化校验脚本**（每期 commit 前跑一次）：
+```bash
+HUB=$REPORT_DIR/hub.html
+
+echo "=== A. 文案语气禁用词扫描 ==="
+grep -nE '必须|立刻|严禁|硬规则|现成模板|碾压|最强判断|DRD|务必|一定要|王炸|完胜|必胜|终极' $HUB | grep -v '^\s*//' | head -10
+# 期望: ≤ 5 处保留语境(注释/反向参考)
+
+grep -nE '直接套用|直接抄|直接复用|永久流量公式|最高优先级|最优起点|最优|最强|顶级|至高|史上|永远' $HUB | grep -v '^\s*//' | head -10
+# 期望: ≤ 20 处保留语境(政治警告/修辞/游戏内文案)
+
+echo "=== B. 数字建议禁用扫描 ==="
+grep -nE '一周(内)?\s*(可|能)?\s*(出|跑|完成|生成|验证)\s*\d+|每周\s*\d+|可\s*(批量)?\s*(产|跑|出|验证|生成|测试)\s*\d+' $HUB | head -5
+# 期望: 0 处
+
+echo "=== C. A/B/C 标签命名校验 ==="
+echo "  A 直接可用 (旧, 不应再有): $(grep -c 'A 直接可用' $HUB)  期望 0"
+echo "  A 契合度高:               $(grep -c 'A 契合度高' $HUB)  期望 ≥ 1"
+echo "  B 结构借鉴:               $(grep -c 'B 结构借鉴' $HUB)"
+echo "  C 观察储备:               $(grep -c 'C 观察储备' $HUB)"
+
+echo "=== D. 留白机制检查 ==="
+GA_EMPTY=$(grep -c 'class="ga-col ga-col-empty"' $HUB)
+MA4_EMPTY=$(grep -c 'class="ma4-col-empty"' $HUB)
+TOTAL_EMPTY=$((GA_EMPTY + MA4_EMPTY))
+echo "  ga-col-empty 数: $GA_EMPTY"
+echo "  ma4-col-empty 数: $MA4_EMPTY"
+echo "  合计留白栏: $TOTAL_EMPTY (50 张卡 × 3-4 栏 = 150-200 栏总数)"
+# 留白率监控: 健康区间 < 30% (即 < 60 栏)
+
+echo "=== E. Overview v2 结构校验 ==="
+echo "  v2-judg 卡: $(grep -c 'class=\"v2-judg ' $HUB)  期望 3"
+echo "  v2-judg-img-card: $(grep -c '<div class=\"v2-judg-img-card\"' $HUB)  期望 9"
+echo "  v2-jump 跳转链接: $(grep -c 'class=\"v2-jump\"' $HUB)  期望 ≥ 9"
+# 不应再有 v1 的 9 卡 ov-syn-card 形式
+echo "  v1 ov-syn-card (应为 0): $(grep -c '<div class=\"ov-syn-card' $HUB)"
+
+echo "=== F. 卡 id 命名校验 (跳转依赖) ==="
+echo "  tt-N: $(grep -cE 'id=\"tt-[0-9]+\"' $HUB)  期望 10"
+echo "  yt-N: $(grep -cE 'id=\"yt-[0-9]+\"' $HUB)  期望 10"
+echo "  meme-N: $(grep -cE 'id=\"meme-[0-9]+\"' $HUB)  期望 10"
+echo "  trend-N: $(grep -cE 'id=\"trend-[0-9]+\"' $HUB)  期望 10"
+echo "  ad-N: $(grep -cE 'id=\"ad-[0-9]+\"' $HUB)  期望 10"
+
+echo "=== G. JS 函数完整性 ==="
+echo "  function openVbox: $(grep -c 'function openVbox' $HUB)  期望 1"
+echo "  function jumpTo:   $(grep -c 'function jumpTo' $HUB)  期望 1"
+echo "  function openLightbox: $(grep -c 'function openLightbox' $HUB)  期望 1"
+```
+
+**人工核对清单**（脚本无法自动判断的）：
+
+- [ ] **数据总览表评级与卡片端 `ga-label` 同步**：全留白卡在表中评级必须是 C（颜色 `#888`）。手动检查 Memes 数据总览表（`grep -A 2 'rank-num">3<' hub.html` 等）
+- [ ] **留白卡的 `ga-label` 是 C 观察储备**：扫描全留白卡（`ga-col-empty` × 3 / `ma4-col-empty` × 4 出现的卡），其 ga-label 必须 `ga-label-c`
+- [ ] **conclusion-box 引用留白卡用反向措辞**：grep 各 conclusion 引用的留白卡编号，附近必须有「已留白 / 仅作 / 不输出借鉴 / ⚠️ 行业现象记录」之类反向词，不能当借鉴模板讨论
+- [ ] **留白文案诚实简短**：每条 ga-empty-note / ma4-empty-note ≤ 25 字，明确说"X 维度关联较弱"原因
+- [ ] **留白率 < 30%**：合计留白栏 / 总栏数 < 30%（Vol.004 实测 28%）
+- [ ] **caption 信息严重不足的卡（如仅 #fyp）已降级**：检查 TikTok 中是否有 caption ≤ 3 个 hashtag 的卡仍被评为 A 级（应降为 B/C，避免重蹈 Vol.004 #3 硬编）
 
 ---
 
